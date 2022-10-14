@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +24,9 @@ Route::middleware('guest')->group(function () {
 
 });
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', [LoginController::class, 'dashboard'])->name('dashboard');
+    Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
+    Route::get('add-company', [UserController::class, 'create'])->name('add-company');
+    Route::get('add-user', [UserController::class, 'create'])->name('add-user');
 
     Route::get('logout', [LoginController::class, 'destroy'])
                 ->name('logout');
