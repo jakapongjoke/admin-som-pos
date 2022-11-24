@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\CompanyService;
 
 class CompanyController extends Controller
 {
+    private CompanyService $companyService;
+
+    public function __construct(CompanyService $companyService)
+    {
+        $this->companyService = $companyService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        return view('company.ListCompany');
     }
 
     /**
@@ -23,7 +31,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('company.index')
+        return view('company.AddCompany');
 
     }
 
@@ -35,7 +43,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->companyService->create(
+            array(
+                "company_name"=> $request->company_name,
+                "company_store_name"=> $request->company_store_name,
+            
+            )
+        
+        );        
     }
 
     /**
@@ -46,7 +61,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        return view('company.index')
+        return view('company.index');
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.UserLayout')
  
 @section('head')
 @section('title', 'SOM POS JEWEAL ADMIN TEAM')
@@ -6,68 +6,92 @@
 
 
 @section('content')
-    <div class="row">
-        <div class="container-fluid">
-        <h2 class="page-header">USER</h2>
-        <div class="row">
-          <div class="container-fluid">
+    <div class="row pt-4">
+    <div class="container-fluid">
           <div class="row">
             <div class="col-6">
-              <div class="search-filter-box">
-              <div class="form-group text-search">
+                <ul class="pl-0 page-label" >
+                  <li>User</li>
+                  <li class="active">Create User</li>
 
-              <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-              </div>
-              <div class="form-group text-search">
-              <input type="text" class="form-control">
-              <button class="btn search-button">
-                <i class="fas fa-search"></i>
-              </button>
-
-              </div>
-
-              </div>
+                </ul>
             </div>
             <div class="col-6"> 
                 <div class="action-box">
                     <ul class="list-unstyled">
-                      <li class="icon"><img src="{{asset('images/icons/printing-2.png')}}"></li>
-                      <li class="icon"><img  src="{{asset('images/icons/setting.png')}}"></li>
-                      <li><button class="create"><i class="fas fa-plus"></i>Create</button></li>
+                    
+                      <li><button  class="create reset-btn">Cancel</button></li>
+                      <li><button class="create">Create</button></li>
                     </ul>
                 </div>
 
             </div>
 </div>
           </div>
-        </div>
-          
-        </div>
 
     </div>
-    <section class="content-header">
-      <div class="container-fluid">
-     
-      </div><!-- /.container-fluid -->
-    </section>
+
+<div class="card">
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+      <form>
+
         <div class="row">
-          <div class="col-12">
-            xxx
-          </div>
+        <h2 class="page-header h-line-after">User Information</h2>
+        <div class="card-body">
+                  <div class="form-group row">
+                    <label for="company" class="col-sm-2 col-form-label">Company *</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="company" placeholder="Company">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">Username</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="username" placeholder="Username">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="level" class="col-sm-2 col-form-label">Level</label>
+                    <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="form-control">
+                          <option>Admin</option>
+                          <option>Sales</option>
+                          <option>Manager</option>
+
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                 
+                </div>
           <!-- /.col -->
         </div>
+
+        </form>
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
     </section>
+
+</div>
+
+
 @endsection
 
 @section("footer")

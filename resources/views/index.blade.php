@@ -41,6 +41,7 @@
                     <input type="radio" name="remember" id="remember"/>
                     <label for="remember">Remember Me</label>
                     </div>
+                    
                     <div class="login_area">
                         <button type="submit" class="btn login_button">
                         Login

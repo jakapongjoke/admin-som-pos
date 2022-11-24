@@ -37,7 +37,12 @@
                     <ul class="list-unstyled">
                       <li class="icon"><img src="{{asset('images/icons/printing-2.png')}}"></li>
                       <li class="icon"><img  src="{{asset('images/icons/setting.png')}}"></li>
-                      <li><button class="create"><i class="fas fa-plus"></i>Create</button></li>
+                      <li>
+                        <a href="/add-user">
+                        <button class="create"><i class="fas fa-plus"></i>Create</button>
+                        </a>
+                       
+                      </li>
                     </ul>
                 </div>
 
@@ -74,6 +79,7 @@
                     <th>Level</th>
                     <th>Expired Date</th>
                     <th>Status</th>
+                    <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -84,13 +90,25 @@
                     <td> jj bb</td>
                     <td>Xyz@hotmail.com</td>
                     <td>superadmin</td>
-                    <td>12/12/2022</td>
+                    <td>22/22/2000</td>
                     <td>
                       <div class="list-action-box">
                     <input type="checkbox" onText="ddd" class="lang" name="active-checkbox" checked >
 
                     </div>
                   </td>
+                  <td>
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                      <i class="fas fa-ellipsis-h"></i>
+                    </a>
+                    <div class="dropdown-menu" role="menu" >
+                      <a href="#" class="dropdown-item">View</a>
+                      <a href="#" class="dropdown-item">Edit</a>
+                      <div class="dropdown-divider"></div>
+                      <a href="#" class="dropdown-item">Delete</a>
+                    </div>
+                  </td>
+
                   </tr>
                   
                   
