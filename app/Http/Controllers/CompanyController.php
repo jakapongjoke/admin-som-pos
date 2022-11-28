@@ -21,7 +21,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('company.ListCompany');
+        $companylist = $this->companyService->paginate(10);
+        return view('company.ListCompany',["company_list"=>$companylist]);
     }
 
     /**

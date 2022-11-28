@@ -44,23 +44,23 @@
         <table id="list" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
+                    <th>Company Name</th>
+                    <th>Company Store Url</th>
+                    <th>Actions</th>
+
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
+                    @foreach ($company_list as $list )
+                    <tr>
+                    <td>{{$list->company_name}}</td>
+                    <td>{{$list->company_store_name}}
                     </td>
                     <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
+                   
                   </tr>
+                    @endforeach
+              
                   </tbody>
         </table>
                  

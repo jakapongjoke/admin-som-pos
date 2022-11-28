@@ -2,7 +2,7 @@
 namespace App\Services;
 use Illuminate\Support\Facades\Response as FacadeResponse;
 
-use App\Repositories\CompanyRepository;
+use App\Repositories\Company\CompanyRepository;
 class CompanyService{
     private CompanyRepository $company;
     public function __construct(CompanyRepository $company)
@@ -23,5 +23,9 @@ class CompanyService{
         }
       
     }   
+    public function paginate($length){
+        return $this->company->paginate($length);
+    }
+   
 }
 ?>

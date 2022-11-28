@@ -1,7 +1,8 @@
 <?php
-namespace App\Repositories;
+namespace App\Repositories\Company;
 use App\Models\Company as company;
-use App\Interfaces\CompanyInterface;
+use App\Interfaces\Company\CompanyInterface;
+
 class CompanyRepository implements CompanyInterface{
     private Company $company;
     public function __construct(Company $company)
@@ -9,8 +10,13 @@ class CompanyRepository implements CompanyInterface{
         $this->company = $company;
     }
     public function all(){
-        return $this->company::paginate(1);
+        return $this->company::all();
     }
+    
+    public function paginate($length){
+        return $this->company::paginate($length);
+    }
+    
     public function find(int $id){
         $this->company = $this->customer::findorFail($id);
     }   
@@ -22,6 +28,7 @@ class CompanyRepository implements CompanyInterface{
        }
    
     }   
+
 
 }
 
