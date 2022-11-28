@@ -33,6 +33,7 @@ class LoginController extends Controller
     public function dashboard(){
        return view('dashboard');
     }
+
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
