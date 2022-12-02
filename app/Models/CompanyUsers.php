@@ -43,4 +43,8 @@ class CompanyUsers extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function getAuthPassword()
+    {
+     return $this->employee_password;
+    }
 }

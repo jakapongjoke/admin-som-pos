@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('company_id');
             $table->string('username')->unique();
             $table->integer('role_id');
-            $table->timestamp('remember_email')->nullable();
+            $table->string('remember_email')->nullable();
             $table->string('password');
             $table->date('expire_date');
             $table->rememberToken();

@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-
-class UserCompanyController extends Controller
+namespace App\Http\Controllers\Auth\Login;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\LoginController as DefaultLoginController;
+class CompanyUserController extends DefaultLoginController
 {
+    protected $redirectTo = '/employee/home';
+
+    public function __construct()
+    {
+        $this->middleware('guest:CompanyUsers');
+    }
     /**
      * Display a listing of the resource.
      *

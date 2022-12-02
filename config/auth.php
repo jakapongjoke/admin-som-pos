@@ -43,6 +43,7 @@ return [
         'web_company' => [
             'driver' => 'session',
             'provider' => 'company_users',
+            'redirectTo'=>'CompanyUsers.Dashboard'
         ],
     ],
 
