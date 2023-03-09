@@ -40,10 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'web_company' => [
+        'company_users' => [
             'driver' => 'session',
             'provider' => 'company_users',
-            'redirectTo'=>'CompanyUsers.Dashboard'
         ],
     ],
 
@@ -71,7 +70,7 @@ return [
         ],
         'company_users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\CompanyUser::class,
+            'model' => App\Models\CompanyUsers::class,
         ],
 
         // 'users' => [
@@ -98,6 +97,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'company_users' => [
+            'provider' => 'company_users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

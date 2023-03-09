@@ -10,18 +10,20 @@ use Laravel\Sanctum\HasApiTokens;
 
 class CompanyUsers extends Authenticatable
 {
-    protected $model = \App\Models\CompanyUsers::class;
+  
 
     use HasApiTokens, HasFactory, Notifiable;
-
+    protected $table = 'company_users';
+    protected $guard = 'company_users';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
+        'role_id',
+        'expired_date',
         'password',
     ];
 
@@ -45,6 +47,6 @@ class CompanyUsers extends Authenticatable
     ];
     public function getAuthPassword()
     {
-     return $this->employee_password;
+     return $this->password;
     }
 }

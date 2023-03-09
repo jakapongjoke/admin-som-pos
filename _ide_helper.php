@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 9.40.1.
+ * Generated for Laravel 9.43.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2016,7 +2016,7 @@
          * Attempt to authenticate a user with credentials and additional callbacks.
          *
          * @param array $credentials
-         * @param array|callable $callbacks
+         * @param array|callable|null $callbacks
          * @param bool $remember
          * @return bool 
          * @static 
@@ -9224,7 +9224,7 @@
      *
      * @method static mixed reset(array $credentials, \Closure $callback)
      * @method static string sendResetLink(array $credentials, \Closure $callback = null)
-     * @method static \Illuminate\Contracts\Auth\CanResetPassword getUser(array $credentials)
+     * @method static \Illuminate\Contracts\Auth\CanResetPassword|null getUser(array $credentials)
      * @method static string createToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
      * @method static void deleteToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
      * @method static bool tokenExists(\Illuminate\Contracts\Auth\CanResetPassword $user, string $token)
@@ -12044,6 +12044,20 @@
                         return $instance->missing($key);
         }
                     /**
+         * Apply the callback if the request is missing the given input item key.
+         *
+         * @param string $key
+         * @param callable $callback
+         * @param callable|null $default
+         * @return $this|mixed 
+         * @static 
+         */ 
+        public static function whenMissing($key, $callback, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->whenMissing($key, $callback, $default);
+        }
+                    /**
          * Get the keys for all of the input and files.
          *
          * @return array 
@@ -12917,6 +12931,60 @@
         {
                         /** @var \Illuminate\Routing\Router $instance */
                         return $instance->apiResource($name, $controller, $options);
+        }
+                    /**
+         * Register an array of singleton resource controllers.
+         *
+         * @param array $singletons
+         * @param array $options
+         * @return void 
+         * @static 
+         */ 
+        public static function singletons($singletons, $options = [])
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        $instance->singletons($singletons, $options);
+        }
+                    /**
+         * Route a singleton resource to a controller.
+         *
+         * @param string $name
+         * @param string $controller
+         * @param array $options
+         * @return \Illuminate\Routing\PendingSingletonResourceRegistration 
+         * @static 
+         */ 
+        public static function singleton($name, $controller, $options = [])
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->singleton($name, $controller, $options);
+        }
+                    /**
+         * Register an array of API singleton resource controllers.
+         *
+         * @param array $singletons
+         * @param array $options
+         * @return void 
+         * @static 
+         */ 
+        public static function apiSingletons($singletons, $options = [])
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        $instance->apiSingletons($singletons, $options);
+        }
+                    /**
+         * Route an API singleton resource to a controller.
+         *
+         * @param string $name
+         * @param string $controller
+         * @param array $options
+         * @return \Illuminate\Routing\PendingSingletonResourceRegistration 
+         * @static 
+         */ 
+        public static function apiSingleton($name, $controller, $options = [])
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->apiSingleton($name, $controller, $options);
         }
                     /**
          * Create a route group with shared attributes.
@@ -17177,6 +17245,18 @@
                         return $instance->withEntryPoints($entryPoints);
         }
                     /**
+         * Set the filename for the manifest file.
+         *
+         * @param string $filename
+         * @return \Illuminate\Foundation\Vite 
+         * @static 
+         */ 
+        public static function useManifestFilename($filename)
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->useManifestFilename($filename);
+        }
+                    /**
          * Get the Vite "hot" file path.
          *
          * @return string 
@@ -17380,7 +17460,32 @@
      
 }
 
-        namespace Spatie\LaravelIgnition\Facades { 
+        namespace App\Helpers { 
+            /**
+     * 
+     *
+     */ 
+        class StringHelper {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class MyDBTableHelper {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Util {
+         
+    }
+     
+}
+
+    namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
      *
@@ -21603,6 +21708,9 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
+            class StringHelper extends \App\Helpers\StringHelper {}
+            class MyDBTableHelper extends \App\Helpers\MyDBTableHelper {}
+            class Util extends \App\Helpers\Util {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }

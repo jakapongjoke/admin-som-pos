@@ -3,18 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
-namespace App\Http\Controllers\Auth\Login;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\LoginController as DefaultLoginController;
-class CompanyUserController extends DefaultLoginController
-{
-    protected $redirectTo = '/employee/home';
 
-    public function __construct()
+use Exception;
+
+use Illuminate\Support\Facades\Auth;
+use App\Services\CompanyService as CompanyService;
+use App\Services\CompanyUserService as CompanyUserService;
+
+
+use Redirect;
+class CompanyUserController extends Controller
+{
+    public function __construct(CompanyService $company,CompanyUserService $CompanyUserService)
     {
-        $this->middleware('guest:CompanyUsers');
+        $this->company = $company ;
+        $this->companyUserService = $CompanyUserService ;
+    
     }
+
+    protected function redirectTo(Request $request)
+{
+    return redirect('/staff-login');
+}
+public function authenticate(Request $request)
+{
+    return redirect('/ccc');
+}
+    public function username()
+    {
+        return 'username';
+    }
+    protected function guard()
+    {
+        return Auth::guard('company_users');
+    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest:company_users')->except('logout');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +48,17 @@ class CompanyUserController extends DefaultLoginController
      */
     public function index()
     {
-        echo "hiiii";
+        return view('company.staff.login',['data'=>$request->all()]);
+    }
+    
+    public function dashboard(Request $request)
+    {
+       if(Auth::guard('company_users')->check()){
+        return view('customer.backoffice.staff.dashboard');
+
+        // echo; 
+       }else{
+        return view('customer.backoffice.staff.login');       }
     }
     
 
@@ -57,23 +93,34 @@ class CompanyUserController extends DefaultLoginController
     {
         //
     }
-    public function login()
+    public function login(Request $request,$company_name)
     {
-        return view('user.login');
+      
+        return view('company.staff.login');
+
     }
 
-    public function handleLogin(Request $req)
+    public function handleLogin(Request $request,$company_name)
     {
-        if(Auth::attempt(
-            $req->only(['username', 'password'])
-        ))
-        {
-            return redirect()->intended('/');
-        }
+        $company_id = $this->company->getCompanyID($company_name);
+     
+        $credentials = $request->validate([
+            'username' => ['required','string'],
+            'password' => ['required'],
+        ]);
+     
+        $login = $this->companyUserService->CompanyUserLogin($request->username,$request->password,$company_id);
 
-        return redirect()
-            ->back()
-            ->with('error', 'Invalid Credentials');
+        if($login===true){
+             $request->session()->regenerate();
+
+        return redirect()->intended('/staff-dashboard');
+        }else{
+           
+            return Redirect::back()->withErrors(['msg' => $login['message']]);
+
+            
+        }
     }
 
     public function logout()
@@ -112,8 +159,14 @@ class CompanyUserController extends DefaultLoginController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Auth::guard('company_users')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

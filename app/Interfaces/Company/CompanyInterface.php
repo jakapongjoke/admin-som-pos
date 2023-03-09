@@ -6,5 +6,6 @@ interface CompanyInterface{
     public function find(int $id);
     public function create(array $data = []);
     public function paginate($length);
+    public function getCompanyID($company_name);
 }
 ?>

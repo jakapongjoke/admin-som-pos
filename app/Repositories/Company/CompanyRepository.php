@@ -1,6 +1,6 @@
 <?php
 namespace App\Repositories\Company;
-use App\Models\Company as company;
+use App\Models\Company as Company;
 use App\Interfaces\Company\CompanyInterface;
 
 class CompanyRepository implements CompanyInterface{
@@ -22,13 +22,22 @@ class CompanyRepository implements CompanyInterface{
     }   
     public function create(array $data = []){
        if($this->company->create($data)){
+       
         return true;
        }else{
+       
         return false;
        }
    
     }   
-
+    public function getCompanyID($company_name){
+     
+        $company =  $this->company->where('company_name',$company_name)->first();
+        return $company->fresh()->id;
+      
+    
+    }
+    
 
 }
 

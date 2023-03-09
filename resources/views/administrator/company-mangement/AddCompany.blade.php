@@ -83,6 +83,7 @@
                 company_name:$('#company_name').val(),
                 company_store_name:$('#company_store_name').val()
             }).then((resp)=>{
+              console.log(resp);
               if(resp.data.message=="complete"){
                 jQuery('<div class="alert-process-data">เพิ่มบริษัทเสร็จสมบูรณ์</div>').insertAfter('.page-header')
               }

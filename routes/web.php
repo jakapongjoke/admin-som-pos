@@ -1,9 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Request;
+
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserCompanyController;
+use App\Http\Controllers\CompanyUserController;
+use App\Http\Controllers\Customer\Inventory\CompanyMasterStorageController;
 use App\Http\Controllers\CompanyController;
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +27,10 @@ use App\Http\Controllers\CompanyController;
 
 
 
-Route::domain('admin-manage.'.env('DOMAIN_NAME'))->group(function () {
+Route::domain('admin-manage.'.env('DOMAIN_NAME','som-pos.test'))->group(function () {
     
     Route::get('/', function(Request $request){
-        abort(404);
+    abort(404);
 
     });
     Route::get('/manage',[UserController::class,'loginpage'] );
@@ -34,6 +38,8 @@ Route::domain('admin-manage.'.env('DOMAIN_NAME'))->group(function () {
 
         Route::middleware('guest')->group(function () {
             Route::post('login', [LoginController::class, 'authenticate'])->name('login');
+            Route::get('login',[UserController::class,'loginpage'] )->name('home');
+
 
         });
         Route::middleware('auth')->group(function () {
@@ -50,15 +56,28 @@ Route::domain('admin-manage.'.env('DOMAIN_NAME'))->group(function () {
 
 });
 
-Route::domain('{company_name}.'.env('DOMAIN_NAME'))->group(function () {
-    Route::get('/', [UserCompanyController::class, 'index']);
+Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(function ($company_name) {
+  
+    Route::get('/staff-login', [CompanyUserController::class, 'login'])->name('company-user-login-page');
+
+    Route::post('/staff-login', [CompanyUserController::class, 'handleLogin'])->name('company.stafflogin');
+
+
+    // Route::middleware('auth:company_users')->group(function () {
+    Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('company-staff-dashboard'); 
+    
+    Route::get('/company-master-storage', [CompanyMasterStorageController::class, 'index'])->name('company-master-storage');
+
+    // });
+    Route::get('/logout', [CompanyUserController::class, 'destroy'])
+    ->name('company.logout');
 });
 
 
-Route::get('/admin', [UserCompanyController::class, 'index'])->name('admin.home')->middleware("auth:webadmin");
-Route::get('/admin/login', [UserCompanyController::class, 'login'])->name('admin.login');
-Route::get('/admin/logout', [UserCompanyController::class, 'logout'])->name('admin.logout');
-Route::post('/admin/login', [UserCompanyController::class, 'handleLogin'])->name('admin.handleLogin');
+// Route::get('/admin', [CompanyUserController::class, 'index'])->name('admin.home')->middleware("auth:webadmin");
+// Route::get('/admin/login', [CompanyUserController::class, 'login'])->name('admin.login');
+// Route::get('/admin/logout', [CompanyUserController::class, 'logout'])->name('admin.logout');
+// Route::post('/admin/login', [CompanyUserController::class, 'handleLogin'])->name('admin.handleLogin');
 
 
 // Route::get('/dashboard', function () {

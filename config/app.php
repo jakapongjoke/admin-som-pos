@@ -209,6 +209,10 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'StringHelper' => App\Helpers\StringHelper::class,
+        'MyDBTableHelper' => App\Helpers\MyDBTableHelper::class,
+        'Util' => App\Helpers\Util::class,
+
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
