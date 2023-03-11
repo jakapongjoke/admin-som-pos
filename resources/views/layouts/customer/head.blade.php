@@ -29,6 +29,7 @@
         <link rel="stylesheet" href="{{ URL::asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}"/>
 
     <link rel="stylesheet" href="{{ URL::asset('/css/company_style.css') }}"/>
+    <link rel="stylesheet" href="{{ URL::asset('/css/customer_style.css') }}"/>
         
          @yield("head")
          <meta name="viewport" content="width=1366">

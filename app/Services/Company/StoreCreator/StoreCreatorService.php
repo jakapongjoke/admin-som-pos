@@ -51,6 +51,7 @@ class StoreCreatorService{
 
         $TableCreatorTask = [
             "CreateMasterCodeTable"=> $this->StoreCreator->CreateMasterCodeTable($company_data),
+            "CreateBaseMasterTable"=> $this->StoreCreator->CreateBaseMasterTable($company_data),
             "CreateProductMasterTable"=>$this->StoreCreator->CreateProductMasterTable($company_data),
             "CreateProductGroupInfoTable"=>$this->StoreCreator->CreateProductGroupInfoTable($company_data),
             "Add Company"=>$this->Company->create($company_data)

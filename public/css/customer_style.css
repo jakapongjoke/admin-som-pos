@@ -1,0 +1,82 @@
+.item_search {
+    width: 243px;
+    height: 32px;
+    float: left;
+}
+
+.table_header .search_area {
+    float: left;
+}
+.table_header select {
+    float: left;
+}
+
+ul.export_setting {
+    float: right;
+}
+ul.export_setting li {
+    float: left;
+    width: 24px;
+    margin-right: 16px;
+}
+.table_header {
+    padding-top: 35px;
+    display: block;
+    float: left;
+    width: 100%;
+}
+ul.export_setting li i {
+    color: #597074;
+    font-size: 24px;
+}
+
+ul.export_setting {
+    float: right;
+}
+.table_list{
+    padding: 0px;
+}
+.table_wrp{
+    padding:0px;
+}
+ul.export_setting li.create button {
+    background: transparent linear-gradient(180deg, #597074 0%, #8BADB2 100%) 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    opacity: 1;
+    color: white;
+    font-size: 20px;
+    border: inherit;
+    border-radius: 20px;
+    padding: 3px 30px 3px 30px;
+    bottom: 5px;
+    position: relative;
+}
+ul.export_setting li.create {
+    width: 100px;
+}
+.export_setting .img_icon{
+    width: 24px;
+    height: 24px;
+}
+
+ul.export_setting li.create {
+    width: 121px;
+    height: 32px;
+}
+
+.search_area select {
+    width: 76px;
+    height: 32px;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: 1px solid #C2C2C2;
+    border-radius: 4px;
+    background-color: white;
+    background-image: url(../images/icons/select_arrow_down.jpg);
+    -webkit-appearance: none;
+    background-size: 15px 14px;
+    background-repeat: no-repeat;
+    background-position: 49px;
+    padding-left: 21px;
+}

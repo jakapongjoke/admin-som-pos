@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Customer\Inventory;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Services\Customer\Inventory\Master\MasterCodeService;
 
 class CompanyMasterStorageController extends Controller
 {
@@ -13,15 +13,17 @@ class CompanyMasterStorageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
- 
+    private MasterCodeService $MasterCodeService;
+    public function __construct(MasterCodeService $MasterCodeService)
+    {
+        $this->MasterCodeService = $MasterCodeService;
+    }
     public function index(Request $request)
     {
-        $masterdata = $this->CompanyMasterInventoryService->GetMasterInventory(1,"master_account_storage");
-
-        $data = ['key_field'=>['No','Name','Code','Branch Location','Description','Last Modified Date'],'masterdata'=>$masterdata,'key_number'=>true,'checkbox_list_field'=>true,'status_field'=>true,'action_field'=>true];
+         $masterdata = $this->MasterCodeService->GetAllMasterCode($request->company_name);
+         $data = ['key_field'=>['No','Name','Code','Branch Location','Description','Last Modified Date'],'masterdata'=>$masterdata,'key_number'=>true,'checkbox_list_field'=>true,'status_field'=>true,'action_field'=>true];
       
-        return view('customer.inventory.company-storage-master',['data'=>$data]);
-
+         return view('customer.backoffice.inventory.company-storage-master',['data'=>$data]);
     }
 
     /**
