@@ -9,4 +9,6 @@ class MasterCode extends Model
 {
     use \App\Traits\Table\BindsTableDynamically;
     use HasFactory;
+
+    
 }

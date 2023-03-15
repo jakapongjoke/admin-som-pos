@@ -7,7 +7,7 @@
         <script src="{{ URL::asset('/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ URL::asset('/plugins/datatables/jquery.dataTables.min.js') }}"></script>
         <script src="{{ URL::asset('/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-        @yield('footer_script')
+    
       
     <script src="{{ URL::asset('/js/bootstrap-switch.js') }}"></script>
 
@@ -24,8 +24,12 @@
         <script src="{{ URL::asset('/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
         <script src="{{ URL::asset('/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
         <script src="{{ URL::asset('/js/adminlte.min.js') }}"></script>
-        <script src="{{ URL::asset('/js/custom_company.js') }}"></script>
-        <script>
+        <script src="{{ URL::asset('/js/helpers/request_helper.js') }}"></script>
 
-        </script>
+        <script src="{{ URL::asset('/js/helpers/element_helper.js') }}"></script>       
+        <script src="{{ URL::asset('/js/helpers/modal_helper.js') }}"></script>       
+        <script src="{{ URL::asset('/js/helpers/modal_sender.js') }}"></script>       
+         <script src="{{ URL::asset('/js/custom_company.js') }}"></script>
+
+        @yield('footer_script')
     </footer>

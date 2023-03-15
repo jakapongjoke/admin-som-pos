@@ -6,6 +6,7 @@
 
 .table_header .search_area {
     float: left;
+    padding-left: 18px;
 }
 .table_header select {
     float: left;
@@ -79,4 +80,105 @@ ul.export_setting li.create {
     background-repeat: no-repeat;
     background-position: 49px;
     padding-left: 21px;
+}
+.table_list {
+    padding: 0px;
+    float: left;
+    width: 98%;
+    margin-left: 15px;
+}
+table#mastertable {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 3px 6px #00000029;
+}
+
+
+button.btn.table_search_button {
+    position: relative;
+    right: 40px;
+}
+
+.som-pos.modal-open .modal-dialog {
+    width: 800px;
+    max-width: 800px;
+}
+.som-pos.modal-open .radio_div_group .radio_check {
+    width: 27px;
+    height: 27px;
+    content: '';
+    border: solid 1px;
+    border-radius: 50%;
+    float: left;
+    background: #fff;
+    margin-right: 14px;
+    cursor: pointer;
+}
+
+.som-pos.modal-open .radio_div_group  .radio_check.checked{
+    background: #4F6D70;
+}
+.som-pos.modal-open .radio_check.checked:before {
+    width: 15px;
+    height: 15px;
+    content: '';
+    background: #ffffff;
+    display: block;
+    border-radius: 50%;
+    margin: 5px auto 0px auto;
+   
+}
+
+
+.som-pos.modal-open .radio_div_group {
+    float: left;
+    width: 200px;
+}
+
+.status {
+    float: left;
+    width: 100%;
+}
+.modal img.confirm-image {
+    width: 96px;
+    height: 96px;
+    display: block;
+    margin: 0px auto;
+}
+.modal .confirm-modal-body p {
+    text-align: center;
+    color: #333333;
+    font-size: 21px;
+    margin-top: 24px;
+}
+.modal .confirm-modal-title {
+    font-size: 28px;
+    color: #597074;
+    
+    font-weight: 500;
+}
+.modal-header {
+    display: block;
+    text-align: center;
+}
+.modal-footer.confirm-modal-footer button.save {
+    background: #597074;
+    box-shadow: 0px 3px 6px #00000029;
+    border: initial;
+}
+.modal-footer.confirm-modal-footer {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+.modal-footer.confirm-modal-footer button {
+    width: 113px;
+    height: 36px;
+    border-radius: 18px;
+}
+.modal-footer.confirm-modal-footer .cancel-confirm-modal {
+    background: white;
+    color: #597074;
+    border: inherit;
+    box-shadow: 0px 3px 6px #00000029;
 }

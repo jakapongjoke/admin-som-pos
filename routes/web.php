@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyUserController;
-use App\Http\Controllers\Customer\Inventory\CompanyMasterStorageController;
+use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
 use App\Http\Controllers\CompanyController;
 /*
 |--------------------------------------------------------------------------
@@ -61,9 +61,9 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
     Route::get('/staff-login', [CompanyUserController::class, 'login'])->name('company-user-login-page');
 
     Route::post('/staff-login', [CompanyUserController::class, 'handleLogin'])->name('company.stafflogin');
+   
 
-
-    // Route::middleware('auth:company_users')->group(function () {
+    Route::middleware('auth:company_users')->group(function () {
     Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('company-staff-dashboard'); 
     
     Route::get('/company-master-storage', [CompanyMasterStorageController::class, 'index'])->name('company-master-storage');
@@ -71,6 +71,9 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
     // });
     Route::get('/logout', [CompanyUserController::class, 'destroy'])
     ->name('company.logout');
+
+
+});
 });
 
 

@@ -1,22 +1,5 @@
-@extends('layouts.customer.main')
- 
-@section('head')
-@section('title', 'Master Storage')
-@endsection
 
-@section('content')
-
-    @include('components.tables.masterTable')
-    @include('components.modal.master.MasterStorageModal')
-    
-@endsection
-
-@section('footer_script')
-<script>
-
-
-jQuery(document).ready(function($){
-
+function validateAndSend(){
 
     $('.modal_form').on('submit',async function(e){
         
@@ -33,7 +16,7 @@ jQuery(document).ready(function($){
         console.log('dddxxx');
           });
     });
-});
-</script>
-@endsection
+
+}
+
 

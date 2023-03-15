@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Services\Customer\Inventory\Master\MasterCodeService;
+use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(function ($company_name) {
+Route::post('/test', function(Request $request){
+    print_r( $request->all()) ;
+    print_r( $request->all()) ;
+});
+Route::post('/master-stroage-validate',[CompanyMasterStorageController::class,'ValidateData']);
 
+});
 

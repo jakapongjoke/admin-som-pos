@@ -12,5 +12,13 @@ class MasterCodeService {
     public function GetAllMasterCode($company_name){
         return $this->MasterCodeRepository->all($company_name);
     }
+    
+    public function CreateMasterStorage($company_name,$data){
+        $this->MasterCodeRepository->create([
+
+        ]);
+    }
 }
 ?>
+
+

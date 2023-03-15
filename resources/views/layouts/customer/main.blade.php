@@ -1,6 +1,7 @@
 <html>
- 
+
     @include('layouts.customer.head')
+
     @if( Auth::guard('company_users')->check())
     @include('layouts.customer.header')
 

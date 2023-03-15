@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Customer\Inventory;
+namespace App\Http\Controllers\Customer\Inventory\Master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Customer\Inventory\Master\MasterCodeService;
+use App\Http\Requests\Customer\Inventory\Master\CompanyMasterStorageRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyMasterStorageController extends Controller
 {
@@ -34,6 +36,21 @@ class CompanyMasterStorageController extends Controller
     public function create()
     {
         //
+    }
+
+    
+    public function ValidateData(CompanyMasterStorageRequest $request)
+    {   
+        
+       if($request->validated()){
+        return response()->json([
+            "status"=>"complete"
+        ], 200);
+
+       }else{
+        return response()->json($validator->errors(), 422);
+
+       }
     }
 
     /**

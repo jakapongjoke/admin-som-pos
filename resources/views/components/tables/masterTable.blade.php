@@ -5,6 +5,9 @@
         <option>1</option>
       </select>
       <input type="text" class="form-control item_search" name="item_search">
+      <button type="button" class="btn table_search_button" >
+        <img src="/images/icons/search.jpg" width="15">
+      </button>
     </div>
     
     <div class="control_area">
@@ -17,7 +20,7 @@
 
         </li>
         <li class="create">
-        <button type="button">+Create</button>
+        <button type="button" data-toggle="modal" data-target="#MasterStorageModal">+Create</button>
         </li>
       </div>
       
