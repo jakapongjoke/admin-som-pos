@@ -7,7 +7,7 @@
 
 @section('content')
 
- ssaabb
+ 
 @endsection
 
 @section("footer")

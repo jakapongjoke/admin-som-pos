@@ -22,8 +22,8 @@ class CompanyMasterStorageController extends Controller
     }
     public function index(Request $request)
     {
-         $masterdata = $this->MasterCodeService->GetAllMasterCode($request->company_name);
-         $data = ['key_field'=>['No','Name','Code','Branch Location','Description','Last Modified Date'],'masterdata'=>$masterdata,'key_number'=>true,'checkbox_list_field'=>true,'status_field'=>true,'action_field'=>true];
+         $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
+         $data = ['masterdata'=>$masterdata];
       
          return view('customer.backoffice.inventory.company-storage-master',['data'=>$data]);
     }
@@ -61,7 +61,8 @@ class CompanyMasterStorageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+     
+       return $this->MasterCodeService->CreateMasterStorage($request->company_name,$request->all());
     }
 
     /**

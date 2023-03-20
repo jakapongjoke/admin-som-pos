@@ -1,5 +1,5 @@
 
-function validateAndSend(){
+function validateAndSend(validateUrl){
 
     $('.modal_form').on('submit',async function(e){
         

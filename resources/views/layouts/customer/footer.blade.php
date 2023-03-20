@@ -29,6 +29,7 @@
         <script src="{{ URL::asset('/js/helpers/element_helper.js') }}"></script>       
         <script src="{{ URL::asset('/js/helpers/modal_helper.js') }}"></script>       
         <script src="{{ URL::asset('/js/helpers/modal_sender.js') }}"></script>       
+        <script src="{{ URL::asset('/js/helpers/input_helper.js') }}"></script>       
          <script src="{{ URL::asset('/js/custom_company.js') }}"></script>
 
         @yield('footer_script')

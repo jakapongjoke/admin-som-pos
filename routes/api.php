@@ -27,6 +27,7 @@ Route::post('/test', function(Request $request){
     print_r( $request->all()) ;
 });
 Route::post('/master-stroage-validate',[CompanyMasterStorageController::class,'ValidateData']);
+Route::post('/master-stroage',[CompanyMasterStorageController::class,'store']);
 
 });
 

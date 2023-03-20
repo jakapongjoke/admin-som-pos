@@ -3,7 +3,7 @@ let validation = false;
 let confirm = false;
 
 async function SendAjaxPost(data,url){
-    console.log(await axios.post(url,data));
+ 
         return await axios.post(url,data);
     
 

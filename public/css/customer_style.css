@@ -132,7 +132,14 @@ button.btn.table_search_button {
 
 .som-pos.modal-open .radio_div_group {
     float: left;
-    width: 200px;
+    width: 145px;
+}
+.som-pos.modal-open .radio_div_wrp.status {
+    background: #F7F7F7 0% 0% no-repeat padding-box;
+    width: 78%;
+    height: 69px;
+    padding-top: 20px;
+    padding-left: 29px;
 }
 
 .status {
@@ -157,9 +164,25 @@ button.btn.table_search_button {
     
     font-weight: 500;
 }
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+    color: #4F6D70;
+    font-size: 24px;
+}
+.modal-header>button {
+    position: absolute;
+    top: 25px;
+    right: 41px;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 100%;
+    padding: 0px !important;
+}
 .modal-header {
     display: block;
-    text-align: center;
+    text-align: left;
+    padding-left: 0;
 }
 .modal-footer.confirm-modal-footer button.save {
     background: #597074;
@@ -181,4 +204,113 @@ button.btn.table_search_button {
     color: #597074;
     border: inherit;
     box-shadow: 0px 3px 6px #00000029;
+}
+.radio_check .radio_checkbox{
+display: none;
+}
+.modal-body.confirm-modal-body p:after {
+    background: #B7B7B7;
+    content: '';
+    width: 94%;
+    height: 1px;
+    display: block;
+    margin: 34px auto 0px auto;
+}
+.modal-content {
+    border-radius: 25px;
+    box-shadow: 0px 5px 10px #0000004D;
+    background: #F7F7F8;
+    padding: 0 35px;
+}
+.modal-body {
+    background: white;
+    border-radius: 28px;
+    padding: 30px 20px 20px 30px;
+}
+
+.modal-header>button {
+    position: absolute;
+    top: 25px;
+    right: 41px;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 100%;
+    padding: 0px !important;
+}
+td.master_list_col input {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    top: 2px;
+}
+input.form-check-input.master_list_check_all {
+    position: relative;
+    margin-right: 7px;
+    margin-left: 0px;
+}
+.action_wrp{
+    position: relative;
+    width: 100px;
+}
+.action_button {
+    width: 41px;
+    height: 41px;
+    display: block;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.action_button span {
+    display: block;
+    color: #597074;
+    font-size: 27px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 100%;
+}
+.action_list {
+    position: absolute;
+    width: 120px;
+    height: 102px;
+    opacity: 1;
+    right: 20px;
+    padding-top: 4px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 4px;
+    display: none;
+    z-index: 99;
+}
+.action_list ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 15px;
+}
+.action_list ul li{
+    cursor: pointer;
+    list-style: none;
+    display: block;
+}
+
+.action_list ul li span{
+    display: inline-block;
+}
+
+.action_wrp.active .action_list {
+    display: block;
+}
+.action_list li:not(last-child) {
+    margin-bottom: 13px;
+}
+.action_list ul li {
+    list-style: none;
+    display: block;
+}
+.action_list li .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.action_list li .icon img{
+    width: 100%;
 }

@@ -6,34 +6,47 @@
 
 @section('content')
 
-    @include('components.tables.masterTable')
+    @include('components.tables.master.MasterStorageTable')
     @include('components.modal.master.MasterStorageModal')
     
 @endsection
-
 @section('footer_script')
-<script>
 
+@component('components.modal.ConfirmModal',[
+        "data"=> [
 
-jQuery(document).ready(function($){
-
-
-    $('.modal_form').on('submit',async function(e){
+            "messageConfirm"=>[
+        "heading"=>"Create",
+        "message"=>"Do you want to Create Storage Master ?",
+        "image"=> URL::asset('/images/icons/question.png')
+        ],
+            "messageDone"=>[
+                "heading"=>"Successful",
+                "message"=>"Save Storage Master Successful",
+                "image"=>URL::asset('/images/icons/checked.png') 
+                ],
+            "validateUrl"=>"api/master-stroage-validate",
+            "requestUrl"=>"api/master-stroage"
         
-        e.preventDefault();
-        let form  = $(this);
-        if(true){
-            const validate = await validateData(form.serialize(),'api/master-stroage-validate');
-        if(validate===true){
-            console.log('dddd')
-            $('.modal-content').html('').html(showModalConfirm('Create','http://ananta.som-pos.test:8000/images/icons/question.png','Do you want to Create Storage Master ?'));
-        }
-        }
-        $('.confirm-modal-confirm').on('click', function(e){
-        console.log('dddxxx');
-          });
+            ]
+
+
+
+    ]
+    
+
+        )
+
+ 
+@endcomponent
+<script>
+    radioCheck();
+    $("[name='active-checkbox']").bootstrapSwitch({
+        on: 'Active',
+        off: 'Inactive',
+        onClass: 'on',
+	offClass: 'off'
     });
-});
 </script>
 @endsection
 

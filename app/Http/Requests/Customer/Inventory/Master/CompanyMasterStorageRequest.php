@@ -33,9 +33,10 @@ class CompanyMasterStorageRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'master_name'=>'required|string|max:255',
             'master_code'=>'required|string|max:255',
             'branch_location'=>'required|numeric',
-            'desctiption'=>'string|max:255'
+            'desctiption'=>'string|max:255|nullable'
         ];
     }
 }  

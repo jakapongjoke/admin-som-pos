@@ -43,15 +43,16 @@
                   </thead>
                   <tbody>
                   @foreach ($data['masterdata'] as $masterdata)
+                  @php
+                    $branch = json_decode($masterdata->addional_infomation,true)['branch_location'];
+                    echo $branch;
+                  @endphp
                   <tr>
-                    <td><input type="checkbox" name="master_list_check" class="form-check-input" value="{{$masterdata->id}}"></td>
+                    <td class="master_list_col"><input type="checkbox" name="master_list_check" class="form-check-input" value="{{$masterdata->id}}"></td>
                     <td>{{$masterdata->id}}</td>
                     <td>{{$masterdata->master_code}}</td>
-                    <td>{{$masterdata->s}}</td>
-                    <td> jj bb</td>
-                    <td>Xyz@hotmail.com</td>
-                    <td>superadmin</td>
-                    <td>12/12/2022</td>
+                    <td>{{$masterdata->master_description}}</td>
+                  
                     @if($data['status_field']==true)
 
                     <td>

@@ -9,6 +9,8 @@ class MasterCode extends Model
 {
     use \App\Traits\Table\BindsTableDynamically;
     use HasFactory;
-
-    
+    protected $fillable = ['master_code','master_name','running_number','master_tag','master_type','master_price','master_description','master_status','master_image','addional_infomation'];
+    protected $casts = [
+        'addional_infomation' => 'array',
+    ];
 }
