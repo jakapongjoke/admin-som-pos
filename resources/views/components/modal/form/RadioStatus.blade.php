@@ -1,5 +1,5 @@
 <div class="radio_div_wrp {{$custom_class}}">
-<div class="radio_div_group">
+  <div class="radio_div_group">
               <div class="radio_check checked">
                 <input type="checkbox" name="status" class="status radio_checkbox" value="active" checked="checked">
               </div>

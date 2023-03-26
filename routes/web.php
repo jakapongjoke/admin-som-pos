@@ -8,6 +8,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyUserController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
+use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterCustomerController;
+use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterVendorController;
 use App\Http\Controllers\CompanyController;
 /*
 |--------------------------------------------------------------------------
@@ -63,10 +65,29 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
     Route::post('/staff-login', [CompanyUserController::class, 'handleLogin'])->name('company.stafflogin');
    
 
-    Route::middleware('auth:company_users')->group(function () {
-    Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('company-staff-dashboard'); 
+    Route::middleware('auth:company_users')->prefix('master')->group(function () {
+    Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('staff-dashboard'); 
     
-    Route::get('/company-master-storage', [CompanyMasterStorageController::class, 'index'])->name('company-master-storage');
+    Route::get('/master-storage', [CompanyMasterStorageController::class, 'index'])->name('master-storage');
+    Route::get('/master-customer', [CompanyMasterCustomerController::class, 'index'])->name('master-customer');
+    Route::get('/master-vendor', [CompanyMasterVendorController::class, 'index'])->name('master-vendor');
+
+
+    Route::get('/master-item', [CompanyMasterStorageController::class, 'index'])->name('master-item');
+    Route::get('/master-collection', [CompanyMasterCustomerController::class, 'index'])->name('master-collection');
+    Route::get('/master-item-size', [CompanyMasterVendorController::class, 'index'])->name('master-item-size');
+
+
+
+    Route::get('/master-metal', [CompanyMasterStorageController::class, 'index'])->name('master-metal');
+    Route::get('/master-base-metal', [CompanyMasterCustomerController::class, 'index'])->name('master-base-metal');
+
+
+    Route::get('/master-stone-group', [CompanyMasterStorageController::class, 'index'])->name('master-stone-group');
+    Route::get('/master-base-metal', [CompanyMasterCustomerController::class, 'index'])->name('master-base-metal');
+
+
+
 
     // });
     Route::get('/logout', [CompanyUserController::class, 'destroy'])

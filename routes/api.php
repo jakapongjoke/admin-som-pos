@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Services\Customer\Inventory\Master\MasterCodeService;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
+use App\Http\Controllers\CountrySelectorContoller;
 
 
 /*
@@ -28,6 +29,10 @@ Route::post('/test', function(Request $request){
 });
 Route::post('/master-stroage-validate',[CompanyMasterStorageController::class,'ValidateData']);
 Route::post('/master-stroage',[CompanyMasterStorageController::class,'store']);
+
+Route::get('/countries',[CountrySelectorContoller::class,'ListCountry']);
+Route::get('/states/{CountryID}',[CountrySelectorContoller::class,'ListStates']);
+Route::get('/cities/{StateID}',[CountrySelectorContoller::class,'ListCities']);
 
 });
 

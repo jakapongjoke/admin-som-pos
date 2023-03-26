@@ -1,7 +1,7 @@
 @extends('layouts.customer.main')
  
 @section('head')
-@section('title', 'Master Storage')
+@section('title', 'Stone Size Master')
 @endsection
 
 @section('content')
@@ -17,12 +17,12 @@
 
             "messageConfirm"=>[
         "heading"=>"Create",
-        "message"=>"Do you want to Create Storage Master ?",
+        "message"=>"Do you want to Create Stone Size Master?",
         "image"=> URL::asset('/images/icons/question.png')
         ],
             "messageDone"=>[
                 "heading"=>"Successful",
-                "message"=>"Save Storage Master Successful",
+                "message"=>"Save Stone Size Master Successful",
                 "image"=>URL::asset('/images/icons/checked.png') 
                 ],
             "validateUrl"=>"api/master-stroage-validate",
@@ -39,14 +39,6 @@
 
  
 @endcomponent
-<script>
-    radioCheck();
-    $("[name='active-checkbox']").bootstrapSwitch({
-        on: 'Active',
-        off: 'Inactive',
-        onClass: 'on',
-	offClass: 'off'
-    });
-</script>
+
 @endsection
 

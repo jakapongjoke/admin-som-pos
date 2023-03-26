@@ -9,7 +9,7 @@
     </div>
 </div>
 <script>
-  window.onload= function(){
+ window.addEventListener('DOMContentLoaded',  () => {
     jQuery('.action_button').on('click',function(){
         if($(this).parent('.action_wrp').hasClass('active')){
             $(this).parent('.action_wrp').removeClass('active');
@@ -20,6 +20,6 @@
         }
 
         });
-  }
+  });
  
 </script>

@@ -47,7 +47,7 @@
      <div class="form-group row">
     <label for="description" class="col-sm-3 col-form-label">Status</label>
     <div class="col-sm-9">
-      @component('components.modal.form.RadioGroup',['custom_class'=>'status'])
+      @component('components.modal.form.RadioStatus',['custom_class'=>'status'])
 
       @endcomponent
     </div>  

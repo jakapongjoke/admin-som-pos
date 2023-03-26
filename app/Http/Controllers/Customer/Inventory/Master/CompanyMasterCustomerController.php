@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Customer\Inventory\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Customer\Inventory\Master\MasterCodeService;
-use App\Http\Requests\Customer\Inventory\Master\CompanyMasterStorageRequest;
+
 use Illuminate\Support\Facades\Auth;
 
-class CompanyMasterStorageController extends Controller
+
+class CompanyMasterCustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,10 +23,10 @@ class CompanyMasterStorageController extends Controller
     }
     public function index(Request $request)
     {
-         $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
-         $data = ['masterdata'=>$masterdata];
-      
-         return view('customer.backoffice.inventory.Master.MasterStorage',['data'=>$data]);
+        $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
+        $data = ['masterdata'=>$masterdata];
+     
+        return view('customer.backoffice.inventory.Master.MasterCustomer',['data'=>$data]);
     }
 
     /**
@@ -38,21 +39,6 @@ class CompanyMasterStorageController extends Controller
         //
     }
 
-    
-    public function ValidateData(CompanyMasterStorageRequest $request)
-    {   
-        
-       if($request->validated()){
-        return response()->json([
-            "status"=>"complete"
-        ], 200);
-
-       }else{
-        return response()->json($validator->errors(), 422);
-
-       }
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -61,8 +47,7 @@ class CompanyMasterStorageController extends Controller
      */
     public function store(Request $request)
     {
-     
-       return $this->MasterCodeService->CreateMasterStorage($request->company_name,$request->all());
+        //
     }
 
     /**

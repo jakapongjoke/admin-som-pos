@@ -1,19 +1,17 @@
 <div class="table_wrp">
 <div class="table_header">
 <h1>
-STORAGE MASTER
+CUSTOMER MASTER
 </h1>
     <div class="search_area">
         @component('components.util.SearchList')
         @endcomponent
     </div>
-    @component('components.util.ControlArea',["data"=>[
-      "modalName"=>'#MasterStorageModal'
+  @component('components.util.ControlArea',["data"=>[
+      "modalName"=>'#MasterCustomerModal'
     ]
   ])
   @endcomponent
-
-      
     </div>
 
 <div class="table_list">
@@ -27,9 +25,8 @@ STORAGE MASTER
                 <span class="list_no"> No.</span>
                 </th>
                   <th>Name</th>
-                  <th>Code</th>
-                  <th>Branch Location</th>
-                  <th>Description</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
                   <th>Last Modified Date</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -47,7 +44,6 @@ STORAGE MASTER
                     <td>{{$masterdata->master_name}}</td>
                     <td>{{$masterdata->master_code}}</td>
                     <td>{{$branch}}</td>
-                    <td>{{$masterdata->master_description}}</td>
                     <td>{{$masterdata->updated_at}}</td>
                     <td>
                       <div class="list-action-box">
