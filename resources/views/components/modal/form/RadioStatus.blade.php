@@ -13,7 +13,7 @@
                 <input type="checkbox" name="status" class="status radio_checkbox" value="inactive">
               </div>
               <div class="radio_label">
-              Inactive
+              Suspend
               </div>
         </div>
    

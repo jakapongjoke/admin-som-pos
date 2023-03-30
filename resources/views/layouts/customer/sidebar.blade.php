@@ -180,6 +180,44 @@ $request = Request::instance();
               </ul>
           </li>
 
+  
+          <li class="nav-item @if(Request::segment(1) == 'master-product') is-opening menu-is-opening menu-open  @endif">
+            <span class="nav-link list_with_sub">
+              <p>
+              <i class="icon-sub-treemenu-arrow right arrow"></i>
+
+                <span class="pos-menu-icon master-icon"></span>
+                <span class="menu-text">Product Master</span>
+              </p>
+            </span>
+
+
+            <ul class="nav nav-treeview ">
+              
+         
+
+              <li class="nav-item {{ Request::is('product-master/product-master-stone') ? 'active' : '' }}">
+                <a href="{{url()->to('product-master/product-master-stone')}}" class="nav-link ">
+                  <p>Stone</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::is('product-master/product-master-component') ? 'active' : '' }}">
+                <a href="{{url()->to('product-master/product-master-component')}}" class="nav-link ">
+                  <p>Component</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::is('product-master/product-master-jewelry') ? 'active' : '' }}">
+                <a href="{{url()->to('product-master/product-master-jewelry')}}" class="nav-link ">
+                  <p>Jewelry</p>
+                </a>
+              </li>
+             
+
+              </ul>
+           
+          </li>
+
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

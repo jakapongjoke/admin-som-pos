@@ -25,8 +25,8 @@
                 "message"=>"Save Storage Master Successful",
                 "image"=>URL::asset('/images/icons/checked.png') 
                 ],
-            "validateUrl"=>"api/master-stroage-validate",
-            "requestUrl"=>"api/master-stroage"
+            "validateUrl"=>URL::to('api/master/master-stroage-validate'),
+            "requestUrl"=>URL::to('api/master/master-stroage')
         
             ]
 

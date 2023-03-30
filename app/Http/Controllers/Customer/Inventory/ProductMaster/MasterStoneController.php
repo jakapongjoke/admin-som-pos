@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Customer\Inventory\Master;
+namespace App\Http\Controllers\Customer\Inventory\ProductMaster;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Customer\Inventory\Master\MasterCodeService;
-use App\Http\Requests\Customer\Inventory\Master\CompanyMasterStorageRequest;
-use Illuminate\Support\Facades\Auth;
 
-class MasterItemController extends Controller
+class MasterStoneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +14,7 @@ class MasterItemController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**

@@ -1,13 +1,13 @@
 @extends('layouts.customer.main')
  
 @section('head')
-@section('title', 'Master Storage')
+@section('title', 'Master Item')
 @endsection
 
 @section('content')
 
-    @include('components.tables.master.MasterCustomerTable')
-    @include('components.modal.master.MasterCustomerModal')
+    @include('components.tables.master.MasterItemTable')
+    @include('components.modal.master.MasterItemModal')
     
 @endsection
 @section('footer_script')
@@ -17,16 +17,16 @@
 
             "messageConfirm"=>[
         "heading"=>"Create",
-        "message"=>"Do you want to Create Customer Master ?",
+        "message"=>"Do you want to Create Storage Master ?",
         "image"=> URL::asset('/images/icons/question.png')
         ],
             "messageDone"=>[
                 "heading"=>"Successful",
-                "message"=>"Save Customer Master Successful",
+                "message"=>"Save Storage Master Successful",
                 "image"=>URL::asset('/images/icons/checked.png') 
                 ],
-            "validateUrl"=>"api/master-stroage-validate",
-            "requestUrl"=>"api/master-stroage"
+            "validateUrl"=>URL::to('api/master/master-stroage-validate'),
+            "requestUrl"=>URL::to('api/master/master-stroage')
         
             ]
 
@@ -39,12 +39,6 @@
 
  
 @endcomponent
-<!-- <script>
-    window.onload =  ()=>{
-        console.log('aa');
-        let countries =  axios.get('/api/countries');
-        console.log(countries);
-    }
-</script> -->
+
 @endsection
 

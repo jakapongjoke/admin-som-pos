@@ -1,13 +1,13 @@
 @extends('layouts.customer.main')
  
 @section('head')
-@section('title', 'Master Storage')
+@section('title', 'Vendor Master')
 @endsection
 
 @section('content')
 
-    @include('components.tables.master.MasterCustomerTable')
-    @include('components.modal.master.MasterCustomerModal')
+    @include('components.tables.master.MasterVendorTable')
+    @include('components.modal.master.MasterVendorModal')
     
 @endsection
 @section('footer_script')

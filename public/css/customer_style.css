@@ -135,7 +135,7 @@ button.btn.table_search_button {
     float: left;
     width: 145px;
 }
-.som-pos.modal-open .radio_div_wrp.status {
+.som-pos.modal-open .radio_div_wrp.radio_check_opt {
     background: #F7F7F7 0% 0% no-repeat padding-box;
     width: 78%;
     height: 69px;
@@ -154,7 +154,7 @@ button.btn.table_search_button {
     font: normal normal normal 16px/19px Roboto;
     font-weight: 500;
 }
-.status {
+.radio_check_opt {
     float: left;
     width: 100%;
 }
@@ -613,3 +613,455 @@ header.header_login .logo {
 .search_area select {
     margin-right: 17px;
 }
+.modal-content:has(.confirm-modal-body) {
+    width: 535px !important;
+    height: 373px !important;
+    background: white;
+}
+.modal-content:has(.confirm-modal-body) .modal-body{
+    padding: 0;
+    margin-top: 10px;}
+
+    .modal-content:has(.confirm-modal-body) .modal-header {
+        border: inherit;
+        text-align: center;
+        color: #597074;
+        font-size: 20px !important;
+        font-family: 'Roboto';
+        font-weight: bold !important;
+        border-width: 0px;
+    }
+    .confirm-modal-body{
+        flex:0 0 !important;
+    }
+
+    .modal-footer.confirm-modal-footer {
+        width: 100%;
+        display: block;
+        text-align: center;
+        border: inherit;
+        border-width: 0;
+    }
+    .modal-footer.confirm-modal-footer {
+        width: 100%;
+        display: block;
+        text-align: center;
+        border: inherit;
+        border-width: 0;
+    }
+    .modal-content:has(.confirm-modal-body) .modal-footer.confirm-modal-footer .btn{
+        width: 113px;
+        height: 36px;
+        box-shadow: 0px 3px 6px #00000029;
+        border-radius: 18px;
+        border-color: inherit;
+    }
+    button.btn.btn-primary.confirm-modal-confirm {
+      
+        background: #597074 0% 0% no-repeat padding-box;
+   
+    }
+    button.btn.btn-primary.confirm-modal-confirm:hover{
+        background: #597074 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border-radius: 18px;
+        border-color: inherit;
+    }
+    div#MasterItemModal .modal-dialog {
+        width: 1151px !important;
+        max-width: 1151px;
+        height: 545px !important;
+    }
+    div#MasterItemModal .modal-body {
+        width: 1058px;
+        height: 422px;
+    }
+    .som-pos.modal-open .label-top .radio_div_wrp.radio_check_opt{
+        width: 100%;
+    }
+    .master_item_modal_style input, .master_item_modal_style textarea {
+        background: white 0% 0% no-repeat padding-box;
+    }
+    .master_item_modal_style textarea.description {
+    height:250px;
+    }
+
+    .img_upload_wrapper {
+        width: 100%;
+        height: 229px;
+        border: 1px solid #C8C8C8;
+        border-radius: 5px;
+        position: relative;
+        margin-top: 20px;
+    }
+
+    #formImage .card-header {
+        background-color: transparent;
+    }
+
+    #formImage .card {
+        height: 100%;
+    }
+
+    #formImage .col-sm-4,
+    #formImage .col-sm-5,
+    #formImage .col-sm-7,
+    #formImage .col-sm-10 {
+        padding: 0;
+    }
+
+    #formImage .col-form-label {
+        padding-right: 0;
+        float: left;
+        width: 113px;
+    }
+
+    .add-image-btn {
+        position: absolute;
+        width: 121px;
+        height: 32px;
+        box-shadow: 0px 3px 6px #00000029;
+        border: 1px solid #597074;
+        color: #597074;
+        text-align: center;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        bottom: 20%;
+    }
+
+    .form-check-label {
+        font-weight: 700;
+    }
+
+    .image-upload-preview {
+        position: absolute;
+        left: 50%;
+        bottom: 65%;
+        transform: translate(-50%, 50%);
+        width: 100px;
+        height: 100px;
+    }
+
+    .image-upload-1 {
+        width: 100%;
+        height: 100%;
+    }
+
+    .image-upload-2,
+    .image-upload-3 {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+    }
+
+    .image-upload-2 {
+        left: 10%;
+        top: 10%;
+    }
+
+    .image-upload-3 {
+        left: 10%;
+        top: 40%;
+    }
+    .img_upload_wrapper label.add-image-btn {
+        width: 121px;
+        height: 32px;
+        box-shadow: 0px 3px 6px #00000029;
+        border: 1px solid #597074;
+        border-radius: 23px;
+        padding-top: 2px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .radio_check_opt-block {
+        padding: 0 0;
+    }
+    div#MasterProductModal .modal-dialog {
+        width: 1333px;
+        height: 931px;
+        max-width: 1133px;
+    }
+
+    div#MasterProductModal  .modal-content {
+        width: 1333px;
+        height: 931px;
+    }
+    
+    .product_master_form .card-body .form-check-label {
+        padding-left: 10px;
+    }
+
+    .product_master_form .val-txt {
+        position: relative;
+        padding: 0;
+    }
+
+
+
+    .product_master_form .text-g {
+        left: 55%;
+    }
+
+    .product_master_form .text-thb {
+        left: 70%;
+    }
+
+    .product_master_form textarea {
+        resize: none;
+    }
+    .product_master_general_info .card {
+        box-shadow: 0 0;
+    }
+    .product_master_general_info .card-body {
+        padding: 0 0;
+    }
+
+    .product_master_modal_style .modal-body {
+        width: 1220px;
+        height: 757px;
+        flex: 1 1 auto;
+    }
+
+    .product_master_modal_style .image_upload_column {
+        width: 346px ;
+        max-width: 346px ;
+    }
+    .product_master_form select {
+        width: 235px;
+        height: 35px;
+        font-weight: 500;
+        margin-left: 9px;
+        float: left;
+    }
+    .product_master_form textarea {
+        width: 632px;
+        height: 84px;
+    }
+    .radio_div_wrp.suggest_id {
+        width: 175px;
+    }
+    .radio_div_wrp.suggest_id .radio_div_group{
+        width: 100%;
+    }
+    .product_master_general_info .row .col-6:last-child select {
+        width: 225px;
+    }
+    #formImage .row .col-6:last-child .col-form-label {
+        width: 133px;
+    }
+    #formImage .row .col-6:first-child .col-form-label {
+        width: 112px;
+    }
+    .product_master_general_info  input#cert_image_file {
+        display: none;
+    }
+    .icon_add_image_plus img{
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+    }
+    .cert_image_button h4 {
+        display: inline-block;
+        color: #97B8BE;
+        font-size: 17px;
+        vertical-align: revert;
+        margin-left: 3px;
+        position: relative;
+        top: 2px;
+    }
+    label.cert_image_button {
+        box-shadow: 0px 3px 6px #00000029;
+        width: 142px;
+        height: 32px;
+        border-radius: 17px;
+        text-align: center;
+        padding-top: 3px;
+        position: relative;
+        left: 11px;
+        cursor: pointer;
+    }
+
+    /*  product_master_info*/
+    .product_master_info .nav-pills .nav-link {
+        background: transparent linear-gradient(180deg, #597074 0%, #8BADB2 100%) 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 6px #00000029;
+        border: 2px solid #FFFFFF;
+        border-radius: 10px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        opacity: 1;
+        text-align: center;
+        color: #FFF;
+        height: 100%;
+    }
+
+    .product_master_info .nav-link {
+        padding-bottom: 0;
+    }
+
+    .product_master_info .nav-pills .nav-link.active::after {
+        content: "";
+        display: block;
+        width: 80%;
+        /* Change this value to adjust the length */
+        height: 5px;
+        margin-top: 5px;
+        background-color: #8BADB2;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+
+    .product_master_info .nav-pills .nav-link.active,
+    .product_master_info .nav-pills .show>.nav-link {
+        background: #FFF;
+        color: #8BADB2;
+        border-right: 2px solid #FFFFFF;
+        border-top-right-radius: 10px;
+        margin-right: -10px;
+    }
+
+    .product_master_info .nav-pills .nav-item {
+        width: 160px;
+    }
+
+    .product_master_info .form-control {
+        height: 32px;
+    }
+
+    .product_master_info input.form-control,
+    .product_master_info select.form-control {
+        width: 140px;
+        height: 32px;
+    }
+
+    .product_master_info .currency {
+        width: 90px !important;
+        margin-left: 5px;
+    }
+
+    .product_master_info .container {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 1px solid #C8C8C8;
+        border-radius: 5px;
+        opacity: 1;
+    }
+
+    .product_master_info div[contenteditable="true"] {
+        width: 140px;
+        min-height: 32px;
+        word-break: break-all;
+        overflow: hidden;
+        white-space: pre;
+        text-overflow: clip;
+    }
+
+    .product_master_info td {
+        position: relative;
+    }
+
+    .product_master_info  .placeholder-text {
+        position: absolute;
+        right: 5%;
+        top: 45%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    .product_master_info .btn-add {
+        width: 26px;
+        height: 26px;
+        padding: 0;
+        padding-bottom: 26px;
+    }
+
+    .product_master_info .btn-del {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background-color: #f37f7f;
+        padding: 0;
+        padding-bottom: 26px;
+    }
+
+    .product_master_info .val-txt {
+        width: 181px;
+        height: 32px;
+        position: relative;
+        padding: 0;
+    }
+
+    .product_master_info .val-word {
+        width: 120px;
+        min-height: unset !important;
+        height: 30px !important;
+        border: 0;
+        position: absolute;
+        left: 0;
+        padding: 0;
+        height: 32px;
+    }
+
+    /* labourTable */
+    .product_master_info #labourTable .form-check-input {
+        width: 42px;
+        height: 24px;
+    }
+
+    /* Scroll bar */
+
+    /* Hide the browser's default scrollbar */
+    .product_master_info ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    /* Track */
+    .product_master_info ::-webkit-scrollbar-track {
+        background-color: #f7f7f7;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    .product_master_info ::-webkit-scrollbar-thumb {
+        background-color: #8BADB2;
+        border-radius: 10px;
+        border: 2px solid #f7f7f7;
+    }
+
+    /* Handle on hover */
+    .product_master_info ::-webkit-scrollbar-thumb:hover {
+        background-color: #597074;
+        border: 2px solid #597074;
+    }
+
+    /* Add some padding to the container element to make room for the scrollbar */
+    .product_master_info .container {
+        padding-right: 8px;
+    }
+
+    /* Add a custom scrollbar to the table content */
+    .product_master_info .tab-content {
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #8BADB2 #f7f7f7;
+    }
+
+    /* Customize the scrollbar track and thumb */
+    .product_master_info .tab-content::-webkit-scrollbar-track {
+        background-color: #f7f7f7;
+        border-radius: 10px;
+    }
+
+    .product_master_info  .tab-content::-webkit-scrollbar-thumb {
+        background-color: #597074;
+        border-radius: 10px;
+        border: 2px solid #f7f7f7;
+    }
+
+    .product_master_info .tab-content::-webkit-scrollbar-thumb:hover {
+        background-color: #597074;
+        border: 2px solid #597074;
+    }

@@ -25,7 +25,7 @@ trait MasterCodeTableTrait{
 
                 $table->string("master_name")->unique();
                 $table->string("master_tag");
-                $table->enum('master_type', ['master_account_storage', 'master_account_customer','master_account_vendor','master_item_collection','master_item_size','master_metal_base','master_metal','master_stone_group','master_stone','master_stone_shape','master_stone_color','master_stone_clarity','master_stone_cutting','master_stone_size','master_certificate_type','master_labour_pricing']);
+                $table->enum('master_type', ['master_account_storage','master_account_customer','master_account_vendor','master_item,','master_item_collection','master_item_size','master_metal_base','master_metal','master_stone_group','master_stone','master_stone_shape','master_stone_color','master_stone_clarity','master_stone_cutting','master_stone_size','master_certificate_type','master_labour_pricing']);
                 $table->float('master_price',10,2);
                 $table->text('master_description')->nullable();
                 $table->enum('master_status', ['active','inactive']);

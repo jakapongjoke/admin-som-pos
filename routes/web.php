@@ -7,10 +7,15 @@ use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyUserController;
+
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterCustomerController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterVendorController;
-use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
+use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
+use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,16 +69,22 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
 
     Route::post('/staff-login', [CompanyUserController::class, 'handleLogin'])->name('company.stafflogin');
    
+ Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('staff-dashboard'); 
 
     Route::middleware('auth:company_users')->prefix('master')->group(function () {
-    Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('staff-dashboard'); 
+
     
-    Route::get('/master-storage', [CompanyMasterStorageController::class, 'index'])->name('master-storage');
-    Route::get('/master-customer', [CompanyMasterCustomerController::class, 'index'])->name('master-customer');
-    Route::get('/master-vendor', [CompanyMasterVendorController::class, 'index'])->name('master-vendor');
+    Route::get('/master-storage', [MasterAccountController::class, 'index'])->name('master-storage');
+    
+    Route::get('/master-customer', [MasterAccountController::class, 'index'])->name('master-customer');
+    Route::get('/master-vendor', [MasterAccountController::class, 'index'])->name('master-vendor');
+
+    // Route::get('/master-customer', [CompanyMasterCustomerController::class, 'index'])->name('master-customer');
+    // Route::get('/master-vendor', [CompanyMasterVendorController::class, 'index'])->name('master-vendor');
 
 
-    Route::get('/master-item', [CompanyMasterStorageController::class, 'index'])->name('master-item');
+    Route::get('/master-item',[MasterItemsController::class, 'index'])->name('master-item');
+
     Route::get('/master-collection', [CompanyMasterCustomerController::class, 'index'])->name('master-collection');
     Route::get('/master-item-size', [CompanyMasterVendorController::class, 'index'])->name('master-item-size');
 
@@ -93,6 +104,14 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
     Route::get('/logout', [CompanyUserController::class, 'destroy'])
     ->name('company.logout');
 
+
+});
+
+Route::middleware('auth:company_users')->prefix('product-master')->group(function () {
+    Route::get('/product-master-stone', [ProductMasterController::class, 'index'])->name('product-master-stone');
+    
+    Route::get('/product-master-component', [MasterComponentController::class, 'index'])->name('product-master-component');
+    Route::get('/product-master-jewelry', [MasterJewelryController::class, 'index'])->name('product-master-jewelry');
 
 });
 });

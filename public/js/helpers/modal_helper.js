@@ -68,7 +68,7 @@ function modalFormSubmitTrigger(txtConfirm,txtDone,validateUrl,requestUrl){
         e.stopPropagation()
         let form  = $(this);
         if(true){
-            const validate = await validateData(form.serialize(),'api/master-stroage-validate');
+            const validate = await validateData(form.serialize(),validateUrl);
         if(validate===true){
             $('.modal-content').width(535).height(373).css({margin:"0px auto"});
             $('.modal-content').html('').html(showModalConfirm(txtConfirm[0],txtConfirm[1],txtConfirm[2]));
