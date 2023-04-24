@@ -35,16 +35,13 @@ Stone Product Master
                   <th>Price (THB )</th>
                   <th>Description</th>
                   <th>Last Modified Date</th>
-                  <th>Status</th>
+                  <th>Active</th>
                   <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach ($data['masterdata'] as $k=>$masterdata)
-                  @php
-                    $branch = json_decode($masterdata->addional_infomation,true)['branch_location'];
-                    
-                  @endphp
+               
                   <tr>
                     <td class="master_list_col"><input type="checkbox" name="master_list_check" class="form-check-input" value="{{$masterdata->id}}"><span class="list_no">{{$k+1}}</span></td>
             
@@ -54,7 +51,7 @@ Stone Product Master
                     <td>{{$masterdata->master_code}}</td>
                     <td>{{$masterdata->master_code}}</td>
                     <td>0.5</td>
-                    <td>{{$branch}}</td>
+                    <td>...</td>
                     <td>{{$masterdata->master_description}}</td>
                     <td>{{$masterdata->updated_at}}</td>
                     <td>
@@ -73,7 +70,7 @@ Stone Product Master
                                 <span class="text-link" data-id="{{$masterdata->id}}">Edit</span>
                             </li>
                             <li>
-                                 <span class="icon"><img src="/images/icons/cancel1.png"></span>
+                                <span class="icon"><img src="/images/icons/cancel1.png"></span>
                                 <span class="text-link" data-id="{{$masterdata->id}}">Delete</span>
                             </li>
                       @endcomponent

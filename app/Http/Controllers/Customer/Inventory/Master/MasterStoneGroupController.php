@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Customer\Inventory\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Services\Customer\Inventory\Master\MasterCodeService;
+
+
 class MasterStoneGroupController extends Controller
 {
     /**
@@ -12,6 +15,13 @@ class MasterStoneGroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     private MasterCodeService $MasterCodeService;
+
+     public function __construct(MasterCodeService $MasterCodeService)
+     {
+        $this->MasterCodeService = $MasterCodeService;
+     }
     public function index()
     {
         //
@@ -81,5 +91,14 @@ class MasterStoneGroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function findByType($master_type){
+        
+       return  $this->MasterCodeService($request->company_name,$master_type);
+    }
+    public function findByPerentId($master_type){
+        
+       return  $this->MasterCodeService($request->company_name,$master_type);
     }
 }

@@ -5,7 +5,6 @@ use App\Interfaces\Customer\Inventory\Master\MasterCodeInterface;
 abstract class MasterCodeAbstract implements MasterCodeInterface{
 
     use \App\Traits\Customer\Inventory\Master\MasterCodeTrait;
-    public abstract function FindByMasterType(string $company_name,string $master_type);
 
 
     protected $companyId;
@@ -16,7 +15,6 @@ abstract class MasterCodeAbstract implements MasterCodeInterface{
 
         return $this;
     }
-    
     public function getCompanyId(){
         return   $this->companyId;
     }

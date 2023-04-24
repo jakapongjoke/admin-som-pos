@@ -28,113 +28,127 @@
                             <img src="{{URL::asset('images/icons/image_upload.png')}}"
                                 class="w-100 h-100" alt="">
                         </div>
-                        <input type="file" id="image-input" class="d-none" multiple>
-                        <label for="image-input" class="add-image-btn">Add Image</label>
+                        <input type="file" id="image-input-1" class="d-none" multiple>
+                        <label for="image-input-1" class="add-image-btn">Add Image</label>
                     </div>
+               
+                    <div class="image-upload-1"></div>
+                    <div class="image-upload-2"></div>
+                    <div class="image-upload-3"></div>
         </div>
 </div>
-<div class="col-8 product_master_general_info" id="formImage">
-                <div class="card">
+<div class="col-8 product_master_jewelrt_general_info" id="formImage">
+<div class="card">
+                    <div class="card-header">General</div>
                     <div class="card-body">
-                            <div class="form-group row mb-4">
-                            @component('components.util.Code')
-                            @endcomponent
-                            </div>
-                            
+                        <form>
                             <div class="form-group row">
-
-
-                                <div class="col-6">
-                                <label class="col-form-label">Stone Group <span style="color:red">*<span></label>
-                                <select class="form-control" name="select1">
-                                        <option value="">Sapphire</option>
-                                        <option value="option1">Option 1</option>
-                                        <option value="option2">Option 2</option>
-                                    </select>                                </div>
-                                <div class="col-6">
-                                <label class="col-form-label">Stone Name <span style="color:red">*<span></label>
+                                <label class="col-sm-2 col-form-label">Product Code</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="text" value="ER0118KW" readonly>
+                                </div>
+                                <div class="col-sm-3 d-flex align-items-center">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="radio" value="option1">
+                                        <label class="form-check-label">Chose Suggest ID</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Caption</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" name="text1" placeholder="Earring0001">
+                                </div>
+                                <label class="col-sm-2 col-form-label">Collection</label>
+                                <div class="col-sm-4">
                                     <select class="form-control" name="select1">
-                                        <option value="">Pink Sapphire</option>
+                                        <option value="">DISNEY DREAM</option>
                                         <option value="option1">Option 1</option>
                                         <option value="option2">Option 2</option>
                                     </select>
                                 </div>
                             </div>
 
-                            
-
-                            
-
                             <div class="form-group row">
-
-
-                                <div class="col-6">
-                                <label class="col-form-label">Stone Shape  <span style="color:red">*<span></label>
-                                <select class="form-control" name="select1">
-                                        <option value="">Sapphire</option>
-                                        <option value="option1">Option 1</option>
-                                        <option value="option2">Option 2</option>
-                                    </select>                                </div>
-                                <div class="col-6">
-                                <label class="col-form-label">Stone Color </label>
-                                    <select class="form-control" name="select1">
-                                        <option value="">Pink Sapphire</option>
+                                <label class="col-sm-2 col-form-label">Item</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="select2">
+                                        <option value="">Earring</option>
                                         <option value="option1">Option 1</option>
                                         <option value="option2">Option 2</option>
                                     </select>
                                 </div>
+                                <label class="col-sm-2 col-form-label">Metal</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="col-sm-5 pr-1">
+                                            <select class="form-control" style="max-width: 89px;" name="select3">
+                                                <option value="">18KW</option>
+                                                <option value="option1">Option 1</option>
+                                                <option value="option2">Option 2</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="form-control val-txt">
+                                                <input type="text" class="form-control" name="text2" value="@1,4200.00"
+                                                    readonly>
+                                                <span class="placeholder-text text-thb">THB</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            
-
-
-                            <div class="form-group row">
-
-
-                                <div class="col-6">
-                                <label class="col-form-label">Clarity</label>
-                                <select class="form-control" name="select1">
-                                        <option value="">Clarity</option>
-                                        <option value="option1">Option 1</option>
-                                        <option value="option2">Option 2</option>
-                                    </select>                                </div>
-                                <div class="col-6">
-                                <label class="col-form-label">Cutting<span style="color:red">*<span></label>
-                                    <select class="form-control" name="select1">
-                                        <option value="">Cutting</option>
+                            <div class="form-group row flex-nowrap" id="rowFix">
+                                <label class="col-sm-2 col-form-label">Size</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" name="select4">
+                                        <option value="">6.5 US</option>
                                         <option value="option1">Option 1</option>
                                         <option value="option2">Option 2</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            
-
-
-                            <div class="form-group row">
-
-
-                                <div class="col-6">
-                                <label class="col-form-label">Certificate Type </label>
-                                <select class="form-control" name="select1">
-                                        <option value="">Sapphire</option>
-                                        <option value="option1">Option 1</option>
-                                        <option value="option2">Option 2</option>
-                                    </select>                                </div>
-                                <div class="col-6">
-                                <label class="col-form-label">Certificate Image</label>
-                                    <input type="file" name="cert_image_file" id="cert_image_file"/>
-                                    <label for="cert_image_file" class="cert_image_button"><span class="icon_add_image_plus"><img src="{{URL::asset('images/icons/add.png')}}"></span>
-                                    <h4>Add Image</h4>
-                                  </label>
+                                <div class="col-sm-6">
+                                    <div class="d-flex flex-nowrap">
+                                        <div class="col-sm-3 px-0">
+                                            <label class="">Net Wt</label>
+                                        </div>
+                                        <div class="col-sm-9 px-1 d-flex flex-nowrap ">
+                                            <div class="input-group align-items-center">
+                                                <div class="form-control val-txt">
+                                                    <input type="text" class="form-control" name="text3"
+                                                        placeholder="10">
+                                                    <span class="placeholder-text">g</span>
+                                                </div>
+                                                <label class="px-2" style="flex:none;">Gross Wt</label>
+                                                <div class="form-control val-txt">
+                                                    <input type="text" class="form-control" name="text4"
+                                                        placeholder="15.3">
+                                                    <span class="placeholder-text text-g">g</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            
-
-                            
-
-                            
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Master Price</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control val-txt">
+                                        <input type="text" class="form-control" name="text5" value="198,100.00"
+                                            readonly>
+                                        <span class="placeholder-text">THB</span>
+                                    </div>
+                                </div>
+                                <label class="col-sm-2 col-form-label">Sale Price</label>
+                                <div class="col-sm-4">
+                                    <div class="form-control val-txt">
+                                        <input type="text" class="form-control" name="text6" placeholder="200,000.00">
+                                        <span class="placeholder-text">THB</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Description</label>
                                 <div class="col-sm-10">
@@ -142,6 +156,7 @@
                                         placeholder="There are many variations of passages"></textarea>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -237,10 +252,10 @@
                             </td>
                             <td><input type="text" class="form-control" name="amount" readonly></td>
                             <td class="px-1"><button class="btn btn-del delete-row-btn"><img
-                                        src="https://lh3.googleusercontent.com/pw/AMWts8B2-Kvy0Yi8PrndpGsQbDzhxE-B32riNVkpeXv4or1h6mYzUAt7_mGliKoOy7x1-DMfDIQHHiWl13vIYINM-nGVsRdxStJeEwUcksryclnCtc2uACVlpsL7RE3Q439erqI5nguupk1ctjsViCIzz_X46sHB5NUXWRteOL5196KZy8kS4MXy9sRoHwcOzBLconf23vQpcUgWnRjUwplFfW0NO6D15jqNT3K-QlVkx6sUV5Gn8Nni31PUlWnYNvNNxauqTYhUX3ZMfentxXkWqxXdIyJUTJslWLyYOvSMJcwQo_-uWRCbpukh1MQzejCn1L2N0fwVug-tmIKWXCyPv4eID1zzusOuYbOMaMJHSxoHZ9mFTIvXiAgvnQHc_wkxCiNV0E4zhwRg6oZzCGv2-fXgIhDvFwncSmi9EmbkFcL-SbnMhc5JeomWcYG2MPib8rNk4rFfQSI4HTIOC-VnCmJ_n4WpQV5E_kxj_k1KU3el4CIHO5Mti5gyT3QywtK_tAZQ_j6Bf8ne1Ybv9cXP7yXXMCVvxRciaHjnDhydskdUZTwZeMBh4JgyovNaXTh0Scg_T89GF1dBRcRQV_SYy67YF9IXvw4gYtEj6JVSvggvdyq4I6Sg1qVxVw3Ad2OEy1wpNDsuG8aKYlqcTbPHhlx3RwIYRsUPcMluwIOiJlhxeP1Blb6u06Bw21XOz5GpTJVjsL5DNIb058kq6Y1lBIHsxL8cdRZ-DrjxHnYH3nDvS7ZAMEt2BZ8rT-tJyMRi9D6oDb3-ilam34QAOakLQ4efACY8Q8Ynf_YYfOeiLx_yWv2mqqtBB36sbwoqoopdPmHI8ZispV4KV75kvAmT8mmoZ_UYW4sP_pcyChjxX73TplGE9Gl3D215zFEct7QWQlrXzKDa1RLwhBlAVxnGdsPC4boWOR2DkqPhsfYCqTKihftFW7g-Nhc36fCS=w170-h170-s-no?authuser=0"
+                                        src="{{URL::asset('images/icons/ic_control_point_24px.png')}}"
                                         width="14px" alt=""></button></td>
                             <td class="px-1 add-row-btn-td"><button class="btn btn-add" id="add-row-btn"><img
-                                        src="https://lh3.googleusercontent.com/pw/AMWts8CzIHwivnL1Q7qLfJLa2lpTILa6XooSum3_T7coQJPm6lU8mGe7KnkguRZ5mwJTZ_lZTe0652pTcoghhLOidWKOPKsdycWPLcb-HsV1qykiRtNR_PAoZ9a-P7m5bLKFhqiuatJXwbS9BMTqXGc9oZQ3sTq6OvPSx39ztFoN55TpXB9aB_fpStOeCKcx2OSludl5RzWLRf4LAJuB6KyqY2K1Q0QEBY_q7ttgcRgYMKtLs_27V1Ff9jkWRdkbTp0207SlceQu1wH934AP7sGw_r7q0_2QaFg96ahz8zN6OnqQjjHND0zJdMMqeSZKF2Aw56FDXCxuH86J0De8_jywPSRgGS-0BZdX44UnGiqdbM3Q6Dn4IQmeBRT-eoe39D8dHECZ8hl3m5LPJYYh1c7IOWzT6C091_aaJ0vQFna-upICZX21JalgfJ7-lX1alstLfFjllvSMdiIHX10IsTd9FglwMAP9aINuTUK0X-wooSMSzVSkVwNzAilP3FwqSq8bXUKHzK6787pu0Zzvn0kcwQAN7cbRnrMQFCoymx-IW8Caj-lH0dH7tjBRO3BW6C3z-nnv215GVVIsOhiP1ZLPLxTFVSquaUm5EV5prndKYXACiUBdhijfmCP9VRzlPkuC8Ilr79SEyjYSP13RqvbqhkHf5EXmrQUDtAXiazq5bySiSxIKaPiwjwst-RK-SNggW8Mnk4I-cxL3fDFpLM_NmC2TQEZecENdxheFAy4DOw7OTAiHSBEf59uSl3gMEI5tYf_5F7wHo-eEg1VSUG3VAIwoJwDojOCla0-l8Psg7odNOwKon2iFIesm5YgJEmd_N9DqHqSXTK5tNF3_AzLFhqd-ZRMzIN3uIBN1ourKeR5VuMyMd5ZHPRX1yxN9JG3ekltMGvuKi6wfRrV_fisI4fK2RATjZ41lFZMADLx6Vs8ogN7wP3eD5E7tlS29=w364-h364-s-no?authuser=0"
+                                        src="{{URL::asset('images/icons/cancel1.png')}}"
                                         width="26px" alt=""></button>
                             </td>
                         </tr>

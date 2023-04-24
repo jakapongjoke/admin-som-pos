@@ -22,9 +22,8 @@ class CompanyMasterStorageController extends Controller
     }
     public function index(Request $request)
     {
-         $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
+         $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage',10);
          $data = ['masterdata'=>$masterdata];
-      
          return view('customer.backoffice.inventory.Master.MasterStorage',['data'=>$data]);
     }
 
@@ -38,6 +37,10 @@ class CompanyMasterStorageController extends Controller
         //
     }
 
+    public function GetLimit(Request $request){
+        
+        return $this->MasterCodeService->GetMasterCodeByType( $request->company_name,$request->master_type);
+    }
     
     public function ValidateData(CompanyMasterStorageRequest $request)
     {   

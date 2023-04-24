@@ -104,6 +104,7 @@ public function authenticate(Request $request)
 
     public function handleLogin(Request $request,$company_name)
     {
+        
         $company_id = $this->company->getCompanyID($company_name);
      
         $credentials = $request->validate([
@@ -114,9 +115,13 @@ public function authenticate(Request $request)
         $login = $this->companyUserService->CompanyUserLogin($request->username,$request->password,$company_id);
 
         if($login===true){
-             $request->session()->regenerate();
+          $request->session()->regenerate();
 
-        return redirect()->intended('/staff-dashboard');
+        //  $request->user('company_users')->createToken($request->cookie('XSRF-TOKEN'));
+
+// $request->user('company_users')->getToken()
+         return redirect()->intended('/staff-dashboard');
+
         }else{
            
             return Redirect::back()->withErrors(['msg' => $login['message']]);

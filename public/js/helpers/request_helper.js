@@ -1,10 +1,25 @@
 
 let validation = false;
 let confirm = false;
+const baseURL = window.location.origin;
+const options = {
+    withCredentials:true
+}
+const instance = axios.create({
+    baseURL: baseURL,
+    withCredentials:true
 
+  });
 async function SendAjaxPost(data,url){
- 
-        return await axios.post(url,data);
+      
+        return await instance.post(url,data);
+    
+
+}
+async function SendAjaxGet(url){
+
+
+        return await instance.get(url);
     
 
 }

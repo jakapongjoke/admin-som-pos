@@ -12,6 +12,7 @@ use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageControlle
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterCustomerController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterVendorController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
+use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
 
@@ -71,11 +72,13 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
    
  Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('staff-dashboard'); 
 
+
+
+
     Route::middleware('auth:company_users')->prefix('master')->group(function () {
 
     
     Route::get('/master-storage', [MasterAccountController::class, 'index'])->name('master-storage');
-    
     Route::get('/master-customer', [MasterAccountController::class, 'index'])->name('master-customer');
     Route::get('/master-vendor', [MasterAccountController::class, 'index'])->name('master-vendor');
 
@@ -85,17 +88,26 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
 
     Route::get('/master-item',[MasterItemsController::class, 'index'])->name('master-item');
 
-    Route::get('/master-collection', [CompanyMasterCustomerController::class, 'index'])->name('master-collection');
-    Route::get('/master-item-size', [CompanyMasterVendorController::class, 'index'])->name('master-item-size');
+    Route::get('/master-collection', [MasterItemsController::class, 'index'])->name('master-collection');
+    Route::get('/master-item-size', [MasterItemsController::class, 'index'])->name('master-item-size');
+
+
+    // ใช้ MasterStoneController ชั่วคราว
+
+    Route::get('/master-metal', [MasterStoneController::class, 'index'])->name('master-metal');
+
+    Route::get('/master-base-metal',  [MasterStoneController::class, 'index'])->name('master-base-metal');
 
 
 
-    Route::get('/master-metal', [CompanyMasterStorageController::class, 'index'])->name('master-metal');
-    Route::get('/master-base-metal', [CompanyMasterCustomerController::class, 'index'])->name('master-base-metal');
-
-
-    Route::get('/master-stone-group', [CompanyMasterStorageController::class, 'index'])->name('master-stone-group');
-    Route::get('/master-base-metal', [CompanyMasterCustomerController::class, 'index'])->name('master-base-metal');
+    Route::get('/master-stone', [MasterStoneController::class, 'index'])->name('master-stone');
+    Route::get('/master-stone-group', [MasterStoneController::class, 'index'])->name('master-stone-group');
+    Route::get('/master-stone-shape', [MasterStoneController::class, 'index'])->name('master-stone-shape');
+    Route::get('/master-stone-color', [MasterStoneController::class, 'index'])->name('master-stone-color');
+    Route::get('/master-clarity', [MasterStoneController::class, 'index'])->name('master-stone-clarity');
+    Route::get('/master-cutting', [MasterStoneController::class, 'index'])->name('master-stone-cutting');
+    Route::get('/master-stone-size', [MasterStoneController::class, 'index'])->name('master-stone-size');
+    Route::get('/master-certificate-type', [MasterStoneController::class, 'index'])->name('master-certificate-type');
 
 
 
@@ -110,8 +122,8 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
 Route::middleware('auth:company_users')->prefix('product-master')->group(function () {
     Route::get('/product-master-stone', [ProductMasterController::class, 'index'])->name('product-master-stone');
     
-    Route::get('/product-master-component', [MasterComponentController::class, 'index'])->name('product-master-component');
-    Route::get('/product-master-jewelry', [MasterJewelryController::class, 'index'])->name('product-master-jewelry');
+    Route::get('/product-master-component', [ProductMasterController::class, 'index'])->name('product-master-component');
+    Route::get('/product-master-jewelry', [ProductMasterController::class, 'index'])->name('product-master-jewelry');
 
 });
 });

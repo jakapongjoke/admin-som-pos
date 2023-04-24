@@ -8,9 +8,26 @@ trait MasterCodeTrait{
         $model = $this->setMasterCodeTable($company_name);
         return   $model->get();
     }
-    public function GetMasterCodeByType($company_name,string $master_type){
+    public function GetMasterCodeByType($company_name,string $master_type,int $limit=100){
         $model = $this->setMasterCodeTable($company_name);
-        return   $model->where('master_type','=',$master_type)->get();
+        switch($limit){
+    
+
+            case $limit > 0;
+            return   $model->where('master_type','=',$master_type)->skip(0)->take($limit)->get();
+
+            break;
+
+            case $limit < 0;
+            return false;
+            break;
+
+            default:
+
+            return   $model->where('master_type','=',$master_type)->skip(0)->take($limit)->get();
+             break;
+
+        }
     }
     public function GetMasterCodeFromMasterID($company_name,$master_id){
     
@@ -35,6 +52,7 @@ trait MasterCodeTrait{
         $model->create($data);
         return true;
     }
+
 
 
 }

@@ -20,7 +20,7 @@ trait ProductMasterTableTrait{
                 Schema::create($this->tb_name, function (Blueprint $table) {
                     
                     $table->bigIncrements('id');
-                    $table->string("product_stone_id")->unique();
+                    $table->string("product_stone_code")->unique();
                     $table->unsignedBigInteger("running_number")->unique();
                     $table->string("product_master_caption")->nullable();
                     $table->unsignedBigInteger("collection")->nullable();
@@ -31,6 +31,8 @@ trait ProductMasterTableTrait{
                     $table->unsignedBigInteger("stone_clarity")->nullable();
                     $table->unsignedBigInteger("stone_cutting")->nullable();
                     $table->longText('master_description')->nullable();
+                    $table->string("master_certificate")->nullable();
+
                     $table->unsignedBigInteger("stone")->nullable();
                     $table->float('net_weight',5,2);
                     $table->float('gross_weight',5,2);

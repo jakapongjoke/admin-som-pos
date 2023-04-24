@@ -6,8 +6,8 @@
 
 @section('content')
 
-    @include('components.tables.master.MasterStorageTable')
-    @include('components.modal.master.MasterStorageModal')
+    @include('components.tables.master.MasterMetalTable')
+    @include('components.modal.master.MasterMetalModal')
     
 @endsection
 @section('footer_script')
@@ -17,12 +17,12 @@
 
             "messageConfirm"=>[
         "heading"=>"Create",
-        "message"=>"Do you want to Create Metal Master?",
+        "message"=>"Do you want to Create Base Metal Master ?",
         "image"=> URL::asset('/images/icons/question.png')
         ],
             "messageDone"=>[
                 "heading"=>"Successful",
-                "message"=>"Save Metal Master Successful",
+                "message"=>"Save Base Metal Master Successful",
                 "image"=>URL::asset('/images/icons/checked.png') 
                 ],
             "validateUrl"=>"api/master-stroage-validate",

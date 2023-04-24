@@ -29,14 +29,13 @@ class ProductMasterController extends Controller
     }
     public function index(Request $request){
      $r = $request->segments();
+
         switch ($r[1]) {
             case "product-master-stone":
                 $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
                 $data = ['masterdata'=>$masterdata];
-             
                 return view('customer.backoffice.inventory.ProductMaster.ProductMasterStone',['data'=>$data]);
-           
-              break;
+            break;
             case "product-master-customer":
                 $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_customer');
                 $data = ['masterdata'=>$masterdata];
@@ -44,11 +43,11 @@ class ProductMasterController extends Controller
                 return view('customer.backoffice.inventory.Master.MasterCustomer',['data'=>$data]);
                          break;
           
-            case "product-master-vendor":
+            case "product-master-jewelry":
                 $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_vendor');
                 $data = ['masterdata'=>$masterdata];
              
-                return view('customer.backoffice.inventory.Master.MasterVendor',['data'=>$data]);
+                return view('customer.backoffice.inventory.ProductMaster.ProductMasterJewelry',['data'=>$data]);
              break;
           
             default:

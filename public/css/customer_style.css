@@ -14,6 +14,7 @@
 
 ul.export_setting {
     float: right;
+    margin-right: 19px;
 }
 ul.export_setting li {
     float: left;
@@ -85,7 +86,7 @@ ul.export_setting li.create {
 .table_list {
     padding: 0px;
     float: left;
-    width: 98%;
+    width: 97%;
     margin-left: 15px;
 }
 table#mastertable {
@@ -529,6 +530,9 @@ ul.nav.nav-treeview li>a {
 .pos-menu-icon.master-icon{
     background-image: url('../images/icons/crown.png');
 }
+.pos-menu-icon.product-master-icon{
+    background-image: url('../images/icons/box-7.png');
+}
 
 .dashboard-icon{
     background-image: url('../images/icons/home.png') !important;
@@ -539,7 +543,10 @@ ul.nav.nav-treeview li>a {
 .menu-is-opening .pos-menu-icon.master-icon, .menu-is-opening .icon-sub-treemenu-arrow{
     filter: brightness(0) invert(1);
 }
-
+.menu-is-opening .pos-menu-icon.product-master-icon
+{
+    filter: brightness(0) invert(1);
+}
 .list_with_sub span.menu-text {
     vertical-align: top;
     position: relative;
@@ -667,12 +674,12 @@ header.header_login .logo {
         border-radius: 18px;
         border-color: inherit;
     }
-    div#MasterItemModal .modal-dialog {
+    .modal.master_item_modal_style .modal-dialog {
         width: 1151px !important;
         max-width: 1151px;
         height: 545px !important;
     }
-    div#MasterItemModal .modal-body {
+    .modal.master_item_modal_style .modal-body {
         width: 1058px;
         height: 422px;
     }
@@ -738,8 +745,8 @@ header.header_login .logo {
         left: 50%;
         bottom: 65%;
         transform: translate(-50%, 50%);
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        padding: 10px;
     }
 
     .image-upload-1 {
@@ -959,8 +966,11 @@ header.header_login .logo {
         text-overflow: clip;
     }
 
+
     .product_master_info td {
         position: relative;
+        border-bottom-width: 0;
+        border-top: 0;
     }
 
     .product_master_info  .placeholder-text {
@@ -1064,4 +1074,102 @@ header.header_login .logo {
     .product_master_info .tab-content::-webkit-scrollbar-thumb:hover {
         background-color: #597074;
         border: 2px solid #597074;
+    }
+
+    .product_group_action .action_list {
+        width: 137px;
+        height: 134px;
+    }
+
+   .action_wrp {
+        position: relative;
+        width: 44px;
+    }
+    .product_master_info table#stoneTable {
+        margin-bottom: 0;
+    }
+    .product_master_info th {
+        color: #597074;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .product_info_price>* {
+        float: left;
+    }
+    .product_info_size>* {
+        float: left;
+    }
+    .product_info_weight>* {
+        float: left;
+    }
+    .master_certificate_img_output_block{
+      position: relative;
+      float: left;
+    }
+    .master_certificate_img_output {
+        width: 50px;
+        margin-left: 10px;
+    }
+ 
+    .delete_cert_image {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+        top: 0;
+        right: 0;
+        z-index: 99;
+        background: white;
+        border-radius: 50%;
+        font-size: 14px;
+        line-height: 100%;
+        font-weight: bold;
+        padding-left: 4px;
+    }
+    .image-upload-preview img{
+        width: 100%;
+    }
+    .multiple_images_addional_list{
+        position: absolute;
+        left: 0;
+        width: 50px;
+        height: 200px;
+        overflow-x: hidden;
+        list-style: none;
+
+    }
+    .multiple_images_addional_list li{
+        width: 59px ;
+        display: block;
+        cursor: pointer;
+        overflow-x: hidden;
+    }
+    .multiple_images_addional_list li img{
+        width: 100% ;
+        display: block;
+    }
+    .multi_img_del {
+        cursor: pointer;
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        border-radius: 50%;
+        box-shadow: 0px 3px 6px #00000029;
+        color: #597074;
+        line-height: 100%;
+        padding-top: 3px;
+        font-weight: 700;
+        text-align: center;
+    }
+    button.btn.active.btn-off.btn-md {
+        padding: 0 10;
+        border-top-right-radius: 7px;
+        border-bottom-right-radius: 7px;
+        height: 26px;
+        background: transparent linear-gradient(180deg, #d10000 0%, #f96700 100%) 0% 0% no-repeat;
+    }
+    button.btn.active.btn-off.btn-md:hover{
+        color: #FFF;
     }

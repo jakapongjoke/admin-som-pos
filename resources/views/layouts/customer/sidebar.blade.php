@@ -164,13 +164,13 @@ $request = Request::instance();
                 </a>
               </li>
          
-              <li class="nav-item {{ Request::is('master/stone-size') ? 'active' : '' }}">
-                <a href="{{url()->to('master/stone-size')}}" class="nav-link ">
+              <li class="nav-item {{ Request::is('master/master-stone-size') ? 'active' : '' }}">
+                <a href="{{url()->to('master/master-stone-size')}}" class="nav-link ">
                   <p>Stone Size</p>
                 </a>
               </li>
-              <li class="nav-item {{ Request::is('master/certificate-type') ? 'active' : '' }}">
-                <a href="{{url()->to('master/certificate-type')}}" class="nav-link ">
+              <li class="nav-item {{ Request::is('master/master-certificate-type') ? 'active' : '' }}">
+                <a href="{{url()->to('master/master-certificate-type')}}" class="nav-link ">
                   <p>Certificate Type</p>
                 </a>
               </li>
@@ -181,12 +181,12 @@ $request = Request::instance();
           </li>
 
   
-          <li class="nav-item @if(Request::segment(1) == 'master-product') is-opening menu-is-opening menu-open  @endif">
+          <li class="nav-item @if(Request::segment(1) == 'product-master') is-opening menu-is-opening menu-open  @endif">
             <span class="nav-link list_with_sub">
               <p>
               <i class="icon-sub-treemenu-arrow right arrow"></i>
 
-                <span class="pos-menu-icon master-icon"></span>
+                <span class="pos-menu-icon product-master-icon"></span>
                 <span class="menu-text">Product Master</span>
               </p>
             </span>

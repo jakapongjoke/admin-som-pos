@@ -6,8 +6,8 @@
 
 @section('content')
 
-    @include('components.tables.master.MasterStorageTable')
-    @include('components.modal.master.MasterStorageModal')
+    @include('components.tables.master.MasterBaseMetalTable')
+    @include('components.modal.master.MasterBaseMetalModal')
     
 @endsection
 @section('footer_script')

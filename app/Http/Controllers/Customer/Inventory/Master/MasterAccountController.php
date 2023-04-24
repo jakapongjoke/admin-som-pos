@@ -34,21 +34,21 @@ class MasterAccountController extends Controller
      $r = $request->segments();
         switch ($r[1]) {
             case "master-storage":
-                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
+                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage',10);
                 $data = ['masterdata'=>$masterdata];
              
                 return view('customer.backoffice.inventory.Master.MasterStorage',['data'=>$data]);
            
               break;
             case "master-customer":
-                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_customer');
+                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_customer',10);
                 $data = ['masterdata'=>$masterdata];
              
                 return view('customer.backoffice.inventory.Master.MasterCustomer',['data'=>$data]);
                          break;
           
             case "master-vendor":
-                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_vendor');
+                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_vendor',10);
                 $data = ['masterdata'=>$masterdata];
              
                 return view('customer.backoffice.inventory.Master.MasterVendor',['data'=>$data]);

@@ -1,3 +1,4 @@
+
 function Heading1(text,tagsize,classname=""){
 
     const Heading = document.createElement(tagsize);
@@ -55,10 +56,35 @@ function div(text,className="content"){
     // return "<"+ tagsize+" class=\""+classname+"\">"+text+"</"+tagsize+">";
 }
 
-function Image(src){
-    var img = document.createElement("img");
-    img.setAttribute("src", src);
+function Image(src,className="img",containerClassName=""){
+    if(containerClassName==""){
+        const elmBlockImg = document.createElement('div');
+        elmBlockImg.setAttribute('class',containerClassName);
+    
+    
+        var img = document.createElement("img");
+        img.setAttribute("src", src);
+        img.setAttribute("class", className);
+    
+        elmBlockImg.appendChild(img);
+        return elmBlockImg;
+
+
+    }else{
+
+        var img = document.createElement("img");
+        img.setAttribute("src", src);
+        img.setAttribute("class", className);
+
+        return img;
+    }
+
+
+
+
 }
+
+
 
 function CreateTagElement(text,elem,classname=""){
     const newDiv = document.createElement(elem);
@@ -70,4 +96,23 @@ function CreateTagElement(text,elem,classname=""){
     // return "<"+ elem+" class=\""+classname+"\">"+text+"</"+elem+">";
 }
 
+function insertOption(selectElm,optionData){
+    // jQuery('#'+selectElm).remove();
+
+    jQuery('#'+selectElm).children('option')
+    for(i = 0 ; i<optionData.length ; i++){
+        jQuery('#'+selectElm).append( '<option value="'+optionData[i].id+'">'+optionData[i].master_name+"__"+optionData[i].parent_id+'</option>' );
+    }
+    // for (const key in optionData) {
+
+    //     jQuery('#'+selectElm).append( '<option value="'+optionData['id']+'">'+optionData['master_name']+'</option>' );
+    // }
+
+}
+
+function clearOption(selectElm,defultValue){
+    jQuery('#'+selectElm).children('option').remove();
+    jQuery('#'+selectElm).append( '<option value="">'+defultValue+'</option>' );
+
+}
 

@@ -40,14 +40,14 @@ class MasterItemsController extends Controller
            
               break;
             case "master-collection":
-                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_customer');
+                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_item_collection',10);
                 $data = ['masterdata'=>$masterdata];
              
-                return view('customer.backoffice.inventory.Master.MasterCustomer',['data'=>$data]);
+                return view('customer.backoffice.inventory.Master.MasterCollection',['data'=>$data]);
                          break;
           
             case "master-item-size":
-                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_vendor');
+                $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_item_size',10);
                 $data = ['masterdata'=>$masterdata];
              
                 return view('customer.backoffice.inventory.Master.MasterVendor',['data'=>$data]);
@@ -59,5 +59,15 @@ class MasterItemsController extends Controller
    
         
         
+    }
+
+    public  function find(Request $request){
+        $r = $request->segments();
+       
+        switch ( $r[3]) {
+            case "master-item-size":
+                return $this->MasterCodeService->GetMasterCodeByTypeJson($request->company_name,"master_item_size",50);
+            break;
+        }
     }
 }

@@ -4,7 +4,8 @@ namespace App\Interfaces\Customer\Inventory\Master;
 interface MasterCodeInterface{
     public function all($company_name);
     // public function find(int $master_id);
-    public function FindByMasterType(string $company_name,string $master_type);
+    public  function FindByMasterType(string $company_name,string $master_type,int $limit=100);
+    
     // public function create(array $data = []);
     // public function paginate($length);
     // public function delete(int $master_id);
