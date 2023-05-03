@@ -305,8 +305,8 @@ input.form-check-input.master_list_check_all {
 }
 .action_list {
     position: absolute;
-    width: 120px;
-    height: 102px;
+    width: 149px;
+    height: 145px;
     opacity: 1;
     right: 20px;
     padding-top: 4px;
@@ -948,6 +948,7 @@ header.header_login .logo {
     .product_master_info .currency {
         width: 90px !important;
         margin-left: 5px;
+        float: left;
     }
 
     .product_master_info .container {
@@ -957,15 +958,20 @@ header.header_login .logo {
         opacity: 1;
     }
 
-    .product_master_info div[contenteditable="true"] {
-        width: 140px;
+    .product_master_info .number {
+        width: auto;
+        max-width: 125px;
+        margin-right: 4px;
+        min-width: 20px;
         min-height: 32px;
         word-break: break-all;
         overflow: hidden;
         white-space: pre;
         text-overflow: clip;
+        float: left;
+        border: none;
+        outline: none;
     }
-
 
     .product_master_info td {
         position: relative;
@@ -1172,4 +1178,20 @@ header.header_login .logo {
     }
     button.btn.active.btn-off.btn-md:hover{
         color: #FFF;
+    }
+
+    .product_info_price {
+        width: 100%;
+        float: left;
+    }
+    .form-control.number-block {
+        float: left;
+        width: 190px;
+        padding-top: 3px;
+    }
+    
+    .number-currency {
+        padding-top: 3px;
+        font-size: 14px;
+        color: #707070;
     }

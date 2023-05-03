@@ -57,7 +57,9 @@ function div(text,className="content"){
 }
 
 function Image(src,className="img",containerClassName=""){
+
     if(containerClassName==""){
+        
         const elmBlockImg = document.createElement('div');
         elmBlockImg.setAttribute('class',containerClassName);
     
@@ -99,9 +101,9 @@ function CreateTagElement(text,elem,classname=""){
 function insertOption(selectElm,optionData){
     // jQuery('#'+selectElm).remove();
 
-    jQuery('#'+selectElm).children('option')
+    // jQuery('#'+selectElm).children('option')
     for(i = 0 ; i<optionData.length ; i++){
-        jQuery('#'+selectElm).append( '<option value="'+optionData[i].id+'">'+optionData[i].master_name+"__"+optionData[i].parent_id+'</option>' );
+        jQuery('#'+selectElm).append( '<option value="'+optionData[i].id+'">'+optionData[i].master_name+'</option>' );
     }
     // for (const key in optionData) {
 
@@ -116,3 +118,24 @@ function clearOption(selectElm,defultValue){
 
 }
 
+function tableColumn(content){
+    let td =  document.createElement("td");
+    td.appendChild(content);
+    return td;
+}
+
+
+function selectList(id,className,selectName,list){
+    let selectList = "<select>"
+     selectList += "</select>"
+    return selectList;
+}
+
+function InputText(className="",Inputname="",InputTextVal=""){
+    let TheInputText = "<input type=\"text\" ";
+    TheInputText += "class=\""+className+"\" ";
+    TheInputText += "name=\""+Inputname+"\"";
+    TheInputText += " value=\""+InputTextVal+"\"";
+    TheInputText += ">"
+    return TheInputText;
+}

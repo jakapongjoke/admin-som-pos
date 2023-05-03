@@ -8,6 +8,7 @@ trait MasterCodeTrait{
         $model = $this->setMasterCodeTable($company_name);
         return   $model->get();
     }
+    
     public function GetMasterCodeByType($company_name,string $master_type,int $limit=100){
         $model = $this->setMasterCodeTable($company_name);
         switch($limit){
@@ -43,7 +44,7 @@ trait MasterCodeTrait{
         $MasterCode = new MasterCode();
    
         $model = $MasterCode->setTable( $table);
-        $model =$MasterCode->fillable(['master_code','master_name','running_number','master_tag','master_type','master_price','master_description','master_status','master_image','addional_infomation']);
+        $model =$MasterCode->fillable(['master_code','master_name','running_number','master_tag','master_type','master_price','master_description','master_status','master_image','addional_infomation','master_addional_infomation','master_available_for']);
         return $model;
     }
     public function createMasterCode($company_name,$data){

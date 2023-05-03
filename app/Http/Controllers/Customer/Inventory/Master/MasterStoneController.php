@@ -216,6 +216,10 @@ class MasterStoneController extends Controller
             return $this->MasterStoneService->GetMasterCodeByTypeJson($request->company_name,"master_certificate_type",50);
 
         break;
+        case "master-stone-size":
+            return $this->MasterStoneService->GetMasterCodeByTypeJson($request->company_name,"master_stone_size",50);
+
+        break;
 
 
 

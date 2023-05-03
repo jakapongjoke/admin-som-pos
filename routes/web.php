@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyUserController;
 
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;

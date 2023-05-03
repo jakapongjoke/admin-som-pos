@@ -159,14 +159,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td>
                             <input type="text" class="form-control product_info_group" name="product_info[][group]"></div>
 
                             </td>
                             <td>
                                 <div class="product_info_price">
-                                    <div class="form-control" contenteditable="true"></div>
+                                    <div class="form-control" contenteditable="true" ></div>
                                     <input type="hidden" class="form-control" name="product_info[][price]">
                                     <select class="form-control currency mb-1 unit_price" name="product_info[][unit_price]">
                                         <option value="cts">cts</option>
@@ -218,7 +218,7 @@
                              
                             </td>
                        
-                        </tr>
+                        </tr> -->
 
                     </tbody>
 
@@ -235,6 +235,7 @@
 </div>
 </div>
 <script>
+  
 const ProductGroupInfo = {
   list: [
                   {
@@ -265,6 +266,7 @@ function updateList(CurrentRow,data){
   window.addEventListener('DOMContentLoaded',  () => {
       let $ = jQuery;
 
+      ProductGroupList(jQuery('#stoneTable'),[])
 
 
 
@@ -293,13 +295,34 @@ jQuery( ".create" ).bind( "myCustomEvent", function( e, data ) {
 //   e.preventDefault();
  
 // });
+window.addEventListener('DOMContentLoaded',  () => {
+    
+    jQuery('.action_button').on('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).parents('.action_wrp').toggle();
+        $(this).parents('.action_wrp').toggleClass('active');
+        // $(this).parents('.action_wrp').find('.action_list').toggleClass('show');
 
+        // if($(this).parents('.action_wrp').hasClass('active')){
+        //     $(this).parents('.action_wrp').find('.action_list').removeClass('show');
+        //     $(this).parents('.action_wrp').find('.action_list').hide();
+        // }else{
+        //      $(this).parents('.action_wrp').addClass('active');
+
+        // }
+
+        });
+
+  });
 
       $('.add_group').on('click',function (e) {
         e.preventDefault();
         e.stopPropagation();
-        $('.action_wrp').removeClass('active');
-
+        
+       
+        $(this).parents('.action_wrp').find('.action_list').toggleClass('show');
+        $(this).parents('.action_wrp').find('.action_list').toggle();
         // $(this).parents('tbody').append($(this).parents('tr').clone(true,true));
 
         })

@@ -37,13 +37,13 @@ Route::middleware('auth:company_users')->prefix('master')->group(function () {
 
 // });
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('master')->group(function ($company_name) {
+    Route::get('master-item/',[MasterItemsController::class,'find']);
     Route::get('master-item/{master_type}',[MasterItemsController::class,'find']);
     Route::get('master-stone/{master_type}',[MasterStoneController::class,'find']);
     Route::get('master-stone/master-stone-name/{parent_id}',[MasterStoneController::class,'find']);
     Route::post('/master-stroage-validate',[CompanyMasterStorageController::class,'ValidateData']);
     Route::post('/master-stroage',[CompanyMasterStorageController::class,'store']);
     Route::post('/master',[CompanyMasterStorageController::class,'store']);
-
 });
 
 

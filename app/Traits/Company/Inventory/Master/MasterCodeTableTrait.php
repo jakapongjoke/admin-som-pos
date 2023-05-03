@@ -22,16 +22,19 @@ trait MasterCodeTableTrait{
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger("running_number");
                 $table->bigInteger("parent_id");
-                $table->string("master_code");
+                $table->string("master_code")->nullable();
 
                 $table->string("master_name")->unique();
-                $table->string("master_tag");
+                $table->string("master_tag")->nullable();
                 $table->enum('master_type', ['master_account_storage','master_account_customer','master_account_vendor','master_item','master_item_collection','master_item_size','master_metal_base','master_metal','master_stone_group','master_stone_name','master_stone_shape','master_stone_color','master_stone_clarity','master_stone_cutting','master_stone_size','master_certificate_type','master_labour_pricing']);
-                $table->float('master_price',10,2);
+                $table->text('master_price');
                 $table->text('master_description')->nullable();
                 $table->enum('master_status', ['active','inactive']);
                 $table->text('master_image')->nullable();
-                $table->longText('addional_infomation')->nullable();
+                $table->longText('master_infomation')->nullable();
+                $table->longText('master_formula')->nullable();
+                $table->longText('master_addional_infomation')->nullable();
+                $table->longText('master_available_for')->nullable();
         
                 $table->timestamps();
 

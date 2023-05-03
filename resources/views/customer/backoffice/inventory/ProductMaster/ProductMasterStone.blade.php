@@ -39,6 +39,7 @@
 
 @endcomponent
 <script src="{{URL::asset('js/helpers/files_helper.js')}}"></script>
+<script src="{{URL::asset('js/helpers/product_master/product_group_helper.js')}}"></script>
 <script>
 jQuery('.create').on('click',async function(e){
 e.stopPropagation();
@@ -51,10 +52,15 @@ const resp =  stone_group.data;
 // let data = await JSON.parse(resp.data);
 let data = [...resp.data];
 let productMasterImage = [];
+const master_size = await SendAjaxGet('api/master/master-stone/master-stone-size/');
+const resp_master_size =  stone_group.data;
+// let data = await JSON.parse(resp.data);
+let master_size_data = [...resp_master_size.data];
  insertOption("stone_group",data);
  multipleImage('img_upload_wrapper','image-upload-preview',productMasterImage,'images/icons/image_upload.png');
- jQuery('#MasterProductModal').modal()
 
+ jQuery('#MasterProductModal').modal()
+ insertOption("product_info_size",master_size_data)
 
 
 
