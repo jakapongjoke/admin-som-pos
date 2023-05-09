@@ -69,17 +69,29 @@ trait MasterCodeTableTrait{
                     $table->bigIncrements('id');
                     $table->unsignedBigInteger("running_number");
                     $table->unsignedBigInteger("master_id");
-                    $table->string("company_registration_number")->nullable();
-                    $table->string("company_contact_firstname")->nullable();
-                    $table->string("company_contact_middlename")->nullable();
-                    $table->string("company_contact_lastname")->nullable();
-                    $table->enum('master_type', ['male','female']);
-                    $table->date("company_contact_date_of_birth")->nullable();
-                    $table->string("company_contact_email")->nullable();
-                    $table->text("company_ship_address")->nullable();
-                    $table->unsignedInteger("company_ship_district")->nullable()->default(0);
-                    $table->unsignedInteger("company_ship_province")->nullable()->default(0);
-                    $table->string("company_ship_poscode")->nullable();
+                    $table->string("company_registration_number")->nullable()->unique();
+                    $table->string("contact_citizen_id_number")->nullable();
+                    $table->string("contact_firstname")->nullable();
+                    $table->string("contact_middlename")->nullable();
+                    $table->string("contact_lastname")->nullable();
+                    $table->enum('gender', ['male','female','other','no_value']);
+                    $table->date("contact_date_of_birth")->nullable();
+                    $table->string("contact_email")->nullable();
+                    $table->string("contact_phone")->nullable();
+                    
+                    $table->text("ship_address")->nullable();
+                    $table->unsignedInteger("ship_district")->nullable()->default(0);
+                    $table->unsignedInteger("ship_province")->nullable()->default(0);
+                    $table->unsignedInteger("ship_country")->nullable()->default(0);
+                    $table->string("ship_poscode")->nullable();
+
+                    $table->text("tax_inv_address")->nullable();
+                    $table->unsignedInteger("tax_inv_district")->nullable()->default(0);
+                    $table->unsignedInteger("tax_inv_province")->nullable()->default(0);
+                    $table->unsignedInteger("tax_inv_country")->nullable()->default(0);
+                    $table->string("tax_inv_poscode")->nullable();
+
+
                     $table->string("branch_code")->nullable();
                     $table->string("branch_location")->nullable();
                     $table->string("branch_address")->nullable();
