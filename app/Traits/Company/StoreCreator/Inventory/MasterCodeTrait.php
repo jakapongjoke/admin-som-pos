@@ -26,6 +26,16 @@ trait MasterCodeTrait {
         $lastRecord =  $model->latest()->first()->id+1;
         return $lastRecord;
     }
+
+    public function getMasterCodeByTypeArray(string $company_name,string $master_type){
+        $table = $company_name."_master_code";
+        $MasterCode = new MasterCode();
+   
+        $model = $MasterCode->setTable( $table);
+        $data =  $model->where("master_type","=",$master_type)->get()->toArray();
+       return  $data;
+
+    }
 }
 
 ?>

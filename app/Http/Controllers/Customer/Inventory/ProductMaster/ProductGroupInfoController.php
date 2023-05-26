@@ -4,14 +4,20 @@ namespace App\Http\Controllers\Customer\Inventory\ProductMaster;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-class MasterStoneController extends Controller
+use App\Services\Customer\Inventory\ProductMaster\ProductGroupInfoService;
+class ProductGroupInfoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Ht
+     * tp\Response
      */
+    private ProductGroupInfoService $ProductGroupInfoService;
+    public function __construct(ProductGroupInfoService $ProductGroupInfoService)
+    {
+        $this->ProductGroupInfoService = $ProductGroupInfoService;
+    }
     public function index()
     {
         //
@@ -84,5 +90,12 @@ class MasterStoneController extends Controller
     }
     public function list(Request $request){
 
+    }
+    
+    public function getInfoSizeOnce(Request $request){
+        return $this->ProductGroupInfoService->getSizeOnce($request->company_name,$request->product_master_id);
+    }
+    public function getInfoSizeSalePriceOnce(Request $request){
+        return $this->ProductGroupInfoService->getInfoSizeSalePriceOnce($request->company_name,$request->product_master_id);
     }
 }

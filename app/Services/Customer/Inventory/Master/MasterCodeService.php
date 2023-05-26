@@ -7,7 +7,6 @@ class MasterCodeService {
 
 use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
 
-
     
     public function CreateMasterStorage($company_name,$data){
         $this->MasterCodeRepository->create($company_name,[

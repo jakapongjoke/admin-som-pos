@@ -40,6 +40,61 @@
 @endcomponent
 <script src="{{URL::asset('js/helpers/files_helper.js')}}"></script>
 <script src="{{URL::asset('js/helpers/product_master/product_group_helper.js')}}"></script>
+<script src="{{URL::asset('js/helpers/list_helper.js')}}"></script>
+<script src="{{URL::asset('js/helpers/api_helper.js')}}"></script>
+<script>
+    const dataField  = {
+        heading:['No.', 'Image', 'Stone Code', 'Stone Group', 'Stone', 'Shape', 'Size', 'Price (THB)', 'Description', 'Last Modified Date', 'Active', 'Action'],
+        colData:["master_image","product_stone_code","stone_group","stone_name","stone_shape","size","price","master_description","updated_at"],
+        activeStatusButton:true,
+        action:{
+            preview:true,
+            edit:true,
+            copy:true,
+            delete:true
+        }
+        
+    }
+    document.addEventListener('DOMContentLoaded', async function() {
+        document.getElementById("#mastertable");
+
+        const data = await fetchdata('/api/product-master/product-master-stone/10/1');
+
+      
+       console.log(stone_group);
+        // console.log(JSON.parse(JSON.stringify(product_master_list_resp)))
+       let MountedDom = jQuery("#mastertable").html(headerTable(["No.","Image","Stone Code","Stone Group","Stone","Shape","Size","Price (THB)","Description",'Last Modified Date',"Active","Action"]));
+       const product_master_list_resp = await data.list_data;
+   
+       for (const { id,stone_group, product_stone_code,stone_name,stone_shape,master_description,updated_date } of product_master_list_resp) {
+            const product_stone_group_name = await fetchdata('/api/master/master-name-by-id/'+stone_group);
+            const product_stone_name = await fetchdata('/api/master/master-name-by-id/'+stone_name);
+            const product_stone_shape= await fetchdata('/api/master/master-name-by-id/'+stone_shape);
+            const product_stone_description = master_description;
+            const product_stone_updated_date = updated_date;
+            const product_size_price = await fetchdata('/api/product-master-group-info/get-size-sale-price/'+id);
+            const listobj = [{
+                product_stone_group_name:product_stone_group_name.data,
+                product_stone_name:product_stone_name.data,
+                product_stone_shape:product_stone_shape.data,
+                product_stone_size:product_size_price.size_name,
+                product_stone_price:product_size_price.sale_price,
+                product_stone_description:product_stone_description,
+                product_stone_updated_date:product_stone_updated_date
+
+            }];
+            let product_master_list =[];
+            product_master_list.push(listobj) ;
+            console.log(product_master_list);
+        }
+      
+       MountedDom.find('tr').click(function(e){
+        console.log('wowow');
+       });
+    })
+ 
+</script>
+
 <script>
 jQuery('.create').on('click',async function(e){
 e.stopPropagation();

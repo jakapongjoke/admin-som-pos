@@ -3,10 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Services\Customer\Inventory\Master\MasterCodeService;
+
+use App\Http\Controllers\Customer\Inventory\Master\MasterCodeController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
+use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
+use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductGroupInfoController;
 use App\Http\Controllers\CountrySelectorContoller;
 
 
@@ -44,6 +48,21 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::post('/master-stroage-validate',[CompanyMasterStorageController::class,'ValidateData']);
     Route::post('/master-stroage',[CompanyMasterStorageController::class,'store']);
     Route::post('/master',[CompanyMasterStorageController::class,'store']);
+    Route::get('/get-by-id/{master_id}',[MasterCodeController::class,'getMasterCodeById']);
+    Route::get('/master-name-by-id/{master_id}',[MasterCodeController::class,'getMasterNameById']);
+
+
+});
+Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('product-master')->group(function ($company_name) {
+    Route::get('/product-master-stone/{perPage}/{page}',[ProductMasterController::class,'list']);
+
+
+});
+Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('product-master-group-info')->group(function ($company_name) {
+    Route::get('/get-size-once/{product_master_id}/{',[ProductGroupInfoController::class,'getInfoSizeOnce']);
+    Route::get('/get-size-sale-price/{product_master_id}',[ProductGroupInfoController::class,'getInfoSizeSalePriceOnce']);
+
+
 });
 
 

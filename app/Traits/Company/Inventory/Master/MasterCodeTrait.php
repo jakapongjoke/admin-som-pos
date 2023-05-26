@@ -21,6 +21,49 @@ trait MasterCodeTrait{
     
     }
 
+    public function getMasterNameById(string $company_name , int $master_id){
+        $mastercode = new MasterCode();
+    
+        $model = $mastercode->newInstance([], true);
+        $tb = $company_name."_master_code";
+        $model->setTable($tb);  
+        $result =  $model->where('id', $master_id)->first()->master_name;
+ 
+        if (!$result) {
+            return response()->json([
+                "status" => 404,
+                "message" => "No data found.",
+            ], 404);
+        } else {
+            return response()->json([
+                "status" => 200,
+                "data" => $result,
+            ], 200);
+        }
+    }
+    public function getMasterCodeById(string $company_name , int $master_id){
+        $mastercode = new MasterCode();
+    
+        $model = $mastercode->newInstance([], true);
+        $tb = $company_name."_master_code";
+        $model->setTable($tb);  
+        $result =  $model->where('id', $master_id)->first();
+ 
+        if (!$result) {
+            return response()->json([
+                "status" => 404,
+                "message" => "No data found.",
+            ], 404);
+        } else {
+            return response()->json([
+                "status" => 200,
+                "data" => $result->toArray(),
+            ], 200);
+        }
+
+    
+    }
+
     public  function GetMasterCodeByTypeJson(string $company_name , string $master_type,$limit=100,$skip=0){
         $mastercode = new MasterCode();
    

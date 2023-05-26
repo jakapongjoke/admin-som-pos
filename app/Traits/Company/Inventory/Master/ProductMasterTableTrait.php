@@ -27,22 +27,25 @@ trait ProductMasterTableTrait{
                     $table->unsignedBigInteger("metal")->nullable();
                     $table->unsignedBigInteger("size")->nullable();
                     $table->unsignedBigInteger("stone_color")->nullable();
+                    $table->unsignedBigInteger("stone_group")->nullable();
                     $table->unsignedBigInteger("stone_name")->nullable();
                     $table->unsignedBigInteger("stone_clarity")->nullable();
                     $table->unsignedBigInteger("stone_cutting")->nullable();
+                    $table->unsignedBigInteger("stone_shape")->nullable();
                     $table->longText('master_description')->nullable();
                     $table->string("master_certificate")->nullable();
+                    $table->string("master_certificate_image")->nullable();
 
                     $table->unsignedBigInteger("stone")->nullable();
-                    $table->float('net_weight',5,2);
-                    $table->float('gross_weight',5,2);
-                    $table->unsignedDouble('sale_price',10,2);
-                    $table->unsignedDouble('master_price',10,2);
+                    $table->float('net_weight',5,2)->nullable();
+                    $table->float('gross_weight',5,2)->nullable();
+                    $table->unsignedDouble('sale_price',10,2)->nullable();
+                    $table->unsignedDouble('master_price',10,2)->nullable();
                     $table->unsignedBigInteger('item');
                     $table->text('master_image')->nullable();
                     $table->string("master_tag");
     
-                    $table->enum('master_type', ['vendor_master', 'product_master,','item_master']);
+                    $table->enum('master_type', ['product_master_stone', 'product_master_component','product_master_jewelry']);
                     $table->enum('master_status', ['active','inactive']);
     
     
@@ -77,19 +80,22 @@ trait ProductMasterTableTrait{
     
                     Schema::create($this->tb_name, function (Blueprint $table) {
                         $table->bigIncrements('id');
-                        $table->unsignedBigInteger("product_master_id");
-                        $table->string("product_stone_id");
+                        $table->unsignedBigInteger("product_master_id")->nullable();
+                        $table->string("product_stone_code")->nullable();
+                        $table->unsignedBigInteger("product_stone_code_id")->nullable();
+                        $table->unsignedBigInteger("product_stone_group_id")->nullable();
                         $table->string("group_name")->nullable();
-                        $table->float('size',5,2)->nullable();
+                        $table->unsignedBigInteger('size')->nullable();
                         $table->float('standard_weight',5,2)->nullable();
                         $table->string("unit")->nullable();
                         $table->unsignedInteger("quantity")->nullable();
                         $table->unsignedBigInteger("shape")->nullable();
-                        $table->float('weight',5,2);
-                        $table->float("unit_weight",5,2);
+                        $table->float('weight',5,2)->nullable();
+                        $table->float("unit_weight",5,2)->nullable();
                         $table->unsignedDouble('amount',10,2)->nullable();
                         $table->unsignedDouble('sale_price',10,2)->nullable();
                         $table->unsignedDouble('price',10,2)->nullable();
+                        $table->string("sale_price_unit")->nullable();
                         $table->text("process_labour")->nullable();
                         $table->enum('product_group_info_type', ['stone','component','process_labour']);
                         $table->timestamps();

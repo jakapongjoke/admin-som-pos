@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\Inventory\ProductMaster;
 use App\Services\Customer\Inventory\Master\MasterCodeService;
+use App\Services\Customer\Inventory\ProductMaster\ProductStoneMasterService;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,11 +10,21 @@ use Illuminate\Http\Request;
 class ProductMasterController extends Controller
 {
     private MasterCodeService $MasterCodeService;
-    public function __construct(MasterCodeService $MasterCodeService)
+    private ProductStoneMasterService $ProductStoneMasterService;
+    public function __construct(MasterCodeService $MasterCodeService,ProductStoneMasterService $ProductStoneMasterService)
     {
         $this->MasterCodeService = $MasterCodeService;
+        $this->ProductStoneMasterService = $ProductStoneMasterService;
     }
-  
+    public function list(Request $request){
+        $r = $request->segments();
+
+        switch ($r[2]) {
+            case "product-master-stone":
+                return $this->ProductStoneMasterService->list($request->company_name,$request->perPage,$request->page);
+            break;
+        }
+    }
     public function ValidateData(CompanyMasterStorageRequest $request)
     {   
         
