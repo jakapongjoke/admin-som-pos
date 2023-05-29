@@ -82,6 +82,8 @@ class ProductMasterSeeder extends Seeder
                         "master_tag"=> null,
                         "master_type"=> 'product_master_stone',
                         "master_status"=> 'active'
+                        // "created_at"=> date(),
+                        // "updated_at"=>  date()
                     ];
                     $this->insertProductMaster('ananta',$data );
 

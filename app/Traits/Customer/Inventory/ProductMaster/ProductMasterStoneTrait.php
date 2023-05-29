@@ -6,7 +6,7 @@ use App\Helpers\Util;
 
 trait ProductMasterStoneTrait{
 use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
-
+    
     public function findStoneId(string $company_name,$stoneCode){
         $model = $this->setProductMasterTable($company_name);
           return $model->where('product_stone_code',"LIKE", '%'.$stoneCode.'%')->get();
@@ -46,16 +46,31 @@ use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
         $skip = ($page - 1) * $perPage;
 
         $model = $productMater->newInstance([], true);
-        $tb = $company_name."_product_master";
-        $model->setTable($tb);  
-        $data = $model->where("master_type","=","product_master_stone")->skip($skip)->take($perPage)->get()->toArray();
-        $group_info_tb_name =  $company_name."_product_group_info";
-        for($i=0 ; $i<count($data) ; $i++){
-           $sale_price_size =  DB::table($group_info_tb_name)->select("sale_price,size")->where("product_master_id",'=',$data[$i]['id'])->limit(10);
-            array_push($data[$i],[
-                "sale_price_size"
-            ]);
-        }
+        $productMasterTb = $company_name."_product_master";
+        $groupInfoTbName =  $company_name."_product_group_info";
+        $masterCodeTbName =  $company_name."_master_code";
+        $table_data = [
+            "productMasterTb"=> $productMasterTb,
+            "groupInfoTbName"=> $groupInfoTbName,
+            "masterCodeTbName"=> $masterCodeTbName,
+        ];
+        $model->setTable($table_data['productMasterTb']);  
+
+     
+        $subquery = DB::table($masterCodeTbName)->select('id','master_name')
+    ->where('master_type', '=', 'master_stone_group')->orWhere('master_type', '=', 'master_stone_shape')->orWhere('master_type', '=', 'master_stone_name')->orWhere('master_type', '=', 'master_stone_size');
+    $master_price =  DB::table("$table_data[groupInfoTbName]")->select('id','sale_price');
+
+$data = DB::table( $table_data['productMasterTb'])
+
+    ->join($table_data['groupInfoTbName'], "$table_data[productMasterTb].id", '=', "$table_data[groupInfoTbName].product_master_id")
+  
+    ->selectRaw("$table_data[productMasterTb].master_image")
+    ->skip($skip)->take($perPage)
+    ->get();
+
+
+
         return $data;
      
     }
