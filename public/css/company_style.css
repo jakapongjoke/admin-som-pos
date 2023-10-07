@@ -185,14 +185,14 @@ a.nav-link.shownav {
     right: 0;
     top: 9px;
 }
-button.btn.active.btn-on.btn-md {
+.lang-box button.btn.active.btn-on.btn-md {
     padding: 0 10;
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
     height: 26px;
     background: transparent linear-gradient(180deg, #597074 0%, #8BADB2 100%) 0% 0% no-repeat;
 }
-button.btn.active.btn-off.btn-md {
+.lang-box button.btn.active.btn-off.btn-md {
     padding: 0 10;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
@@ -200,7 +200,7 @@ button.btn.active.btn-off.btn-md {
     background: transparent linear-gradient(180deg, #597074 0%, #8BADB2 100%) 0% 0% no-repeat;
 }
 
-.btn-group.btn-toggle {
+.lang-box .btn-group.btn-toggle {
     color: white;
     width: 66px;
     height: 26px;
@@ -208,7 +208,7 @@ button.btn.active.btn-off.btn-md {
     border-radius: 10px;
     padding-top: 27px;
 }
-button.btn.btn-default.btn-md {
+.lang-box  button.btn.btn-default.btn-md {
     border-top-left-radius: 11px;
     border-bottom-left-radius: 11px;
     border-top-right-radius: 11px;
@@ -220,7 +220,7 @@ button.btn.btn-default.btn-md {
     z-index: 99;
 }
 
-.btn-group.btn-toggle .btn-default:first-child {
+.lang-box  .btn-group.btn-toggle .btn-default:first-child {
     border-top-left-radius: 11px;
     border-bottom-left-radius: 11px;
     border-top-right-radius: 11px;

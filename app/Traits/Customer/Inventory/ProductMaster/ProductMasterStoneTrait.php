@@ -3,6 +3,9 @@ namespace App\Traits\Customer\Inventory\ProductMaster;
 use App\Models\Customer\Inventory\ProductMater;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\Util;
+use Illuminate\Support\Arr;
+use Carbon\Carbon;
+use Response;
 
 trait ProductMasterStoneTrait{
 use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
@@ -17,9 +20,11 @@ use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
 
         return $model->selectRaw('COUNT(*) as count')->value('count') ?? 1;
     }
+
+
     public function stoneRunningNumber(string $company_name,$code=[]){
 
-        $prefixCode = $code[0].'-'.$code[1].$code[2];
+        $prefixCode = $code[0].'-'.$code[1].$code[2].$code[3];
 
        $numproduct =  $this->findStoneId($company_name,$prefixCode)->count();
 
@@ -36,12 +41,15 @@ use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
        
     }
     public function genProductMasterCode(string $company_name,$code=[]){
-        $prefixCode = $code[0].'-'.$code[1].$code[2];
+        $prefixCode = $code[0].'-'.$code[1].$code[2].$code[3];
         $running_number  = $this->stoneRunningNumber($company_name,$code);
         return $prefixCode.$running_number;
     }
-
-    public function listProductStoneMaster(string $company_name , $perPage = 10 ,$page=1){
+    public function checkMasterUsingInProductMaster($company_name,$master_type,$master_id ){
+        $model = $this->setProductMasterTable($company_name);
+        return $model->where($master_type,'=',$master_id)->get()->count();
+    }
+    public function listProductStoneMaster(string $company_name , int $perPage = 10 ,int $page=1){
         $productMater = new ProductMater();
         $skip = ($page - 1) * $perPage;
 
@@ -49,6 +57,7 @@ use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
         $productMasterTb = $company_name."_product_master";
         $groupInfoTbName =  $company_name."_product_group_info";
         $masterCodeTbName =  $company_name."_master_code";
+
         $table_data = [
             "productMasterTb"=> $productMasterTb,
             "groupInfoTbName"=> $groupInfoTbName,
@@ -56,31 +65,126 @@ use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
         ];
         $model->setTable($table_data['productMasterTb']);  
 
-     
-        $subquery = DB::table($masterCodeTbName)->select('id','master_name')
-    ->where('master_type', '=', 'master_stone_group')->orWhere('master_type', '=', 'master_stone_shape')->orWhere('master_type', '=', 'master_stone_name')->orWhere('master_type', '=', 'master_stone_size');
-    $master_price =  DB::table("$table_data[groupInfoTbName]")->select('id','sale_price');
+        $productMasterData =  $model->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","master_description","updated_at"])->skip($skip)->limit($perPage)->orderByRaw("$table_data[productMasterTb].id asc")->get()->toArray();
 
-$data = DB::table( $table_data['productMasterTb'])
+        
+        // $masterData = $this->getMasterCodeForProductMasterPreset($company_name);
 
-    ->join($table_data['groupInfoTbName'], "$table_data[productMasterTb].id", '=', "$table_data[groupInfoTbName].product_master_id")
-  
-    ->selectRaw("$table_data[productMasterTb].master_image")
-    ->skip($skip)->take($perPage)
-    ->get();
+       
+        $productMasterInfo = DB::table("$table_data[groupInfoTbName]")->select(['product_stone_code','product_master_id','size','sale_price'])->where('product_group_info_type','=','stone')->get(); 
 
 
+        
+        
+        $productdata = [];
+        for( $i = 0 ; $i<count($productMasterData) ; $i++){
+            $date = Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z',$productMasterData[$i]['updated_at']);
+            $formattedDate = $date->format('d/m/Y');
 
-        return $data;
+            $productMasterData[$i]['stone_group'] = $this->getMasterNameForProductMasterPresetOnce($company_name,$productMasterData[$i]['stone_group'])  ;
+            $productMasterData[$i]['stone_name'] = $this->getMasterNameForProductMasterPresetOnce($company_name,$productMasterData[$i]['stone_name'])  ;
+            $productMasterData[$i]['stone_shape'] = $this->getMasterNameForProductMasterPresetOnce($company_name,$productMasterData[$i]['stone_shape'])  ;
+            $productMasterData[$i]['updated_at'] = $formattedDate;
+
+            $productMasterData[$i]['sale_price'] = [];
+                $productMasterData[$i]['size'] = [];
+            $infodata =  $productMasterInfo->filter(function ($item) use ($i,$productMasterData){
+              
+                return $item->product_stone_code == $productMasterData[$i]['product_stone_code'];
+    
+
+                   
+            });    
+            // print_r($masterData);
+            foreach ($infodata as $item) {
+               
+                array_push($productMasterData[$i]['size'] , $this->getMasterNameForProductMasterPresetOnce($company_name,$item->size)  );
+                array_push($productMasterData[$i]['sale_price'] , $item->sale_price);
+             
+            }
+            
+            }
+
+        DB::disconnect();
+        
+         return  $productMasterData;
+        
      
     }
 
+    public function getProductMasterById(string $company_name,int $id){
+        $productMater = new ProductMater();
 
+        $model = $productMater->newInstance([], true);
+        $productMasterTb = $company_name."_product_master";
+        $groupInfoTbName =  $company_name."_product_group_info";
+        $masterCodeTbName =  $company_name."_master_code";
+
+        $table_data = [
+            "productMasterTb"=> $productMasterTb,
+            "groupInfoTbName"=> $groupInfoTbName,
+            "masterCodeTbName"=> $masterCodeTbName,
+        ];
+        $model->setTable($table_data['productMasterTb']);  
+
+        $productMasterData =  $model->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","stone_color","stone_clarity","stone_cutting","master_certificate","master_description","updated_at"])->where('id','=',$id)->orderByRaw("$table_data[productMasterTb].id asc")->get()->toArray();
+
+        
+        // $masterData = $this->getMasterCodeForProductMasterPreset($company_name);
+
+       
+        $productMasterInfo = DB::table("$table_data[groupInfoTbName]")->select(['product_stone_code','product_master_id','group_name','size','sale_price','standard_weight','unit','sale_price_unit'])->where('product_group_info_type','=','stone')->where('product_master_id','=',$id)->get()->toArray(); 
+
+        $data = [
+            "productMasterData"=>$productMasterData[0],
+            "productMasterInfo"=>$productMasterInfo
+        ];
+
+
+        DB::disconnect();
+        
+         return  $data;
+        
+    }
+    public function getProductMasterStoneById(string $company_name,int $id){
+        $productMater = new ProductMater();
+
+        $model = $productMater->newInstance([], true);
+        $productMasterTb = $company_name."_product_master";
+        $groupInfoTbName =  $company_name."_product_group_info";
+        $masterCodeTbName =  $company_name."_master_code";
+
+        $table_data = [
+            "productMasterTb"=> $productMasterTb,
+            "groupInfoTbName"=> $groupInfoTbName,
+            "masterCodeTbName"=> $masterCodeTbName,
+        ];
+        $model->setTable($table_data['productMasterTb']);  
+
+        $productMasterData =  $model->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","master_description","updated_at"])->where('id','=',$id)->get()->toArray();
+
+        
+        // $masterData = $this->getMasterCodeForProductMasterPreset($company_name);
+
+       
+        $productMasterInfo = DB::table("$table_data[groupInfoTbName]")->select(['product_stone_code','product_master_id','size','sale_price','standard_weight','unit','sale_price_unit'])->where('product_group_info_type','=','stone')->get(); 
+
+        
+
+
+        DB::disconnect();
+        
+         return  $productMasterData;
+        
+    }
 
 
     public function checkGroupSize($groupdata){
         return DB::table('ananta_product_group_info')->where('group_name','like','%'.$groupdata['group_name'].'%')->where('size','=',$groupdata['size'])->get()->count();
     }
+
+
+
     public function insertProductMaster(string $company_name,$data){
         $model = $this->setProductMasterTable($company_name);
         // print_r($data);
@@ -139,6 +243,78 @@ $data = DB::table( $table_data['productMasterTb'])
             // For example:
             // echo $e->getMessage();
         }
+    }
+
+    public function insertProductMasterStone($company_name,$data){
+        
+          
+    $table = $company_name."_product_master";
+        $MasterCode = new ProductMater();
+   
+        $model = $MasterCode->setTable($table);
+
+        DB::beginTransaction();
+        $transactionSuccess = true;
+
+
+        try {
+            
+            $product_master_id =   DB::table($table)->insertGetId($data['product_stone_data']);
+
+
+
+            for($i=0;$i<count($data['product_group_info_data']);$i++){
+
+            $groupdata = [
+                "product_master_id"=>$product_master_id,
+                "product_stone_code"=> $data['product_stone_data']['product_stone_code'] ,
+                "group_name"=>  $data['product_group_info_data'][$i]['group'],
+                "sale_price"=>  $data['product_group_info_data'][$i]['sale_price'],
+                "sale_price_unit"=> $data['product_group_info_data'][$i]['unit_sale'] ,
+                "size"=> $data['product_group_info_data'][$i]['size']  ,
+                "standard_weight"=> $data['product_group_info_data'][$i]['std_weight']  ,
+                "unit"=>  $data['product_group_info_data'][$i]['weight_unit']  ,
+                "product_group_info_type"=> 'stone' ,
+    
+            ];
+
+             $insertSuccess = DB::table('ananta_product_group_info')->insert( $groupdata );
+             if (!$insertSuccess) {
+                $transactionSuccess = false;
+                break; // Exit the loop early
+            }
+            
+            }
+
+          
+            if ($transactionSuccess) {
+                DB::commit();
+                return Response::json([
+                    "status"=>200,
+                    "message"=>"complete"
+                ]);
+            } else {
+                DB::rollback();
+                return Response::json([
+                    "status"=>500,
+                    "message"=>"error insert product group"
+                ]);
+            }
+                
+            
+        } catch (\Exception $e) {
+            // An error occurred, rollback the transaction
+            DB::rollback();
+            return Response::json([
+                "status"=>500,
+                "message"=>$e->getMessage()
+            ]);
+            // Handle the exception or log the error
+            // For example:
+            // echo $e->getMessage();
+        }
+
+
     }    
     public function setProductMasterTable($company_name){
         $table = $company_name."_product_master";
@@ -148,6 +324,8 @@ $data = DB::table( $table_data['productMasterTb'])
    
         return $model;
     }
+
+
 }
 
 

@@ -38,7 +38,7 @@ $request = Request::instance();
           
           </li>
                <li class="nav-item">
-               <a class="nav-link  mb-0 pb-3" href="/dashboard">
+               <a class="nav-link  mb-0 pb-3" href="/general-infomation">
               <p>
                 <span class="pos-menu-icon master-icon icon-single-menu general-info-icon "></span>
                 <span class="menu-text">General Infomation</span>

@@ -1,5 +1,6 @@
 <?php
-namespace App\Traits\Company\Inventory\Master;  
+namespace App\Traits\Company\Inventory\Master;
+
 use Illuminate\Support\Collection;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\Schema;
@@ -7,6 +8,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\QueryException;
 use StringHelper;
 use DBTableHelper;
+/*
+Master Code Table Trait ไฟล์นี้เอาไว้จัดการ table master เวลามีการ add company
+ประกอบด้วย Features
+   1. CreateMasterCodeTable  สำหรับ สร้าง Table master code สำหรับเก็บข้อมูล Master
+   2. CreateBaseMasterTable สำหรับ สร้าง Table สำหรับเก็บ รายละเอียด ของ Master
+*/
 trait MasterCodeTableTrait{
     
     public function CreateMasterCodeTable($company_data){

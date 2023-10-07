@@ -2,20 +2,23 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-
-class company_usersLoginMiddleWare extends Middleware
+class CustomerStoreLoginMiddleWare extends Middleware
 {
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
+     * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return string|null
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    protected function redirectTo($request)
+    public function handle( $request, Closure $next,...$guards)
     {
-        if (! $request->expectsJson()) {
-            return redirect('/staff-login');
-        }
+        return $next($request);
+    }
+    protected function redirectTo($request){
+       
     }
 }

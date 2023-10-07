@@ -16,14 +16,136 @@ function groupList(key=0,data={}){
     let list;
     
     if(Object.keys(data).length==0 ){
-         list += '<tr key='+key+'>';
-        list += '<td>'+InputText("product_info_group","product_info[][group]","")+'</td>';
+         list += '<tr key='+key+' group="">';
+        list += '<td class="p_info_group">'+InputText("product_info_group","product_info[group][]","")+'</td>';
+
+        list += '<td class="p_info_sale_price">';
+
+        list += '<div class=\"p_info_sale_price_wrp\">';
+        list += '<div class="form-control number-block">';
+        list += '<div class="number sale_price"  contenteditable="true" >';
+
+        
+        list += '</div>';
+
+
+        list += '<div class="number-currency" >';
+        list += 'THB';
+        list += '</div>';
+
+        list += '</div>';
+
+        list += '<input type="hidden" class="form-control sale_price_val" name="product_info[price][]">';
+        list += '<select class="form-control currency mb-1 unit_price" name="product_info[unit_price][]">';
+
+        list += '<option value="pcs">'+'Pcs'+'</option>';
+        list += '<option value="cts">'+'Cts'+'</option>';
+        list += '<option value="g">'+'G'+'</option>';
+        list += '</select>';
+
+        list += '</div>';
+
+        list += '</td>';
+
+        list += '<td class="p_info_size">'+'<select class="mb-1 product_info_size" id="product_info_size" name="product_info[size][]"></select>'
+        
+        list += '</td>'
+        list += '<td class="p_info_standard_weight">'
+        list += '<div class=\"p_standard_weight_wrp\">';
+        list += '<div class="form-control number-block">';
+        list += '<div class="number standard_weight"  contenteditable="true" >';
+
+        
+        list += '</div>';
+
+        
+        list += '<div class="number-currency std_weight_label" >';
+        list += 'g';
+        list += '</div>';
+
+        list += '</div>';
+        list += '<select class="form-control currency mb-1 std_unit_price" name="product_info[unit_price][]">';
+
+        list += '<option value="pcs">'+'Pcs'+'</option>';
+        list += '<option value="cts">'+'Cts'+'</option>';
+        list += '<option value="g">'+'G'+'</option>';
+        list += '</select>';
+        list += '</td>'
+        list += '<td class="action_col">'+actionColomnGroupInfo()+'</td>'
+        list += '</tr>';
+    }else{
+        list += '<tr key='+key+' group="">';
+        list += '<td class="p_info_group">'+InputText("product_info_group","product_info[group][]","data")+'</td>';
+
+        list += '<td class="p_info_sale_price">';
+
+        list += '<div class=\"p_info_sale_price_wrp\">';
+        list += '<div class="form-control number-block">';
+        list += '<div class="number sale_price"  contenteditable="true" >';
+
+        
+        list += '</div>';
+
+
+        list += '<div class="number-currency" >';
+        list += 'THB';
+        list += '</div>';
+
+        list += '</div>';
+
+        list += '<input type="hidden" class="form-control sale_price_val" name="product_info[price][]">';
+        list += '<select class="form-control currency mb-1 unit_price" name="product_info[unit_price][]">';
+
+        list += '<option value="pcs">'+'Pcs'+'</option>';
+        list += '<option value="cts">'+'Cts'+'</option>';
+        list += '<option value="g">'+'G'+'</option>';
+        list += '</select>';
+
+        list += '</div>';
+
+        list += '</td>';
+
+        list += '<td class="p_info_size">'+'<select class="mb-1 product_info_size" id="product_info_size" name="product_info[size][]"></select>'
+        
+        list += '</td>'
+        list += '<td class="p_info_standard_weight">'
+        list += '<div class=\"p_standard_weight_wrp\">';
+        list += '<div class="form-control number-block">';
+        list += '<div class="number standard_weight"  contenteditable="true" >';
+
+        
+        list += '</div>';
+
+        
+        list += '<div class="number-currency std_weight_label" >';
+        list += 'g';
+        list += '</div>';
+
+        list += '</div>';
+        list += '<select class="form-control currency mb-1 std_unit_price" name="product_info[unit_price][]">';
+
+        list += '<option value="pcs">'+'Pcs'+'</option>';
+        list += '<option value="cts">'+'Cts'+'</option>';
+        list += '<option value="g">'+'G'+'</option>';
+        list += '</select>';
+        list += '</td>'
+        list += '<td class="action_col">'+actionColomnGroupInfo()+'</td>'
+        list += '</tr>';
+    }
+
+    return list;
+}
+
+function groupListRow(key){
+    let list="";
+    list += '<tr key='+key+'>';
+        list += '<td>'+InputText("product_info_group","product_info[group][]","")+'</td>';
 
         list += '<td>';
 
         list += '<div class=\"product_info_price\">';
         list += '<div class="form-control number-block">';
-        list += '<div class="number"  contenteditable="true" >';
+        list += '<div class="number sale_price"  contenteditable="true" >';
 
         
         list += '</div>';
@@ -33,35 +155,29 @@ function groupList(key=0,data={}){
 
         list += '</div>';
 
-        list += '<input type="hidden" class="form-control" name="product_info[][price]">';
-        list += '<select class="form-control currency mb-1 unit_price" name="product_info[][unit_price]"></select>';
+        list += '<input type="hidden" class="form-control sale_price_val" name="product_info[][price]">';
+        list += '<select class="form-control currency mb-1 unit_price" name="product_info[][unit_price]">';
 
+        list += '<option value="pcs">'+'Pcs'+'</option>';
+        list += '<option value="cts">'+'Cts'+'</option>';
+        list += '<option value="g">'+'G'+'</option>';
+        list += '</select>';
         list += '</div>';
 
         list += '</td>';
 
         list += '<td width="190">'+'<select class="mb-1 product_info_size" id="product_info_size" name="product_info[][size]"></select>'+'</td>'
         list += '<td>'+'<input type="text" class="form-control std_weight_val" name="product_info[][weight_unit]">'+'</td>'
-        list += '<td class="action_col">'+actionColomnGroup()+'</td>'
+        list += '<td class="action_col">'+actionColomnGroupInfo()+'</td>'
         list += '</tr>';
-    }else{
-         list += '<tr key='+key+'>';
-        list += '<td>'+'<input type="text" class="product_info_group" name="product_info[][group]" value=" '+">"+'</td>'
-        list += '<td>'+'<input type="text" class="form-control product_info_price" name="product_info[][price]">'+'</td>'
-        list += '<td>'+'<select class="form-control currency mb-1 unit_price" name="product_info[][unit_price]"></select>'+'</td>'
-        list += '<td>'+'<select class="mb-1 product_info_size" name="product_info[][size]"></select>'+'</td>'
-        list += '<td>'+'<input type="text" class="form-control std_weight_val" name="product_info[][weight_unit]">'+'</td>'
-        list += '</tr>';
-    }
-
-    return list;
+        return list;
 }
 
 async function loadStoneGroup(company_name){
   await SendAjaxGet(company_name,'/master/stone-group')
 }
 
-function actionColomnGroup(){
+function actionColomnGroupInfo(){
     let actionGroup = "";
     actionGroup += "<div class=\"action_wrp\">";
     

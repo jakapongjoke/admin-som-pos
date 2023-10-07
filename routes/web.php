@@ -36,34 +36,34 @@ use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
 
 
 
-Route::domain('admin-manage.'.env('DOMAIN_NAME','som-pos.test'))->group(function () {
+// Route::domain('admin-manage.'.env('DOMAIN_NAME','som-pos.test'))->group(function () {
     
-    Route::get('/', function(Request $request){
-    abort(404);
+//     Route::get('/', function(Request $request){
+//     abort(404);
 
-    });
-    Route::get('/manage',[UserController::class,'loginpage'] );
-
-
-        Route::middleware('guest')->group(function () {
-            Route::post('login', [LoginController::class, 'authenticate'])->name('login');
-            Route::get('login',[UserController::class,'loginpage'] )->name('home');
+//     });
+//     Route::get('/manage',[UserController::class,'loginpage'] );
 
 
-        });
-        Route::middleware('auth')->group(function () {
-            Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
-            Route::get('company', [CompanyController::class, 'index'])->name('list-company');
-            Route::post('company', [CompanyController::class, 'store'])->name('add-company-request');
-            Route::get('add-company', [CompanyController::class, 'create'])->name('add-company');
-            Route::get('add-user', [UserController::class, 'create'])->name('add-user');
+//         Route::middleware('guest')->group(function () {
+//             Route::post('login', [LoginController::class, 'authenticate'])->name('login');
+//             Route::get('login',[UserController::class,'loginpage'] )->name('home');
 
-            Route::get('logout', [LoginController::class, 'destroy'])
-                        ->name('logout');
+
+//         });
+//         Route::middleware('auth')->group(function () {
+//             Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
+//             Route::get('company', [CompanyController::class, 'index'])->name('list-company');
+//             Route::post('company', [CompanyController::class, 'store'])->name('add-company-request');
+//             Route::get('add-company', [CompanyController::class, 'create'])->name('add-company');
+//             Route::get('add-user', [UserController::class, 'create'])->name('add-user');
+
+//             Route::get('logout', [LoginController::class, 'destroy'])
+//                         ->name('logout');
         
-        });
+//         });
 
-});
+// });
 
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(function ($company_name) {
   
@@ -71,13 +71,14 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
 
     Route::post('/staff-login', [CompanyUserController::class, 'handleLogin'])->name('company.stafflogin');
    
- Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('staff-dashboard'); 
+
 
 
 
 
     Route::middleware('auth:company_users')->prefix('master')->group(function () {
-
+        Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('staff-dashboard'); 
+        Route::get('/general-infomation', [CompanyUserController::class, 'generalInfomation'])->name('general-infomation'); 
     
     Route::get('/master-storage', [MasterAccountController::class, 'index'])->name('master-storage');
     Route::get('/master-customer', [MasterAccountController::class, 'index'])->name('master-customer');

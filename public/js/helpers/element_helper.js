@@ -58,7 +58,7 @@ function div(text,className="content"){
 
 function Image(src,className="img",containerClassName=""){
 
-    if(containerClassName==""){
+    if(containerClassName!=""){
         
         const elmBlockImg = document.createElement('div');
         elmBlockImg.setAttribute('class',containerClassName);
@@ -98,13 +98,20 @@ function CreateTagElement(text,elem,classname=""){
     // return "<"+ elem+" class=\""+classname+"\">"+text+"</"+elem+">";
 }
 
-function insertOption(selectElm,optionData){
+function insertOption(selectElm,optionData,defaultEmptyOption="",defaultSelect=""){
     // jQuery('#'+selectElm).remove();
 
     // jQuery('#'+selectElm).children('option')
+    if(jQuery('#'+selectElm).find("option").length>0){
+        jQuery('#'+selectElm).empty();
+    }
+    clearOption(selectElm,defaultEmptyOption);
     for(i = 0 ; i<optionData.length ; i++){
         jQuery('#'+selectElm).append( '<option value="'+optionData[i].id+'">'+optionData[i].master_name+'</option>' );
     }
+
+
+
     // for (const key in optionData) {
 
     //     jQuery('#'+selectElm).append( '<option value="'+optionData['id']+'">'+optionData['master_name']+'</option>' );

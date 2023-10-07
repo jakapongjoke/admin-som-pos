@@ -18,7 +18,8 @@ class ProductMasterController extends Controller
     }
     public function list(Request $request){
         $r = $request->segments();
-
+        $page = $request->query('page');
+        $perPage = $request->query('perPage');
         switch ($r[2]) {
             case "product-master-stone":
                 return $this->ProductStoneMasterService->list($request->company_name,$request->perPage,$request->page);
@@ -68,5 +69,5 @@ class ProductMasterController extends Controller
         
         
     }
-    
+  
 }

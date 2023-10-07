@@ -23,14 +23,7 @@ class CompanyUserController extends Controller
     
     }
 
-    protected function redirectTo(Request $request)
-{
-    return redirect('/staff-login');
-}
-public function authenticate(Request $request)
-{
-    return redirect('/ccc');
-}
+
     public function username()
     {
         return 'username';
@@ -57,6 +50,15 @@ public function authenticate(Request $request)
     {
        if(Auth::guard('company_users')->check()){
         return view('customer.backoffice.staff.dashboard');
+
+        // echo; 
+       }else{
+        return view('customer.backoffice.staff.login');       }
+    }
+    public function generalInfomation(Request $request)
+    {
+       if(Auth::guard('company_users')->check()){
+        return view('customer.backoffice.staff.GeneralInfomation');
 
         // echo; 
        }else{

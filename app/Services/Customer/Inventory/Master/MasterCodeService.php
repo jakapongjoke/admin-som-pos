@@ -9,7 +9,8 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
 
     
     public function CreateMasterStorage($company_name,$data){
-        $this->MasterCodeRepository->create($company_name,[
+
+        $this->addMasterCode($company_name,[
             "master_code"=>$data['master_code'],
             "running_number"=>1,
             "master_name"=>$data['master_name'],
@@ -24,6 +25,7 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
             "message"=>"Add CreateMasterStorage complete"
         ], 200);
     }
+
 }
 ?>
 

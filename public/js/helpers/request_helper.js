@@ -10,9 +10,21 @@ const instance = axios.create({
     withCredentials:true
 
   });
-async function SendAjaxPost(data,url){
+async function SendAjaxPost(url,data,options={}){
       
-        return await instance.post(url,data);
+        return await instance.post(url,data,options);
+    
+
+}
+async function SendAjaxPut(url,data,options={}){
+      
+        return await instance.put(url,data,options);
+    
+
+}
+async function SendAjaxDelete(url,data,options={}){
+      
+        return await instance.delete(url,data,options);
     
 
 }
@@ -26,7 +38,7 @@ async function SendAjaxGet(url){
 
 async function validateData (data,validatorUrl=""){
     
-    let validate = await SendAjaxPost(data,validatorUrl);
+    let validate = await SendAjaxPost(validatorUrl,data);
     if(validate.data.status=="complete"){
         return true;
     }else{

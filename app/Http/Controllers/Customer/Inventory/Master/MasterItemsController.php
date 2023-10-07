@@ -68,6 +68,7 @@ class MasterItemsController extends Controller
             case "master-item-size":
                 return $this->MasterCodeService->GetMasterCodeByTypeJson($request->company_name,"master_item_size",50);
             break;
+       
         }
     }
 }

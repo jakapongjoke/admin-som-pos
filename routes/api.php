@@ -10,6 +10,7 @@ use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
+use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterStoneController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductGroupInfoController;
 use App\Http\Controllers\CountrySelectorContoller;
 
@@ -43,18 +44,46 @@ Route::middleware('auth:company_users')->prefix('master')->group(function () {
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('master')->group(function ($company_name) {
     Route::get('master-item/',[MasterItemsController::class,'find']);
     Route::get('master-item/{master_type}',[MasterItemsController::class,'find']);
-    Route::get('master-stone/{master_type}',[MasterStoneController::class,'find']);
+    Route::get('master-stone/view/',[MasterStoneController::class,'findByMasterStoneId']);
+    Route::get('master-stone/{master_type}',[MasterStoneController::class,'findByType']);
+    // Route::get('master-stone/{master_type}',[MasterStoneController::class,'find']);
+    // Route::get('master-stone/{master_type}/{per_page}/{page}',[MasterStoneController::class,'findByType']);
     Route::get('master-stone/master-stone-name/{parent_id}',[MasterStoneController::class,'find']);
+
+    /* สำหรับดึงค่ามาทำ selectbox ของ product master stone modal */
+    Route::get('get-master-info-product-stone/{parent_id}',[MasterStoneController::class,'getProductStoneMasterCodeInfoByProductStoneId']);
+
+
+    Route::post('/master-stone',[MasterStoneController::class,'store']);
+    Route::put('/master-stone',[MasterStoneController::class,'update']);
+    Route::put('/master-stone/changestatus/',[MasterStoneController::class,'updateStatus']);
+    Route::delete('/master-stone',[MasterStoneController::class,'destroy']);
+    Route::post('/master-stone-validate',[MasterStoneController::class,'ValidateData']);
+
+
     Route::post('/master-stroage-validate',[CompanyMasterStorageController::class,'ValidateData']);
     Route::post('/master-stroage',[CompanyMasterStorageController::class,'store']);
     Route::post('/master',[CompanyMasterStorageController::class,'store']);
     Route::get('/get-by-id/{master_id}',[MasterCodeController::class,'getMasterCodeById']);
     Route::get('/master-name-by-id/{master_id}',[MasterCodeController::class,'getMasterNameById']);
 
+    Route::get('/get-master-info-by-stone-group/{stone_group_id}',[ProductMasterStoneController::class,'getMasterInfoByProductStoneGroupId']);
 
 });
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('product-master')->group(function ($company_name) {
-    Route::get('/product-master-stone/{perPage}/{page}',[ProductMasterController::class,'list']);
+
+    Route::get('/product-master-stone/list/{perPage}/{page}',[ProductMasterController::class,'list']);
+
+
+    Route::get('/product-master-stone/searchstone/{stone_code}',[ProductMasterController::class,'list']);
+
+    Route::post('/product-master-stone/genarate-stone-code',[ProductMasterStoneController::class,'genStoneCodeMasterId']);
+
+
+    Route::get('/product-master-stone/get-by-id/{id}',[ProductMasterStoneController::class,'getProductMasterStoneById']);
+
+    Route::post('/product-master-stone',[ProductMasterStoneController::class,'create']);
+    Route::get('/get-count-from-stone-name-id',[ProductMasterStoneController::class,'getCountProductStoneFromStoneMasterId']);
 
 
 });

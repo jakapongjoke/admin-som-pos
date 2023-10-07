@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Helpers\Util;
+use Carbon\Carbon;
 class ProductMasterSeeder extends Seeder
 {
     use \App\Traits\Customer\Inventory\Master\MasterCodeTrait;
@@ -40,6 +41,10 @@ class ProductMasterSeeder extends Seeder
                     $rn = Util::getRandNumArray($master_stone_shape);
                     $master_shape_name = $master_stone_shape[$rn]['master_name'];
                     $master_shape_code = $master_stone_shape[$rn]['master_code'];
+                    $master_stone_cutting_code = $master_stone_cutting[$rn]['master_code'];
+                    
+                    $master_stone_cutting_name = $master_stone_cutting[$rn]['master_name'];
+                    
                     $master_shape_id = $master_stone_shape[$rn]['id'];
 
                 //     $master_stone =  $master_stone_name[Util::getRandNumArray($master_stone_name)];
@@ -50,15 +55,15 @@ class ProductMasterSeeder extends Seeder
                     
                     $master_shape_code." in ".$master_group['master_code'];
                     $data = [
-                        "product_stone_code"=>$this->genProductMasterCode("ananta",[$master_group['master_code'],$current_stone_name_data[Util::getRandNumArray($current_stone_name_data)]['master_code'],$master_shape_code]),
+                        "product_stone_code"=>$this->genProductMasterCode("ananta",[$master_group['master_code'],$current_stone_name_data[Util::getRandNumArray($current_stone_name_data)]['master_code'],$master_shape_code,$master_stone_cutting_code]),
                         "running_number"=> $this->getRunningNumber('ananta'),
                         "product_master_caption"=> null,
                         "collection"=> null,
                         "metal"=> null,
                         "size"=> null,
                         "stone_color"=> $master_stone_color[Util::getRandNumArray($master_stone_color)]['id'],
-                        "stone_group"=> $master_group[Util::getRandNumArray($master_stone_color)]['id'],
-                        "stone_name"=> $master_stone_name[Util::getRandNumArray($master_stone_name)]['id'],
+                        "stone_group"=> $master_stone_group[Util::getRandNumArray($master_stone_group)]['id'],
+                        "stone_name"=> $current_stone_name_data[Util::getRandNumArray($current_stone_name_data)]['id'],
                         "stone_clarity"=> $master_stone_clarity[Util::getRandNumArray($master_stone_clarity)]['id'],
                         "stone_cutting"=> $master_stone_cutting[Util::getRandNumArray($master_stone_cutting)]['id'],
                         "stone_shape"=> $master_shape_id,
@@ -66,7 +71,9 @@ class ProductMasterSeeder extends Seeder
                         "master_certificate"=> $master_stone_certificate_type[Util::getRandNumArray($master_stone_certificate_type)]['id'],
                         "master_certificate_image"=>  json_encode([
                             [
-                                "location"=>Storage::url('app/public/customer_images/certificate/'.$certificate_image[Util::getRandNumArray($certificate_image)]),
+                                
+                                "location"=> 'public/customer_images/ananta/certificate/'.$certificate_image[Util::getRandNumArray($certificate_image)],
+                                //"location"=> 'ananta.'.env('DOMAIN_NAME','som-pos.test').'/storage/customer_images/ananta/certificate/'.$certificate_image[Util::getRandNumArray($certificate_image)],
                             ]
                         ]),
                         "net_weight"=> null,
@@ -76,14 +83,15 @@ class ProductMasterSeeder extends Seeder
                         "item"=> null,
                         "master_image"=> json_encode([
                             [
-                                "location"=>Storage::url('app/public/customer_images/product_master/stone/'.$stone[Util::getRandNumArray($stone)]),
+                                "location"=> "/public/customer_images/ananta/product_master/stone/".$stone[Util::getRandNumArray($stone)],
+                                // "location"=> 'http://ananta.'.env('DOMAIN_NAME').":8000/storage/customer_images/ananta/product_master/stone/".$stone[Util::getRandNumArray($stone)],
                             ]
                         ]),
                         "master_tag"=> null,
                         "master_type"=> 'product_master_stone',
-                        "master_status"=> 'active'
-                        // "created_at"=> date(),
-                        // "updated_at"=>  date()
+                        "master_status"=> 'active',
+                        "created_at"=> Carbon::now()->toDateTimeString(),
+                       "updated_at"=>  Carbon::now()->toDateTimeString()
                     ];
                     $this->insertProductMaster('ananta',$data );
 

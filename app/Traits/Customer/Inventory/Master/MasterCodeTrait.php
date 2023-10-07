@@ -77,7 +77,7 @@ trait MasterCodeTrait{
     
         $model = $this->setMasterCodeTable($company_name);
 
-     return   $model->where("master_id","=",$master_id)->get();
+     return   $model->where("id","=",$master_id)->first()->master_code;
     }
 
 

@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="{{ URL::asset('plugins/fontawesome-free/css/all.min.css') }}"/>
         <link rel="stylesheet" href="{{ URL::asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}"/>
 
+    <link rel="stylesheet" href="{{ URL::asset('/css/swal.css') }}"/>
     <link rel="stylesheet" href="{{ URL::asset('/css/company_style.css') }}"/>
     <link rel="stylesheet" href="{{ URL::asset('/css/customer_style.css') }}"/>
         

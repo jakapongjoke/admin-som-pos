@@ -20,4 +20,11 @@ class MasterCodeController extends Controller
         return $this->MasterCodeService->getMasterNameById($request->company_name,$request->master_id);
 
     }
+    public function genStoneCode(Request $request){
+        $prefixCode = $code[0].'-'.$code[1].$code[2];
+
+        return $this->genProductMasterCode();
+    }
+  
+
 }
