@@ -1,5 +1,6 @@
 (async function($) {
     $.fn.masterTable = function(options) {
+     
         let modalConfig = {
  
             formMethod:"",
@@ -9,6 +10,26 @@
                     text:"",
                     imageIcon:options.message.imageIcon.confirmIcon?options.message.imageIcon.confirmIcon:"/images/icons/question.png",
                 },
+                create:{
+                    confirmHeading:"",
+                   confirmText : "",
+                   doneHeading : "",
+                   doneText : "",
+               },
+               edit:{
+                    confirmHeading:"",
+                   confirmText : "",
+                   doneHeading : "",
+               },
+               delete:{
+                    confirmHeading:"",
+                   confirmText : "",
+                   doneHeading : "",
+               },
+               imageIcon:{
+                   confirmIcon:"/images/icons/question.png",
+                   doneIcon:"/images/icons/checked.png",
+               },
                 done:{
                     heading:"",
                     text:"",
@@ -122,10 +143,11 @@
                 description:"",
                 masterType:"",
                 masterPrice:"",
-                masterFomula:{},
+                masterFomula:[],
                 masterAvailableFor:"",
                 masterInfomation:"",
                 status:"active",
+                masterBaseInfomation:[],
                 get getParentId(){
                     return this.parentId;
                 },
@@ -205,6 +227,9 @@
                     this.setStatus = data.master_status
                     this.setMasterType = data.master_type
                 }
+
+
+
             
             }
             const dataField  = {
@@ -224,6 +249,26 @@
                 },
             
                 
+            }
+            const stone_group = {
+                data:[],
+                set setData(data){
+                    for(let i=0 ; i<data.length;i++){
+                        let arrData = {
+                            id:data[i]['id'],
+                            master_name:data[i]['master_name'],
+                            master_code:data[i]['master_code'],
+                            master_description:data[i]['master_description'],
+                            master_status:data[i]['master_status'],       
+                        }
+                        this.data.push(arrData);
+                    }
+                   
+                },
+                get getData(){
+                    
+                    return this.data;
+                }
             }
             const paginate = {
                 currentPage:1,
@@ -254,14 +299,16 @@
             document.addEventListener('DOMContentLoaded',async function() {
              // Addional For Stone name page modal 
                 if(options.masterType=="master_stone_name"){
-                    let stone_group = await SendAjaxGet('api/master/master-stone/master-stone-group?page=1&perPage=10');    
-                    const stone_group_resp =  stone_group.data
-                    let stone_group_data = [...stone_group_resp.data];
-                    
+                    let stone_group_list = await SendAjaxGet('api/master/master-stone/master-stone-group?page=1&perpage=10');
+                    const resp =  stone_group_list.data;
+                    stone_group.setData = resp.data;
+                    // let data = [...resp.data];
                     // jQuery('#MasterStoneModal .stone_group').empty();
                     // jQuery('#MasterStoneModal .stone_group').empty();
+                 
                     clearOption("stone_group",'Stone Group');
-                    insertOption("stone_group",stone_group_data);
+
+                    insertOption("stone_group",stone_group.getData);
                 }
 
             
@@ -271,9 +318,9 @@
                 const data = await fetchdata(options.listDataRoute+'?perPage='+options.paginate.perPage+'&page=1');
 
                 const master_list_resp = await data.data;
-                console.log(master_list_resp);
+
                 const listobj = [...master_list_resp];
-                paginate.setTotalPage = parseInt(Math.round(data.total_record/paginate.perPage));
+                paginate.setTotalPage = parseInt(Math.ceil(data.total_record/options.paginate.perPage));
               
                 masterItem.setListData = listobj;
                 
@@ -322,13 +369,14 @@
 
                 // List master data
             
-            
+            console.log(paginate.getTotalPage)
+            console.log(paginate.getCurrentPage)
                 if(paginate.getCurrentPage<paginate.getTotalPage){
                     
                     const nextPageNum = parseInt(paginate.getCurrentPage)+1;
                     $(this).parent('.paging-block').find('.currentpage').val(nextPageNum);
-                
-                    const data = await fetchdata('/api/master/master-stone/master-stone-name?perPage='+paginate.perPage+'&page='+nextPageNum);
+              
+                    const data = await fetchdata('/api/master/master-stone/'+options.masterTypeRouteName+'?perPage='+paginate.perPage+'&page='+nextPageNum);
 
                     const master_list_resp = await data.data;
                     console.log(master_list_resp);
@@ -362,7 +410,10 @@
                     const prevPageNum = parseInt(paginate.getCurrentPage)-1;
                     $(this).parent('.paging-block').find('.currentpage').val(prevPageNum);
                 
-                    const data = await fetchdata('/api/master/master-stone/master-stone-name?perPage='+paginate.perPage+'&page='+prevPageNum);
+                    // const data = await fetchdata('/api/master/master-stone/master-stone-name?perPage='+paginate.perPage+'&page='+prevPageNum);
+  
+                    const data = await fetchdata('/api/master/master-stone/'+options.masterTypeRouteName+'?perPage='+paginate.perPage+'&page='+prevPageNum);
+
                     const master_list_resp = await data.data;
                     console.log(master_list_resp);
                     const listobj = [...master_list_resp];
@@ -370,6 +421,7 @@
                     masterItem.setListData = listobj;
             
                     jQuery('#mastertable').empty();
+
                     let MountedDom = jQuery("#mastertable").html(headerTable(dataField.heading,dataField.options));
                 MountedDom.append(listTableData(  masterItem.getListData,dataField.colData,dataField.options))
                 
@@ -400,20 +452,18 @@
             e.stopPropagation();
             e.preventDefault();
             if(options.masterType=="master_stone_name"){
-
-                         const stone_group_resp =  stone_group.data
-            let stone_group_data = [...stone_group_resp.data];
-            
-            clearOption("parent_id",'Stone Group');
-            insertOption("parent_id",stone_group_data);
+          
+                
+                insertOption("parent_id",stone_group.getData,"Stone Group");
+                
             }
    
             
-             this.modalConfig.setMessageConfirmHeading = options.message.edit.confirmHeading;
-             this.modalConfig.setMessageConfirmText = options.message.edit.confirmText;
-             this.modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
-             this.modalConfig.setMessageDoneText = options.message.edit.doneText;
-             this.modalConfig.setFormMethod = "put";
+            modalConfig.setMessageConfirmHeading = options.message.edit.confirmHeading;
+            modalConfig.setMessageConfirmText = options.message.edit.confirmText;
+            modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
+            modalConfig.setMessageDoneText = options.message.edit.doneText;
+            modalConfig.setFormMethod = "put";
             
             
             const master_id = jQuery(this).parents('tr').find('.master_id').val();
@@ -467,31 +517,32 @@
                 e.stopPropagation();
                 e.preventDefault();
                 if(options.masterType=="master_stone_name"){
-     const stone_group_resp =  stone_group.data
-                let stone_group_data = [...stone_group_resp.data];
-            
-                clearOption("parent_id",'Stone Group');
-                insertOption("parent_id",stone_group_data);
+                    
+                    insertOption("parent_id",data,"Stone Group");
 
                 }
+
            
                 
-                 this.modalConfig.setMessageConfirmHeading = options.message.edit.confirmHeading;
-                 this.modalConfig.setMessageConfirmText = options.message.edit.confirmText;
-                 this.modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
-                 this.modalConfig.setMessageDoneText = options.message.edit.doneText;
-                 this.modalConfig.setFormMethod = "put";
+                modalConfig.setMessageConfirmHeading = options.message.edit.confirmHeading;
+                modalConfig.setMessageConfirmText = options.message.edit.confirmText;
+                modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
+                modalConfig.setMessageDoneText = options.message.edit.doneText;
+                modalConfig.setFormMethod = "put";
                 
                 
             
                 const master_id = jQuery(this).parents('tr').find('.master_id').val();
 
 
+                jQuery(options.modalId).find('form').prepend('<input type="hidden" name="master_id" value="'+ master_id+'">');
+
+
                 const master_data_resp = await SendAjaxGet(options.viewRoute+"?master_id="+master_id);
                 const master_data = master_data_resp.data;
     
                 masterCodeItemData.setData(master_data.data);
-            
+            console.log(masterCodeItemData.getMasterName)
             
                 mapFillInput(jQuery(options.modalId),{
                     "master_id":master_id,
@@ -500,8 +551,6 @@
                     "master_name":masterCodeItemData.getMasterName,
                     "master_description":masterCodeItemData.getDescription,
                     "master_status":masterCodeItemData.getStatus,
-                    "master_type":masterCodeItemData.getMasterType,
-                    "master_type":masterCodeItemData.getMasterType,
                     "master_type":masterCodeItemData.getMasterType,
                 })
             
@@ -564,29 +613,37 @@
                 e.preventDefault();
                 e.stopPropagation();
                 const master_id = jQuery(this).parents('tr').find('.master_id').val();
+                let checkUsing;
+                if(options.checkExistUrl!=""){
+                          checkUsing = await SendAjaxGet(options.checkExistUrl+'&master_id='+master_id);
+                          console.log(checkUsing)
 
-                const checkUsing = await SendAjaxGet(options.checkExistUrl+'&master_id='+master_id);
-                
-
-                if(checkUsing.data>0){
-                     this.modalConfig.setMessageConfirmHeading = "Warning";
-                 this.modalConfig.setMessageConfirmText = "This Item is in use can't delete";
-                 this.modalConfig.setMessageConfirmImageIcon = "/images/icons/exclamation.png";
-
-                $('.modal-content').html('').html(showModalReject( this.modalConfig.getMessageConfirmHeading, this.modalConfig.getMessageConfirmText, this.modalConfig.getMessageConfirmImageIcon));
-                jQuery(options.modalId).modal()
-            
-                }else{
-                     this.modalConfig.setMessageConfirmHeading = options.message.delete.confirmHeading;
-                     this.modalConfig.setMessageConfirmText = options.message.delete.confirmText;
-                     this.modalConfig.setMessageDoneHeading =  options.message.delete.doneHeading;
-                     this.modalConfig.setMessageDoneText = options.message.delete.doneText;
-
-                 this.modalConfig.setFormMethod = "delete";
-            
-                $('.modal-content').html('').html(modalFormDelete(options.deleteRoute+'?id='+master_id));
-                jQuery(options.modalId).modal()
                 }
+        
+if(typeof checkUsing != "undefined"){
+    if(checkUsing.data>0){
+        modalConfig.setMessageConfirmHeading = "Warning";
+    modalConfig.setMessageConfirmText = "This Item is in use can't delete";
+    modalConfig.setMessageConfirmImageIcon = "/images/icons/exclamation.png";
+
+    $('.modal-content').html('').html(showModalReject(modalConfig.getMessageConfirmHeading,modalConfig.getMessageConfirmText,modalConfig.getMessageConfirmImageIcon));
+    jQuery(options.modalId).modal()
+
+    }else{
+
+    modalConfig.setFormMethod = "delete";
+
+    $('.modal-content').html('').html(modalFormDelete(options.deleteRoute+'?id='+master_id,options.message.delete,options.message.imageIcon));
+    jQuery(options.modalId).modal()
+    }
+}else{
+    
+    modalConfig.setFormMethod = "delete";
+
+    $('.modal-content').html('').html(modalFormDelete(options.deleteRoute+'?id='+master_id,options.message.delete,options.message.imageIcon));
+    jQuery(options.modalId).modal()
+}
+            
             
              
             });
@@ -594,23 +651,22 @@
             // end delete list
             
             jQuery('.create').click( function(e){
-                
                 e.preventDefault();
                 e.stopPropagation();
+
             
-            
-                 this.modalConfig.setMessageConfirmHeading = options.message.create.confirmHeading;
-                 this.modalConfig.setMessageConfirmText = options.message.create.confirmText;
-                 this.modalConfig.setMessageDoneHeading =  options.message.create.doneHeading;
-                 this.modalConfig.setMessageDoneText = options.message.create.doneText;
-            
+                 modalConfig.setMessageConfirmHeading = options.message.create.confirmHeading;
+                 modalConfig.setMessageConfirmText = options.message.create.confirmText;
+                 modalConfig.setMessageDoneHeading =  options.message.create.doneHeading;
+                 modalConfig.setMessageDoneText = options.message.create.doneText;
+                 modalConfig.setFormMethod = "post"
                 
                 mapFillInput(jQuery(options.modalId),options.dataField.inputFillAble)
                 
 
         if(options.masterType=="master_stone_name"){
                     
-         if(!stone_group_data===false){
+         if(!stone_group.getData===false){
                     jQuery('input,select,textarea').each(function(){
                     $(this).prop('disabled', false);
                 })
@@ -624,11 +680,12 @@
 
 
         }else{
-                    jQuery(options.modalId).modal();
+           
 
         }
 
-        
+        jQuery(options.modalId).modal();
+
 
 
 
@@ -665,10 +722,10 @@ function getRoute(formMethod){
                 e.stopPropagation();
             
             
-                let formMethod =  this.modalConfig.getFormMethod;
-                console.log('formMethod is '+formMethod );
+                // let formMethod = modalConfig.getFormMethod;
+                // console.log('formMethod is '+modalConfig.getFormMethod );
             
-                modalFormSubmit(options.validateRoute,getRoute(formMethod),formMethod,$('.modal_form').serialize(),'form')
+                modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,$('.modal_form').serialize(),'form',options.message)
             
               });
             });

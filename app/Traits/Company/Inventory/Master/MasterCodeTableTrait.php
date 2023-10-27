@@ -85,6 +85,7 @@ trait MasterCodeTableTrait{
                     $table->date("contact_date_of_birth")->nullable();
                     $table->string("contact_email")->nullable();
                     $table->string("contact_phone")->nullable();
+                    $table->string("contact_fax_number")->nullable();
                     
                     $table->text("ship_address")->nullable();
                     $table->unsignedInteger("ship_district")->nullable()->default(0);

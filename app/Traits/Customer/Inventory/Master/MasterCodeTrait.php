@@ -25,7 +25,7 @@ trait MasterCodeTrait{
 
     
 
-    public function GetMasterCodeByType($company_name,string $master_type,int $limit=100){
+    public function GetMasterCodeByType($company_name,string $master_type,int $limit=100,$skip=0){
         $model = $this->setMasterCodeTable($company_name);
         switch($limit){
     

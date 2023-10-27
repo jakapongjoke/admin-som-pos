@@ -12,6 +12,7 @@ use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageControlle
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterStoneController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductGroupInfoController;
+use App\Http\Controllers\Customer\GeneralInfo\BranchController;
 use App\Http\Controllers\CountrySelectorContoller;
 
 
@@ -41,11 +42,14 @@ Route::middleware('auth:company_users')->prefix('master')->group(function () {
 // Route::get('/{master_type}',[MasterStoneController::class,'find']);
 
 // });
+
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('master')->group(function ($company_name) {
     Route::get('master-item/',[MasterItemsController::class,'find']);
     Route::get('master-item/{master_type}',[MasterItemsController::class,'find']);
     Route::get('master-stone/view/',[MasterStoneController::class,'findByMasterStoneId']);
+
     Route::get('master-stone/{master_type}',[MasterStoneController::class,'findByType']);
+
     // Route::get('master-stone/{master_type}',[MasterStoneController::class,'find']);
     // Route::get('master-stone/{master_type}/{per_page}/{page}',[MasterStoneController::class,'findByType']);
     Route::get('master-stone/master-stone-name/{parent_id}',[MasterStoneController::class,'find']);
@@ -55,6 +59,12 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
 
 
     Route::post('/master-stone',[MasterStoneController::class,'store']);
+
+    Route::post('/master-basic-info',[MasterStoneController::class,'store']);
+    Route::put('/master-basic-info',[MasterStoneController::class,'update']);
+    Route::delete('/master-basic-info',[MasterStoneController::class,'destroy']);
+
+
     Route::put('/master-stone',[MasterStoneController::class,'update']);
     Route::put('/master-stone/changestatus/',[MasterStoneController::class,'updateStatus']);
     Route::delete('/master-stone',[MasterStoneController::class,'destroy']);
@@ -70,6 +80,18 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::get('/get-master-info-by-stone-group/{stone_group_id}',[ProductMasterStoneController::class,'getMasterInfoByProductStoneGroupId']);
 
 });
+Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('general-infomation')->group(function ($company_name) {
+
+    Route::post('/branch',[BranchController::class,'create']);
+
+    Route::put('/branch',[BranchController::class,'update']);
+
+
+    Route::get('/getbranch',[BranchController::class,'getAllBranch']);
+
+});
+
+
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('product-master')->group(function ($company_name) {
 
     Route::get('/product-master-stone/list/{perPage}/{page}',[ProductMasterController::class,'list']);
@@ -83,6 +105,7 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('prod
     Route::get('/product-master-stone/get-by-id/{id}',[ProductMasterStoneController::class,'getProductMasterStoneById']);
 
     Route::post('/product-master-stone',[ProductMasterStoneController::class,'create']);
+
     Route::get('/get-count-from-stone-name-id',[ProductMasterStoneController::class,'getCountProductStoneFromStoneMasterId']);
 
 

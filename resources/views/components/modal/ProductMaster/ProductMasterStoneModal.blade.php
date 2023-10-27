@@ -243,7 +243,73 @@
 </div>
 <script>
 
-    
+let modalConfig = {
+ 
+ formMethod:"",
+ message: {
+     confirm:{
+         heading:"",
+         text:"",
+         imageIcon:"/images/icons/question.png",
+     },
+     done:{
+         heading:"",
+         text:"",
+         imageIcon:"/images/icons/checked.png",
+     }
+     
+ },
+
+
+ set setMessageConfirmHeading(value){
+     return this.message.confirm.heading = value
+ },
+ get getMessageConfirmHeading(){
+     return this.message.confirm.heading;
+ },
+ set setMessageConfirmText(value){
+     return this.message.confirm.text = value
+ },
+ get getMessageConfirmText(){
+     return this.message.confirm.text;
+ },
+ set setMessageConfirmImageIcon(value){
+     return this.message.confirm.imageIcon = value
+ },
+ get getMessageConfirmImageIcon(){
+     return this.message.confirm.imageIcon;
+ },
+
+ set setMessageDoneHeading(value){
+     return this.message.done.heading = value
+ },
+ get getMessageDoneHeading(){
+     return this.message.done.heading;
+ },
+ set setMessageDoneText(value){
+     return this.message.done.text = value
+ },
+ get getMessageDoneText(){
+     return this.message.done.text;
+ },
+ set setMessageDoneImageIcon(value){
+     return this.message.done.imageIcon = value
+ },
+ get getMessageDoneImageIcon(){
+     return this.message.done.imageIcon;
+ },
+
+
+
+
+ set setFormMethod(value){
+     return this.formMethod = value
+ },
+ get getFormMethod(){
+     return this.formMethod;
+ }
+}
+
 const productStoneData = { 
   productStoneCode:"",
   productStoneGroup:"",
@@ -332,11 +398,14 @@ function updateList(CurrentRow,data){
 }
 
 
+
   window.addEventListener('DOMContentLoaded',  () => {
       let $ = jQuery;
 
-      ProductGroupList(jQuery('#stoneTable'),[])
 
+    // list of product group  
+
+  
 
 
 
@@ -345,6 +414,7 @@ function updateList(CurrentRow,data){
 //   e.preventDefault();
  
 // });
+ProductGroupList(jQuery('#stoneTable'),[])
 
 
   jQuery('.action_button').on('click',function(e){
@@ -370,6 +440,7 @@ function updateList(CurrentRow,data){
 
 
         });
+
       $('.add_group').on('click',function (e) {
      
         e.preventDefault();
@@ -535,19 +606,15 @@ e.preventDefault();
  });
 
 // submit data
-
-
-
-      $('.save').on('click',async function (e) {
-        e.preventDefault();
+$('.save').on('click',async function (e) {
+  e.preventDefault();
         e.stopPropagation();
-        //
 
-
+      
         var formData = new FormData();
         let buttonElm  =  $(this);
         var productMasterForm =  $(this).parents('.product_master_form');
-
+const modalType = $('#MasterProductModal').attr('modalType')
       // formData.append('stone_code',$('.stone_code').val());
       // formData.append('stone_group',$('.stone_group').val());
       // formData.append('stone_name',$('.stone_name').val());
@@ -605,9 +672,10 @@ e.preventDefault();
           }
          
         });
-
-
+      
+  switch(modalType){
   
+  case "post" :
         const add = await SendAjaxPost('api/product-master/product-master-stone',{
           productMasterGeneralData :{
             stone_code:productMasterForm.find('.stone_code').val(),
@@ -638,8 +706,27 @@ e.preventDefault();
         
         );
 
+  break;
+  case "put":
+  
+  console.log('send me');
+
+  break;
+
+
+
+}
+
+
+
+
 
        });
+
+
+
+
+  
     });
 
 </script>

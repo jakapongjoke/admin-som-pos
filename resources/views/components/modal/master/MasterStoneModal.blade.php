@@ -12,7 +12,7 @@
       <div class="modal-body">
         <form class="modal_form" method="post">
           <input type="hidden" class="master_id" name="master_id" value="">
-          <input type="hidden" class="master_type" name="master_type" value="">
+          <input type="hidden" class="master_type" name="master_type" value="master_stone_name">
         <div class="form-group row">
     <label for="branch_location" class="col-sm-3 col-form-label">Stone Group</label>
        <div class="col-sm-9">
@@ -66,5 +66,72 @@
     </div>
   </div>
 </div>
+<script>
+  let modalConfig = {
+ 
+ formMethod:"",
+ message: {
+     confirm:{
+         heading:"",
+         text:"",
+         imageIcon:"/images/icons/question.png",
+     },
+     done:{
+         heading:"",
+         text:"",
+         imageIcon:"/images/icons/checked.png",
+     }
+     
+ },
 
+
+ set setMessageConfirmHeading(value){
+     return this.message.confirm.heading = value
+ },
+ get getMessageConfirmHeading(){
+     return this.message.confirm.heading;
+ },
+ set setMessageConfirmText(value){
+     return this.message.confirm.text = value
+ },
+ get getMessageConfirmText(){
+     return this.message.confirm.text;
+ },
+ set setMessageConfirmImageIcon(value){
+     return this.message.confirm.imageIcon = value
+ },
+ get getMessageConfirmImageIcon(){
+     return this.message.confirm.imageIcon;
+ },
+
+ set setMessageDoneHeading(value){
+     return this.message.done.heading = value
+ },
+ get getMessageDoneHeading(){
+     return this.message.done.heading;
+ },
+ set setMessageDoneText(value){
+     return this.message.done.text = value
+ },
+ get getMessageDoneText(){
+     return this.message.done.text;
+ },
+ set setMessageDoneImageIcon(value){
+     return this.message.done.imageIcon = value
+ },
+ get getMessageDoneImageIcon(){
+     return this.message.done.imageIcon;
+ },
+
+
+
+
+ set setFormMethod(value){
+     return this.formMethod = value
+ },
+ get getFormMethod(){
+     return this.formMethod;
+ }
+}
+</script>
 

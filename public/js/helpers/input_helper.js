@@ -55,9 +55,14 @@ function mapFillInput(parentElm,inputObj){
                     // console.log(inputObj[inputClassName]);
                     currentElement.val(inputObj[inputClassName]).change();
                 }
-                if(currentElement.is('input')||currentElement.is('textarea')){
+                if(currentElement.is('input')){
                   
                     currentElement.val(inputObj[inputClassName]);
+
+
+                }
+                if(currentElement.is('textarea')){
+                    currentElement.text(inputObj[inputClassName])
 
                 }
          
@@ -65,8 +70,5 @@ function mapFillInput(parentElm,inputObj){
         }
     }
 
-    parentElm.find('select').each(function(){
-
-    })
 
 }

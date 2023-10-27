@@ -8,12 +8,19 @@
 @endsection
 
 @section('content')
-
+<div class="modal fade" id="BranchModal" tabindex="-1" role="dialog" aria-labelledby="BranchModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        
+</div>
+</div>
+</div>
 <div id="page-form" class="general_infomation">
+    
 <h1>
 General Infomation
 </h1>
-        <div class="page-form__wrapper">
+        <div class="page-form__wrapper d-none">
 
             <!-- TABS START -->
             <div class="page-form__tabs-wrapper">
@@ -40,13 +47,13 @@ General Infomation
             <!-- BUTTONS START -->
             <div class="page-form__buttons-wrapper">
                 <button type="button" class="page-form__button">Cancel</button>
-                <button type="button" class="page-form__button teal">Save</button>
+                <button type="button" class="page-form__button teal save_branch">Save</button>
             </div>
             <!-- BUTTONS START -->
 
             <!-- FORM START -->
             <div class="page-form__form-wrapper">
-                <form action="" class="page-form__form form-popup" data-unique-id="16884325735786">
+                <form action="" class="page-form__form form-popup head_office" data-unique-id="16884325735786">
                     <div class="left">
                         <div class="page-form__form-title">
                             <span class="page-form__form-title-txt">
@@ -66,7 +73,7 @@ General Infomation
                                     </div>
                                 </label>
                             </div>
-                            <input id="42542767667" class="brandLogo" type="file" style="display: none;" name="logo">
+                            <input id="42542767667" class="brandLogo" type="file" style="display: none;" name="brand_logo">
                         </div>
                         <!-- Logo input field end -->
 
@@ -85,8 +92,10 @@ General Infomation
                             <div class="page-form__input-label">
                                 Business Type
                             </div>
-                            <select class="page-form__input" name="business_type">
+                            <select class="page-form__input business_type" name="business_type">
                                 <option value="retails">Retails</option>
+                                <option value="wholesale">Wholesale</option>
+                                <option value="shop">Shop</option>
                                 <!-- other option here -->
                             </select>
                         </div>
@@ -98,7 +107,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Company name
                             </div>
-                            <input type="text" class="page-form__input" name="company_name">
+                            <input type="text" class="page-form__input company_name" name="company_name">
                         </div>
                         <!-- Company name end -->
 
@@ -107,7 +116,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Branch location
                             </div>
-                            <input type="text" class="page-form__input" name="branch_location">
+                            <input type="text" class="page-form__input branch_location" name="branch_location">
                         </div>
                         <!-- Branch location end -->
 
@@ -117,7 +126,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Branch code
                             </div>
-                            <input type="text" class="page-form__input" name="branch_code">
+                            <input type="text" class="page-form__input branch_code" name="branch_code">
                         </div>
                         <!-- Branch code end -->
 
@@ -126,7 +135,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Tax ID
                             </div>
-                            <input type="number" class="page-form__input"
+                            <input type="number" class="page-form__input tax_id"
                                 onkeydown="javascript: return event.keyCode == 69 ? false : true" name="tax_id">
                         </div>
                         <!-- Tax ID end -->
@@ -137,7 +146,7 @@ General Infomation
                             <div class="page-form__input-label" style="margin-top: -40px;">
                                 Address
                             </div>
-                            <textarea class="page-form__input" style="resize: none;height: 75px;"
+                            <textarea class="page-form__input address" style="resize: none;height: 75px;"
                                 name="address"></textarea>
                         </div>
                         <!-- Address end -->
@@ -147,7 +156,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Country
                             </div>
-                            <input type="text" class="page-form__input" name="country">
+                            <input type="text" class="page-form__input country" name="country">
                         </div>
                         <!-- country end -->
 
@@ -156,7 +165,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Province
                             </div>
-                            <input type="text" class="page-form__input" name="province">
+                            <input type="text" class="page-form__input province" name="province">
                         </div>
                         <!-- Province end -->
 
@@ -165,7 +174,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 City
                             </div>
-                            <input type="text" class="page-form__input" name="city">
+                            <input type="text" class="page-form__input city" name="city">
                         </div>
                         <!-- city end -->
 
@@ -174,7 +183,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Zipcode
                             </div>
-                            <input type="number" class="page-form__input"
+                            <input type="number" class="page-form__input zipcode"
                                 onkeydown="javascript: return event.keyCode == 69 ? false : true" name="zip_code">
                         </div>
                         <!-- zip code end -->
@@ -195,7 +204,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Email
                             </div>
-                            <input type="email" class="page-form__input" name="email">
+                            <input type="email" class="page-form__input email" name="email">
                         </div>
                         <!-- email start end -->
 
@@ -206,10 +215,10 @@ General Infomation
                                 Phone Number
                             </div>
                             <div class="page-form__phone-input-wrapper">
-                                <select class="page-form__input country-code" style="width: 90px;margin-right: 10px;"
+                                <select class="page-form__input country-code phone_code" style="width: 90px;margin-right: 10px;"
                                     name="country_code">
                                 </select>
-                                <input type="number" class="page-form__input" style="flex: 1;"
+                                <input type="number" class="page-form__input phone_number" style="flex: 1;"
                                     onkeydown="javascript: return event.keyCode == 69 ? false : true"
                                     name="phone_number">
                             </div>
@@ -221,7 +230,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Fax Number
                             </div>
-                            <input type="number" class="page-form__input"
+                            <input type="number" class="page-form__input fax_number"
                                 onkeydown="javascript: return event.keyCode == 69 ? false : true" name="fax_number">
                         </div>
                         <!-- fax number end -->
@@ -242,7 +251,7 @@ General Infomation
                                 General Footer
                             </div>
                             <textarea name="general_footer" style="resize: none;height: 50px;"
-                                class="page-form__input"></textarea>
+                                class="page-form__input general_footer"></textarea>
                         </div>
                         <!-- general footer end -->
 
@@ -252,7 +261,7 @@ General Infomation
                                 Certificate Footer
                             </div>
                             <textarea name="certificate_footer" style="resize: none;height: 50px;"
-                                class="page-form__input"></textarea>
+                                class="page-form__input certificate_footer"></textarea>
                         </div>
                         <!-- certificate footer start -->
 
@@ -270,33 +279,221 @@ General Infomation
 @endsection
 @section('footer_script')
 
-@component('components.modal.ConfirmModal',[
-        "data"=> [
+<script src="{{ URL::asset('/js/general_info.js') }}"></script>
+<script src="{{ URL::asset('/js/helpers/input_helper.js') }}"></script>
+<script src="{{ URL::asset('/js/helpers/modal_helper.js') }}"></script>
 
-            "messageConfirm"=>[
-        "heading"=>"Create",
-        "message"=>"Do you want to Cutting Master ?",
-        "image"=> URL::asset('/images/icons/question.png')
-        ],
-            "messageDone"=>[
-                "heading"=>"Successful",
-                "message"=>"Save Cutting Master Successful",
-                "image"=>URL::asset('/images/icons/checked.png') 
-                ],
-            "validateUrl"=>"api/master-stroage-validate",
-            "requestUrl"=>"api/master-stroage"
+<script>
+
+    const branchData = {
+        headOffice :{
+            brand_logo:"",
+            company_name:"",
+            business_type:"",
+            email:"",
+            branch_location:"",
+            branch_code:"",
+            tax_id:"",
+            address:"",
+            country:"",
+            province:"",
+            city:"",
+            zipcode:"",
+            phone_number:"",
+            phone_code:"",
+            fax_number:"",
+            general_footer:"",
+            certificate_footer:"",
+            
+            
+        },
+        branch:[],
+        set setHeadOffice(Obj){
+            for(const prop in this.headOffice){
+                this.headOffice[prop] = Obj[prop]
+
+            }
+
+        },
+        get getHeadOffice(){
+            return this.headOffice;
+        },
+        set setHeadOfficeBrandLogo(file){
+            this.headOffice.brand_logo = file;
+        },
+        get getHeadOfficeBrandLogo(){
+            return this.headOffice.brand_logo
+        }
+    }
+    const formDom = {
+        currentFormDom:"",
+        set setCurrentFormDom(val){
+            this.currentFormDom = val
+        },
+        get getCurrentFormDom(){
+            return this.currentFormDom
+        }
+    }
+    
+        document.addEventListener('readystatechange',async function() {
+            
+            if(document.readyState=='interactive'){
+                formDom.setCurrentFormDom = jQuery('#page-form');
+                    const head_branch = await SendAjaxGet('/api/general-infomation/getbranch?type=head_office');
+
+            const branch_resp = head_branch.data;
+  if(branch_resp.count>0){
+                // console.log(branch_resp.data)
+
+
+                branchData.setHeadOffice = branch_resp.data[0];
+
+            }else{
+                console.log('no head branch onfp')
+            }
+            mapFillInput(jQuery(".head_office"),{
+                    "branch_location":branchData.getHeadOffice.branch_location,
+                    "branch_code":branchData.getHeadOffice.branch_code,   "company_name":branchData.getHeadOffice.company_name,  "business_type":branchData.getHeadOffice.business_type,
+                    "tax_id":branchData.getHeadOffice.tax_id,
+                    "address":branchData.getHeadOffice.address,
+                    "country":branchData.getHeadOffice.country,
+                    "province":branchData.getHeadOffice.province,
+                    "city":branchData.getHeadOffice.city,
+                    "zipcode":branchData.getHeadOffice.zipcode,
+                    "email":branchData.getHeadOffice.email,
+                    "fax_number":branchData.getHeadOffice.fax_number,
+                    "phone_number":branchData.getHeadOffice.phone_number,
+                    "phone_code":branchData.getHeadOffice.phone_code,
+                    "general_footer":branchData.getHeadOffice.general_footer,
+                    "certificate_footer":branchData.getHeadOffice.certificate_footer,
+            
+                });
+                $('.head_office .page-form__img-preview').attr('src',branchData.getHeadOffice.brand_logo).show();
+            }
         
+            if(document.readyState=="complete"){
+
+
+                setTimeout(()=>{
+                    $('.page-form__wrapper').removeClass('d-none')
+                },60)
+                formDom.getCurrentFormDom.find('input').on('change',function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+    console.log(e.target.value)
+})
+
+            }
+          
+
+
+        });
+
+
+jQuery('.save_branch').click(function(){
+
+    const headBranchForm = jQuery('.head_office');
+    const BranchModal = jQuery('#BranchModal');
+    const ModalContent =  BranchModal.find('.modal-content');
+    ModalContent.html("");
+    ModalContent.prepend(modalHeader('Update Branch'));
+    ModalContent.append(modalConfirmBodyContent("Do you want to updating Branch Infomation?","/images/icons/question.png"));
+    ModalContent.append(modalConfirmFooterContent())
+    BranchModal.modal();
+
+
+
+
+
+    ModalContent.find('.confirm-modal-confirm').on('click',async function(e){
+e.preventDefault();
+e.stopPropagation();
+
+      const update =  await SendAjaxPost("/api/general-infomation/branch/",{
+            _method:"PUT",
+            head_branch:{
+                id:0 ,
+                business_type:headBranchForm.find('.business_type').val(),
+                brand_logo:branchData.getHeadOfficeBrandLogo,
+                branch_location:headBranchForm.find('.branch_location').val(),
+                branch_code:headBranchForm.find('.branch_code').val(),
+                tax_id:headBranchForm.find('.tax_id').val(),
+                address:headBranchForm.find('.address').val(),
+                country:headBranchForm.find('.country').val(),
+                province:headBranchForm.find('.province').val(),
+                city:headBranchForm.find('.city').val(),
+                zipcode:headBranchForm.find('.zipcode').val(),
+                email:headBranchForm.find('.email').val(),
+                phone_number:headBranchForm.find('.phone_number').val(),
+                phone_code:headBranchForm.find('.phone_code').val(),
+                fax_number:headBranchForm.find('.fax_number').val(),
+                general_footer:headBranchForm.find('.general_footer').val(),
+                certificate_footer:headBranchForm.find('.certificate_footer').val()
+            },
+            branch:[
+                // {
+                //     id:"",
+                //     branch_type:"branch"
+                // }
             ]
+        },
+        {
+          
+          headers: {
+            // 'Accept': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded' 
+                'Content-Type': 'multipart/form-data'
+       
+          },
+          processData: false, // Prevent jQuery from processing the data
+              contentType: true, // Set the content type to false as FormData will set it correctly
+        }
+        )
+        // $(this).prop('disabled',true)
+    //     if(update.status==200){
+    //         ModalContent.html("");
+    // ModalContent.prepend(modalHeader('Update Branch'));
+    // ModalContent.append(modalConfirmBodyContent("Update Branch Infomation Successful?","/images/icons/checked.png"));
+    // ModalContent.append(modalCompleteFooterContent())
+    //     }
+    });
 
 
 
-    ]
+
+});
+
+
+// image upload data set 
+$('.brandLogo').on('change',function(e){
+
+e.preventDefault();
+      e.stopPropagation();
+
+const file = e.target.files[0];
+const newFile = new File([file], file.name, {
+type: file.type,
+lastModified: file.lastModified,
+});
+
+
+branchData.setHeadOfficeBrandLogo = newFile;
+$(this).parents('form').attr("status","update");
+console.log(branchData.getHeadOfficeBrandLogo)
+});
+
+jQuery('.tab').on('click',function(){
+    console.log('hey click')
+    formDom.setCurrentFormDom = jQuery(this).parents('#page-form');
+    formDom.getCurrentFormDom.find('input').on('change',function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+    
+})
+})
     
 
-        )
 
- 
-@endcomponent
-<script src="{{ URL::asset('/js/general_info.js') }}"></script>
+</script>
 @endsection
 

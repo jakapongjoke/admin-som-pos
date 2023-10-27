@@ -36,8 +36,8 @@ class ProductMasterStoneController extends Controller
 
     public function getCountProductStoneFromStoneMasterId(Request $request){
         $master_id = $request->query('master_id');
-        $master_type = $request->query('master_type');
-        return $this->ProductStoneMasterService->checkMasterUsingInProductMaster($request->company_name,$master_type,$master_id);
+        $field_name = $request->query('field_name');
+        return $this->ProductStoneMasterService->checkMasterUsingInProductMaster($request->company_name,$field_name,$master_id);
 
 
     }
@@ -106,8 +106,10 @@ class ProductMasterStoneController extends Controller
     }
 
     public function getMasterInfoByProductStoneGroupId(Request $request){
-  
-      return   $this->ProductStoneMasterService->getMasterInfoByProductStoneGroupId($request->company_name,$request->stone_group_id);
+        $r = $request->segments();
+        $page = $request->query('page')?$request->query('page'):1;
+        $perPage = $request->query('perpage')?$request->query('perpage'):10;
+      return   $this->ProductStoneMasterService->getMasterInfoByProductStoneGroupId($request->company_name,$request->stone_group_id,0,$perPage,0);
     }
     
 }

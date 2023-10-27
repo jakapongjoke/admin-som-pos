@@ -27,17 +27,18 @@ class ProductStoneMasterService{
             "master_data"=> $data
         ], 200);
     }
-    public function getMasterInfoByProductStoneGroupId(string $company_name,int $master_stone_group_id){
+    public function getMasterInfoByProductStoneGroupId(string $company_name,int $master_stone_group_id,$page=0,$perPage=100,$skip=0){
         
-        $master_stone_group = $this->GetMasterCodeByType($company_name,'master_stone_group',100,0);
+        $master_stone_group = $this->GetMasterCodeByType($company_name,'master_stone_group',$perPage,0);
 
-        $master_stone_name = $this->GetMasterCodeByParentID($company_name,$master_stone_group_id,'master_stone_name',100,0);
+        $master_stone_name = $this->GetMasterCodeByParentID($company_name,$master_stone_group_id,'master_stone_name',$perPage,0);
 
-        $master_stone_shape = $this->GetMasterCodeByType($company_name,'master_stone_shape',100,0);
-        $master_stone_color = $this->GetMasterCodeByType($company_name,'master_stone_color',100,0);
-        $master_stone_clarity = $this->GetMasterCodeByType($company_name,'master_stone_clarity',100,0);
-        $master_stone_cutting = $this->GetMasterCodeByType($company_name,'master_stone_cutting',100,0);
-        $master_certificate_type = $this->GetMasterCodeByType($company_name,'master_certificate_type',100,0);
+        $master_stone_shape = $this->GetMasterCodeByType($company_name,'master_stone_shape',$perPage,$skip);
+        $master_stone_color = $this->GetMasterCodeByType($company_name,'master_stone_color',$perPage,$skip);
+        $master_stone_size = $this->GetMasterCodeByType($company_name,'master_stone_size',$perPage,$skip);
+        $master_stone_clarity = $this->GetMasterCodeByType($company_name,'master_stone_clarity',$perPage,$skip);
+        $master_stone_cutting = $this->GetMasterCodeByType($company_name,'master_stone_cutting',$perPage,$skip);
+        $master_certificate_type = $this->GetMasterCodeByType($company_name,'master_certificate_type',$perPage,$skip);
 
         return response()->json([
             "status"=>200,
@@ -46,6 +47,7 @@ class ProductStoneMasterService{
                 "master_stone_name"=>$master_stone_name,
                 "master_stone_shape"=>$master_stone_shape,
                 "master_stone_color"=>$master_stone_color,
+                "master_size"=>$master_stone_size,
                 "master_stone_clarity"=>$master_stone_clarity,
                 "master_stone_cutting"=>$master_stone_cutting,
                 "master_certificate_type"=>$master_certificate_type

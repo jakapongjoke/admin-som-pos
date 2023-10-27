@@ -2,6 +2,12 @@
  
 @section('head')
 @section('title', 'Product Master Jewelry')
+<style>
+div#MasterProductModal .modal-content {
+    width: 1333px;
+    height: 1081px;
+}
+</style>
 @endsection
 
 @section('content')

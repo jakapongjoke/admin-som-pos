@@ -45,9 +45,9 @@ use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
         $running_number  = $this->stoneRunningNumber($company_name,$code);
         return $prefixCode.$running_number;
     }
-    public function checkMasterUsingInProductMaster($company_name,$master_type,$master_id ){
+    public function checkMasterUsingInProductMaster($company_name,$field_name,$id ){
         $model = $this->setProductMasterTable($company_name);
-        return $model->where($master_type,'=',$master_id)->get()->count();
+        return $model->where($field_name,'=',$id)->get()->count();
     }
     public function listProductStoneMaster(string $company_name , int $perPage = 10 ,int $page=1){
         $productMater = new ProductMater();
@@ -65,7 +65,12 @@ use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
         ];
         $model->setTable($table_data['productMasterTb']);  
 
-        $productMasterData =  $model->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","master_description","updated_at"])->skip($skip)->limit($perPage)->orderByRaw("$table_data[productMasterTb].id asc")->get()->toArray();
+        $productMasterData =  $model->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","master_description","created_at","updated_at"])->orderBy('id','desc')->skip($skip)->limit($perPage)->get()->toArray();
+
+
+        // $productMasterData  = DB::table($table_data['productMasterTb'])->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","master_description","created_at","updated_at"]);
+
+        // $productMasterData =  $model->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","master_description","updated_at"])->skip($skip)->limit($perPage)->orderByRaw("$table_data[productMasterTb].created_at DESC")->get()->toArray();
 
         
         // $masterData = $this->getMasterCodeForProductMasterPreset($company_name);
@@ -127,13 +132,13 @@ use \App\Traits\Company\StoreCreator\Inventory\MasterCodeTrait;
         ];
         $model->setTable($table_data['productMasterTb']);  
 
-        $productMasterData =  $model->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","stone_color","stone_clarity","stone_cutting","master_certificate","master_description","updated_at"])->where('id','=',$id)->orderByRaw("$table_data[productMasterTb].id asc")->get()->toArray();
+        $productMasterData =  $model->select(["id","master_image","product_stone_code","stone_group","stone_name","stone_shape","stone_color","stone_clarity","stone_cutting","master_certificate","master_certificate_image","master_description","updated_at"])->where('id','=',$id)->orderByRaw("$table_data[productMasterTb].id desc")->get()->toArray();
 
         
         // $masterData = $this->getMasterCodeForProductMasterPreset($company_name);
 
        
-        $productMasterInfo = DB::table("$table_data[groupInfoTbName]")->select(['product_stone_code','product_master_id','group_name','size','sale_price','standard_weight','unit','sale_price_unit'])->where('product_group_info_type','=','stone')->where('product_master_id','=',$id)->get()->toArray(); 
+        $productMasterInfo = DB::table("$table_data[groupInfoTbName]")->select(['product_stone_code','product_master_id','group_name','size','sale_price','standard_weight','unit','sale_price_unit'])->where('product_group_info_type','=','stone')->where('product_master_id','=',$id)->orderByRaw("$table_data[groupInfoTbName].group_name asc")->get()->toArray(); 
 
         $data = [
             "productMasterData"=>$productMasterData[0],

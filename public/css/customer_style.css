@@ -1140,20 +1140,23 @@ header.header_login .logo {
     .image-upload-preview img{
         width: 100%;
     }
-    .multiple_images_addional_list{
+    .multiple_images_addional_list {
         position: absolute;
         left: 0;
-        width: 100px;
+        width: 87px;
+        padding-left: 7px;
         height: 200px;
-        overflow-x: inherit;
+        overflow-x: hidden;
         list-style: none;
-
+        margin-top: 10px;
     }
-    .multiple_images_addional_list li{
-        width: 59px ;
+    .multiple_images_addional_list li {
+        width: 59px;
+        height: 60px;
         display: block;
         cursor: pointer;
-        overflow-x: inherit;
+        overflow-x: hidden;
+        margin-bottom: 6px;
     }
     .multiple_images_addional_list li img{
         width: 100% ;
@@ -2758,4 +2761,18 @@ td.p_info_standard_weight input {
 }
 .page-form__input {
     padding-right: 44px !important;
+}
+li.nav-item.is-open {
+
+    background: transparent linear-gradient(180deg,#597074 0%,#8BADB2 100%) 0% 0% no-repeat padding-box;
+}
+li.nav-item.is-open a {
+    color: white !important;
+}
+li.nav-item.is-open .pos-menu-icon  {
+    filter: brightness(0) invert(1);
+}
+img.current_cert_img {
+    width: 75px;
+    margin-left: 8px;
 }

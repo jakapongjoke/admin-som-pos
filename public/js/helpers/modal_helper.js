@@ -75,44 +75,46 @@ function modalCompleteFooterContent() {
 
      return ConfirmBodytxt;
 }
+
+
 function ReloadModal(){
     setTimeout(() => {
         document.location.reload();
       }, 500);
 }
-function modalFormSubmitTrigger(txtConfirm,txtDone,validateUrl,requestUrl){
+// function modalFormSubmitTrigger(txtConfirm,txtDone,validateUrl,requestUrl){
     
-  $('.modal_form').on('submit',async function(e){
+//   $('.modal_form').on('submit',async function(e){
       
-      e.preventDefault();
-      e.stopPropagation()
-      let form  = $(this);
+//       e.preventDefault();
+//       e.stopPropagation()
+//       let form  = $(this);
      
-  if(true){
-          const validate = await validateData(form.serialize(),validateUrl);
+//   if(true){
+//           const validate = await validateData(form.serialize(),validateUrl);
           
-      if(validate===true){
-          $('.modal-content').width(535).height(373).css({margin:"0px auto"});
-          $('.modal-content').html('').html(showModalConfirm(txtConfirm[0],txtConfirm[1],txtConfirm[2]));
-      }
-      }
+//       if(validate===true){
+//           $('.modal-content').width(535).height(373).css({margin:"0px auto"});
+//           $('.modal-content').html('').html(showModalConfirm(txtConfirm[0],txtConfirm[1],txtConfirm[2]));
+//       }
+//       }
 
       
     
 
 
-      $('.confirm-modal-confirm').on('click', async function(e){
-          const ReqData = await SendAjaxDelete(requestUrl,{});
-          if(ReqData.status==200){
-              $('.modal-content').html('').html(showModalComplete(txtDone[0],txtDone[1],txtDone[2]));
+//       $('.confirm-modal-confirm').on('click', async function(e){
+//           const ReqData = await SendAjaxDelete(requestUrl,{});
+//           if(ReqData.status==200){
+//               $('.modal-content').html('').html(showModalComplete(txtDone[0],txtDone[1],txtDone[2]));
 
-          }
-        });
-  });
+//           }
+//         });
+//   });
 
-}
+// }
 
-async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType){
+async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,message=""){
   
         let form  = $(this);
         let dataSend;
@@ -134,7 +136,20 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType){
             
         if(validate===true){
             $('.modal-content').width(535).height(373).css({margin:"0px auto"});
-            $('.modal-content').html('').html(showModalConfirm(modalConfig.getMessageConfirmHeading,modalConfig.getMessageConfirmText,modalConfig.getMessageConfirmImageIcon));
+      
+            switch(method){
+              case "post" :
+                $('.modal-content').html('').html(showModalConfirm(message.create.confirmHeading,message.create.confirmText,message.imageIcon.confirmIcon));
+              break;
+              case "put":
+                $('.modal-content').html('').html(showModalConfirm(message.edit.confirmHeading,message.edit.confirmText,message.imageIcon.confirmIcon));
+              break;
+              case "delete":
+                $('.modal-content').html('').html(showModalConfirm(message.delete.confirmHeading,message.delete.confirmText,message.imageIcon.confirmIcon));
+              break;
+            }
+         
+
         }
         }
         $('.confirm-modal-confirm').on('click', async function(e){
@@ -155,7 +170,21 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType){
             }
 
             if(ReqData.status==200){
-                $('.modal-content').html('').html(showModalComplete(modalConfig.getMessageDoneHeading,modalConfig.getMessageDoneText,modalConfig.getMessageDoneImageIcon));
+
+                 
+            switch(method){
+              case "post" :
+                $('.modal-content').html('').html(showModalComplete(message.create.doneHeading,message.create.doneText,message.imageIcon.doneIcon));
+              break;
+              case "put":
+                $('.modal-content').html('').html(showModalComplete(message.edit.doneHeading,message.edit.doneText,message.imageIcon.doneIcon));
+              break;
+              case "delete":
+                $('.modal-content').html('').html(showModalComplete(message.delete.doneHeading,message.delete.doneText,message.imageIcon.doneIcon));
+              break;
+            }
+
+
 
             }
           });
@@ -163,7 +192,7 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType){
 
 }
 
-function modalFormDelete(requestUrl){
+function modalFormDelete(requestUrl,message,iconImage){
   
         let form  = $(this);
       
@@ -171,13 +200,13 @@ function modalFormDelete(requestUrl){
             
       
             $('.modal-content').width(535).height(373).css({margin:"0px auto"});
-            $('.modal-content').html('').html(showModalConfirm(modalConfig.getMessageConfirmHeading,modalConfig.getMessageConfirmText,modalConfig.getMessageConfirmImageIcon));
+            $('.modal-content').html('').html(showModalConfirm(message.confirmHeading,message.confirmText,iconImage.confirmDelete));
         
   
         $('.confirm-modal-confirm').on('click', async function(e){
           ReqData = await SendAjaxDelete(requestUrl);
             if(ReqData.status==200){
-                $('.modal-content').html('').html(showModalComplete(modalConfig.getMessageDoneHeading,modalConfig.getMessageDoneText,modalConfig.getMessageDoneImageIcon));
+                $('.modal-content').html('').html(showModalComplete(message.doneHeading,message.doneText,iconImage.doneDelete));
 
             }
           });

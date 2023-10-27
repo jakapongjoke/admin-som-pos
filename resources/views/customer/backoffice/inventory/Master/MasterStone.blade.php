@@ -37,10 +37,7 @@
 
         )
 
- 
-@endcomponent -->
-<script>
-// {
+ // {
 //     "id": 365,
 //     "running_number": 0,
 //     "parent_id": null,
@@ -59,6 +56,9 @@
 //     "created_at": "2023-06-01T16:24:10.000000Z",
 //     "updated_at": "2023-06-25T15:14:15.000000Z"
 // }
+
+@endcomponent -->
+<script>
 
 
     let masterItem = {
@@ -92,12 +92,16 @@
 
 </script>
 <script src="{{URL::asset('js/helpers/list_helper.js')}}"></script>
+<script src="{{URL::asset('js/helpers/element_helper.js')}}"></script>
+
 <script src="{{URL::asset('js/helpers/api_helper.js')}}"></script>
 <script src="{{URL::asset('js/master-code-table.js')}}"></script>
 <script>
             const checkbox = '<input type="checkbox" class="check_all_list"/>';
     let tableOptions = {
-            masterType:"master_stone_group",
+            masterType:"master_stone_name",
+            masterTypeRouteName:"master-stone-name",
+
             modalId:"#MasterStoneModal",
             listDataRoute:"/api/master/master-stone/master-stone-name",
             viewRoute:"/api/master/master-stone/view/",
@@ -108,7 +112,7 @@
             validateRoute:"api/master/master-stone-validate",
             deleteRoute:"/api/master/master-stone",
             changeStatusUrl:"/api/master/master-stone/changestatus",
-            checkExistUrl:"/api/product-master/get-count-from-stone-name-id?master_type=master_stone_name",
+            checkExistUrl:"/api/product-master/get-count-from-stone-name-id?field_name=stone_name",
             dataField : {
                 heading:[checkbox,'No.', 'Name', 'Code', 'Description', 'Last Modified Date'],
                 colData:["master_name","master_code","master_description","updated_at"],
@@ -143,27 +147,41 @@
                      confirmHeading:"Create",
                     confirmText : "Do you want to create this master stone name ?",
                     doneHeading : "Successful",
-                    doneText : "Save Stone Master Successful",
+                    doneText : "Save  Master Successful",
                 },
                 edit:{
                      confirmHeading:"Edit",
                     confirmText : "Do you want to change master stone?",
                     doneHeading : "Successful",
+                    doneText : "Edit Master Successful",
+
                 },
                 delete:{
                      confirmHeading:"Delete",
-                    confirmText : "Do you want to delete this master group ?",
+                    confirmText : "Do you want to delete this master  ?",
                     doneHeading : "Successful",
+                    doneText : "Delete  Master Successful",
                 },
                 imageIcon:{
                     confirmIcon:"/images/icons/question.png",
                     doneIcon:"/images/icons/checked.png",
+                    confirmDelete:"/images/icons/question.png",
+                    doneDelete:"/images/icons/cancel1.png"
                 }
                
             }
     }
+    jQuery('#mastertable').masterTable(tableOptions);
 
-        jQuery('#mastertable').masterTable(tableOptions);
+    document.addEventListener('DOMContentLoaded', async function() {   
+   
+        let stone_group = await SendAjaxGet('api/master/master-stone/master-stone-group?page=1&perpage=10');
+const resp =  stone_group.data;
+let data = [...resp.data];
+insertOption("parent_id",data,"Stone Group");
+
+})
+    
 
 </script>
 @endsection

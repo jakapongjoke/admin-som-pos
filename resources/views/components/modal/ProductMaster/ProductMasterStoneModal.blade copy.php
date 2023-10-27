@@ -632,7 +632,7 @@ e.preventDefault();
 
   },
   processData: false, // Prevent jQuery from processing the data
-      contentType: true, // Set the content type to false as FormData will set it correctly
+      contentType: false, // Set the content type to false as FormData will set it correctly
 }
         
         );

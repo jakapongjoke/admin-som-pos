@@ -98,17 +98,55 @@ function CreateTagElement(text,elem,classname=""){
     // return "<"+ elem+" class=\""+classname+"\">"+text+"</"+elem+">";
 }
 
-function insertOption(selectElm,optionData,defaultEmptyOption="",defaultSelect=""){
+function insertOption(selectElm,optionData,defaultEmptyOption="",defaultSelect="",queryType="id"){
     // jQuery('#'+selectElm).remove();
 
     // jQuery('#'+selectElm).children('option')
-    if(jQuery('#'+selectElm).find("option").length>0){
-        jQuery('#'+selectElm).empty();
+
+    switch(queryType){
+        case "id":
+            if(jQuery('#'+selectElm).find("option").length>0){
+                jQuery('#'+selectElm).empty();
+                }
+                clearOption(selectElm,defaultEmptyOption);
+                for(i = 0 ; i<optionData.length ; i++){
+                    jQuery('#'+selectElm).append( '<option value="'+optionData[i].id+'">'+optionData[i].master_name+'</option>' );
+                }
+                if(defaultSelect!=""){
+                    jQuery('#'+selectElm).val(defaultSelect)
+                }
+        break;
+        case "class":
+
+        if(jQuery('.'+selectElm).find("option").length>0){
+            jQuery('.'+selectElm).empty();
+            }
+            clearOption(selectElm,defaultEmptyOption);
+            for(i = 0 ; i<optionData.length ; i++){
+                jQuery('.'+selectElm).append( '<option value="'+optionData[i].id+'">'+optionData[i].master_name+'</option>' );
+            }
+            if(defaultSelect!=""){
+                jQuery('.'+selectElm).val(defaultSelect)
+            }
+        break;
+        case "currentdom":
+
+        if(selectElm.find("option").length>0){
+            selectElm.empty();
+            }
+            clearOption(selectElm,defaultEmptyOption,queryType);
+            for(i = 0 ; i<optionData.length ; i++){
+                selectElm.append( '<option value="'+optionData[i].id+'">'+optionData[i].master_name+'</option>' );
+            }
+            if(defaultSelect!=""){
+                selectElm.val(defaultSelect)
+            }
+
+        break;
+        
     }
-    clearOption(selectElm,defaultEmptyOption);
-    for(i = 0 ; i<optionData.length ; i++){
-        jQuery('#'+selectElm).append( '<option value="'+optionData[i].id+'">'+optionData[i].master_name+'</option>' );
-    }
+
+  
 
 
 
@@ -119,9 +157,20 @@ function insertOption(selectElm,optionData,defaultEmptyOption="",defaultSelect="
 
 }
 
-function clearOption(selectElm,defultValue){
-    jQuery('#'+selectElm).children('option').remove();
-    jQuery('#'+selectElm).append( '<option value="">'+defultValue+'</option>' );
+function clearOption(selectElm,defultValue,queryType="id"){
+   switch(queryType){
+    case "id" :
+        jQuery('#'+selectElm).children('option').remove();
+        jQuery('#'+selectElm).append( '<option value="">'+defultValue+'</option>' );
+
+    break;
+    case "currentdom":
+        selectElm.children('option').remove();
+        selectElm.append( '<option value="">'+defultValue+'</option>' );
+    break;
+
+   }
+
 
 }
 

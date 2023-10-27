@@ -85,7 +85,7 @@
     $.fn.productMasterTable = function(options) {
 
       jQuery("#mastertable").
-      html(headerTable(dataField.heading,dataField.options))
+      html(headerTable(options.dataField.heading,options.dataField.options))
       .append()
       .on('click','.action_button',function(e){
         e.preventDefault();

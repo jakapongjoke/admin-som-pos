@@ -16,7 +16,7 @@ use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
-
+use App\Http\Controllers\Customer\Inventory\Stock\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,16 +71,19 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
 
     Route::post('/staff-login', [CompanyUserController::class, 'handleLogin'])->name('company.stafflogin');
    
-
+    Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('staff-dashboard'); 
+    Route::get('/general-infomation', [CompanyUserController::class, 'generalInfomation'])->name('general-infomation'); 
 
 
 
 
     Route::middleware('auth:company_users')->prefix('master')->group(function () {
-        Route::get('/staff-dashboard', [CompanyUserController::class, 'dashboard'])->name('staff-dashboard'); 
-        Route::get('/general-infomation', [CompanyUserController::class, 'generalInfomation'])->name('general-infomation'); 
-    
+       
     Route::get('/master-storage', [MasterAccountController::class, 'index'])->name('master-storage');
+
+
+
+    
     Route::get('/master-customer', [MasterAccountController::class, 'index'])->name('master-customer');
     Route::get('/master-vendor', [MasterAccountController::class, 'index'])->name('master-vendor');
 
@@ -126,6 +129,14 @@ Route::middleware('auth:company_users')->prefix('product-master')->group(functio
     
     Route::get('/product-master-component', [ProductMasterController::class, 'index'])->name('product-master-component');
     Route::get('/product-master-jewelry', [ProductMasterController::class, 'index'])->name('product-master-jewelry');
+
+});
+
+Route::middleware('auth:company_users')->prefix('inventory')->group(function () {
+    Route::get('/stock-analysis', [StockController::class, 'StockAnalysis'])->name('stock-analysis');
+    
+    // Route::get('/memo-in', [ProductMasterController::class, 'index'])->name('product-master-component');
+    // Route::get('/product-master-jewelry', [ProductMasterController::class, 'index'])->name('product-master-jewelry');
 
 });
 });

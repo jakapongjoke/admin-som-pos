@@ -15,73 +15,10 @@
 <script src="{{URL::asset('js/helpers/files_helper.js')}}"></script>
 <script src="{{URL::asset('js/helpers/list_helper.js')}}"></script>
 <script src="{{URL::asset('js/helpers/api_helper.js')}}"></script>
+<script src="{{URL::asset('js/helpers/util.js')}}"></script>
 <script>
 /* setting */
-let modalConfig = {
- 
- formMethod:"",
- message: {
-     confirm:{
-         heading:"",
-         text:"",
-         imageIcon:"/images/icons/question.png",
-     },
-     done:{
-         heading:"",
-         text:"",
-         imageIcon:"/images/icons/checked.png",
-     }
- },
 
-
- set setMessageConfirmHeading(value){
-     return this.message.confirm.heading = value
- },
- get getMessageConfirmHeading(){
-     return this.message.confirm.heading;
- },
- set setMessageConfirmText(value){
-     return this.message.confirm.text = value
- },
- get getMessageConfirmText(){
-     return this.message.confirm.text;
- },
- set setMessageConfirmImageIcon(value){
-     return this.message.confirm.imageIcon = value
- },
- get getMessageConfirmImageIcon(){
-     return this.message.confirm.imageIcon;
- },
-
- set setMessageDoneHeading(value){
-     return this.message.done.heading = value
- },
- get getMessageDoneHeading(){
-     return this.message.done.heading;
- },
- set setMessageDoneText(value){
-     return this.message.done.text = value
- },
- get getMessageDoneText(){
-     return this.message.done.text;
- },
- set setMessageDoneImageIcon(value){
-     return this.message.done.imageIcon = value
- },
- get getMessageDoneImageIcon(){
-     return this.message.done.imageIcon;
- },
-
-
-
-
- set setFormMethod(value){
-     return this.formMethod = value
- },
- get getFormMethod(){
-     return this.formMethod;
- }
-}
 
 
 /* */
@@ -107,21 +44,23 @@ let modalConfig = {
    
         
     }
+
     jQuery('#MasterProductModal').on('hide.bs.modal', function () {
  window.location.reload(true);
 })
 
     document.addEventListener('DOMContentLoaded', async function() {
         // get product stone master list
-        const data = await fetchdata('/api/product-master/product-master-stone/list/300/1');
+        const data = await fetchdata('/api/product-master/product-master-stone/list/10/1');
 
       
         // console.log(JSON.parse(JSON.stringify(product_master_list_resp)))
        let MountedDom = jQuery("#mastertable").html(headerTable(dataField.heading,dataField.options));
+       console.log(data);
+
        const product_master_list_resp = await data.list_data;
        const listobj = [...product_master_list_resp];
     
-        console.log(listobj);
        MountedDom.append(listTableData(listobj,dataField.colData,dataField.options))
        MountedDom.on('click','.action_button',function(e){
     
@@ -201,6 +140,8 @@ jQuery('.create').on('click',async function(e){
 e.stopPropagation();
 e.preventDefault();
 
+jQuery('#MasterProductModal').attr('modalType','post')
+
 
 
 if($('.master_certificate_img_output_block').length>0){
@@ -223,9 +164,10 @@ let data = [...resp.data];
 let productMasterImage = [];
 
 // Get master size สำหรับเตรียมไว้ใช้ที่ product group
-const master_size = await SendAjaxGet('api/master/master-stone/master-stone-size?page=1&perpage=10');
+const master_size = await SendAjaxGet('api/master/master-stone/master-stone-size?page=1&perpage=500');
 const resp_master_size =  master_size.data;
 let master_size_data = [...resp_master_size.data];
+
  insertOption("stone_group",data,"Stone Group");
 
  // Run Funtion Upload Multiple image
@@ -351,18 +293,17 @@ $('#stone_group').on('change',async function(e){
 
       });
 
-    
+       
  });
 // End of Create Product Master
 
-//Edit Product Master 
+//Edit Product Master list | edit list item
 jQuery("#mastertable").on('click','.edit_list_item', async function(e){
     e.stopPropagation();
                 e.preventDefault();
-            
+                modalConfig.setFormMethod = 'put';
 
-jQuery('#MasterProductModal').modal()
-
+jQuery('.modal').attr('modaltype','put');
 
    const id = jQuery(this).parents('tr').find('.master_id').attr('value').toString();             
         
@@ -370,20 +311,32 @@ jQuery('#MasterProductModal').modal()
 
 
     const resp =  await product_master_stone.data;
-    console.log(resp)
-let {productMasterData} = await resp.master_data
-let {location} = productMasterData.master_image;
+let {productMasterData} = await resp.master_data;
+
+console.log(resp);
+let {location} = productMasterData;
+let {productMasterInfo} = await resp.master_data;
+
+
+
+
 
 let productMasterImage = [];
 productMasterData.master_image.map(function(v){
     productMasterImage.push(v.location)
 });
-    let master_info = await SendAjaxGet('api/master/get-master-info-by-stone-group/'+productMasterData.stone_group+'?page=1&perpage=100');
+// productMasterInfo.map(function(v){
+//     console.log(v)
+// })
+
+
+    let master_info = await SendAjaxGet('api/master/get-master-info-by-stone-group/'+productMasterData.stone_group+'?page=1&perpage=500');
 
 
     const resp_master_info =  await master_info.data.master_info;
 
 
+    ProductGroupList(jQuery('#stoneTable'),productMasterInfo)
 
 
    
@@ -391,21 +344,47 @@ productMasterData.master_image.map(function(v){
     await insertOption("stone_name",resp_master_info.master_stone_name,"Stone Name")
     await insertOption("stone_shape",resp_master_info.master_stone_shape,"Stone Shape")
     await insertOption("stone_color",resp_master_info.master_stone_color,"Stone Color")
+   
     await insertOption("stone_clarity",resp_master_info.master_stone_clarity,"Stone Clarity")
     await insertOption("stone_cutting",resp_master_info.master_stone_cutting,"Stone Cutting")
     await insertOption("master_certificate_type",resp_master_info.master_certificate_type,"Certificate Type")
 
 // // Get master size สำหรับเตรียมไว้ใช้ที่ product group
-// const master_size = await SendAjaxGet('api/master/master-stone/master-stone-size?page=1&perpage=10');
+// const master_size = await SendAjaxGet('api/master/master-stone/master-stone-size?page=1&perpage=100');
 
 
 
 // const resp_master_size =  master_size.data;
 // let master_size_data = [...resp_master_size.data];
 
+jQuery('.product_info_size').each(function(){
+ let elem = $(this);
+ let currsize = elem.parent('.p_info_size').children('.info_size_val').val();
+ insertOption(elem,resp_master_info.master_size,"Size",currsize,"currentdom")
+});
+
+jQuery('.std_unit_price').each(function(){
+ let elem = $(this);
+ let currunit = elem.parent('.p_standard_weight_wrp').children('.std_unit_price_val').val();
+ elem.val(currunit);
+});
+
+
+jQuery('#MasterProductModal').modal()
+
+
 // console.log('productMasterData');
  // Run Funtion Upload Multiple image
  multipleImage('img_upload_wrapper','image-upload-preview',productMasterImage,'images/icons/image_upload.png','edit');
+
+if(productMasterData.master_certificate_image[0]!=""){
+    console.log(productMasterData.master_certificate_image[0].location);
+    jQuery('.cert_image_button').before('<img src="" class="current_cert_img">').parent('div').find('.current_cert_img').attr('src',window.location.protocol+"//"+window.location.host+getPathFromUrl(productMasterData.master_certificate_image[0].location));
+   jQuery('.cert_image_button h4').text('change');
+}
+
+
+
 
  mapFillInput(jQuery("#MasterProductModal"),{
                 "stone_code":productMasterData.product_stone_code,
@@ -498,6 +477,90 @@ function checkModalFormRequired(){
 
     });
     
+
+
+  $('.add_group').on('click',function (e) {
+ 
+    e.preventDefault();
+    e.stopPropagation();
+   let  rowParent = $(this).parents('tr');
+    console.log('addgroup')
+    let current_key = $(this).parents('.tr').attr('key');
+ 
+    if($(this).parents('.action_wrp').hasClass('active')){
+    console.log('active add_group');
+    $(this).parents('.action_wrp').removeClass('active')
+
+  }else{
+    $(this).parents('.action_wrp').addClass('active')
+
+
+  }
+
+  if(rowParent.find('.p_info_group input').css('display')=='none'){
+     let list = rowParent.clone(true,true);
+     list.insertAfter(rowParent).find('.p_info_group input').css('display',"block");
+
+    }else{
+      let  list = rowParent.clone(true,true)
+       list.insertAfter(rowParent);
+
+    }
+    
+   
+   
+    })
+
+
+
+
+  $('.add_size').on('click',function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    $(this).parents('.action_wrp').removeClass('active');
+    
+    let CurrentRow = $(this).parents('tr');
+    let CurrentTBody =  $(this).parents('tbody');
+    let group = CurrentRow.attr('group')
+  //  let a =  $(this).parents('tr').clone(true,true)
+  //  $(this).parents('tbody').append($(this).parents('tr').clone(true,true));
+
+    // a.insertAfter(CurrentRow);
+    // $(this).parents('.action_wrp').find('.action_list').toggleClass('show');
+    // $(this).parents('.action_wrp').find('.action_list').toggle();
+if(group!==""){
+$(this).parents('tr').clone(true,true).insertAfter(CurrentRow).find(".product_info_group").hide().parents('tr').find(".product_info_price").hide();
+
+ 
+actionListInit(CurrentTBody);
+}else{
+alert('typing group befor add size')
+}
+
+    
+//  CurrentTBody.children('tr')
+//  CurrentRow.find('.product_info_price').hide();
+//  CurrentRow.find('.add_group').hide();
+  });
+
+
+
+  $('.edit_group_info').on('click',function (e) {
+    
+
+      e.stopPropagation();
+      $('.action_wrp').removeClass('active');
+
+
+      let elem = $(this).parents('tr');
+    
+    
+      elem.find(".product_info_group").show();
+    
+   
+      
+  });
 
  </script>
  <script src="{{URL::asset('js/helpers/product_master/product_group_helper.js')}}"></script>

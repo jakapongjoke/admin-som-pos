@@ -27,7 +27,13 @@ const cloneFormFirstCopy = form.cloneNode(true);
 // set the inital value of tab index
 let tabIndex = 1;
 // new tab add event
+const required = true;
 addIcon.addEventListener("click", () => {
+
+  if(required===false){
+    alert('Please input required head office data  before adding branch');
+    return false;
+  }
   // generate a unique id for new tab, this unique id will be set in tab button, tab cross icon and form in order to make a relation between them
   const uniqueID = Date.now().toString();
 
@@ -41,6 +47,8 @@ addIcon.addEventListener("click", () => {
   const cloneFormXerox = cloneFormFirstCopy.cloneNode(true);
   cloneFormXerox.setAttribute("data-unique-id", uniqueID);
   cloneFormXerox.style.display = "flex";
+  cloneFormXerox.classList.remove('head_office')
+  cloneFormXerox.classList.add('branch')
   formWrapper.appendChild(cloneFormXerox);
 
   // add the country phone code value in input field
@@ -83,6 +91,8 @@ addIcon.addEventListener("click", () => {
 
   // when the tab overflow, scroll positiona always will be in the right by default
   tabContainer.scrollTo(tabContainer.scrollWidth, 0);
+  
+
 });
 // set inital tab event
 tab.addEventListener("click", tabFunction);

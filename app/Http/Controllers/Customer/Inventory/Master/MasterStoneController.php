@@ -50,6 +50,7 @@ class MasterStoneController extends Controller
         $r = $request->segments();
         $page = $request->query('page')?$request->query('page'):1;
         $perPage = $request->query('perpage')?$request->query('perpage'):10;
+
         switch ($r[3]) {
             case "master-stone-name":
    
@@ -228,6 +229,18 @@ class MasterStoneController extends Controller
               
 
              break;
+
+             case "master-basic-info":
+                $data = [
+                    "parent_id"=>0,
+                    "master_name"=>$request->master_name,
+                    "master_code"=>$request->master_code,
+                    "master_description"=>$request->description,
+                    "master_type"=>$request->master_type,
+                    "master_status"=>$request->master_status,
+                ];
+                return $this->MasterCodeService->addMasterCode($request->company_name,$data );
+
              default:
              return true;
         }
@@ -275,6 +288,19 @@ class MasterStoneController extends Controller
                     "master_type"=>$request->master_type,
                     "master_status"=>$request->master_status,
                 ];
+                return $this->MasterCodeService->updateMasterCode($request->company_name,$data ,$request->master_id);
+        
+             break;
+             case "master-basic-info":
+                $data = [
+                    "parent_id"=>0,
+                    "master_name"=>$request->master_name,
+                    "master_code"=>$request->master_code,
+                    "master_description"=>$request->description,
+                    "master_type"=>$request->master_type,
+                    "master_status"=>$request->master_status,
+                ];
+                echo $request->master_desctiption;
                 return $this->MasterCodeService->updateMasterCode($request->company_name,$data ,$request->master_id);
         
              break;

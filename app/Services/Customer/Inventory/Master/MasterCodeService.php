@@ -25,7 +25,9 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
             "message"=>"Add CreateMasterStorage complete"
         ], 200);
     }
-
+    public function getProductStoneMasterCodeInfoByProductStoneId(string $company_name,int $stone_id){
+        $master_name = $this->GetMasterCodeByParentID( $company_name ,  $stone_id , 'master_name',$limit=100,$skip=0,"array");
+    }
 }
 ?>
 

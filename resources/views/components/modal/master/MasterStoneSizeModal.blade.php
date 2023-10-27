@@ -11,26 +11,26 @@
       </div>
       <div class="modal-body">
         <form class="modal_form">
-
+        <input type="hidden" class="form-control master_type" id="master_type" name="master_type" value="master_stone_size"  >
         <div class="form-group row">
     <label for="name" class="col-sm-3 col-form-label">Name</label>
        <div class="col-sm-9">
-      <input type="text" class="form-control" id="name" name="master_name" placeholder="Name" required>
+      <input type="text" class="form-control master_name" id="name" name="master_name" placeholder="Name" required>
        </div>
      </div>          
-        <div class="form-group row">
+        <!-- <div class="form-group row">
     <label for="code" class="col-sm-3 col-form-label">Code</label>
        <div class="col-sm-9">
-      <input type="text" class="form-control" name="master_code" id="code" placeholder="code" required>
+      <input type="text" class="form-control master_code" name="master_code" id="code" placeholder="code" required>
        </div>
-     </div>  
+     </div>   -->
  
 
 
         <div class="form-group row">
     <label for="description" class="col-sm-3 col-form-label">Description</label>
        <div class="col-sm-9">
-      <textarea class="form-control" id="description" name="desctiption">
+      <textarea class="form-control master_description" id="description" name="description">
       </textarea>
        </div>
      </div>

@@ -26,7 +26,7 @@ $request = Request::instance();
       <nav class="mt-2 user_nav">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-               <li class="nav-item">
+               <li class="nav-item ">
                <a class="nav-link mb-0 pb-2" href="/dashboard">
               <p>
                 <span class="pos-menu-icon master-icon icon-single-menu dashboard-icon "></span>
@@ -37,7 +37,7 @@ $request = Request::instance();
             
           
           </li>
-               <li class="nav-item">
+               <li class="nav-item {{ Request::is('general-infomation') ? 'is-open' : '' }}">
                <a class="nav-link  mb-0 pb-3" href="/general-infomation">
               <p>
                 <span class="pos-menu-icon master-icon icon-single-menu general-info-icon "></span>
@@ -45,11 +45,11 @@ $request = Request::instance();
               </p>
 </a>
 
-            
+
           
           </li>
   
-          <li class="nav-item @if(Request::segment(1) == 'master') is-opening menu-is-opening menu-open  @endif">
+          <li class="nav-item">
             <span class="nav-link list_with_sub">
               <p>
               <i class="icon-sub-treemenu-arrow right arrow"></i>
@@ -216,7 +216,94 @@ $request = Request::instance();
               </ul>
            
           </li>
+ 
 
+
+          <li class="nav-item">
+            <span class="nav-link list_with_sub">
+              <p>
+              <i class="icon-sub-treemenu-arrow right arrow"></i>
+
+                <span class="pos-menu-icon master-icon"></span>
+                <span class="menu-text">Inventory</span>
+              </p>
+            </span>
+
+
+            <ul class="nav nav-treeview ">
+              
+              <h2 class="tree-menu-heading">Analysis</h2>
+
+              <li class="nav-item {{ Request::is('inventory/stock-analysis') ? 'active' : '' }}">
+                <a href="{{url()->to('inventory/stock-analysis')}}" class="nav-link ">
+                  <p>Stock Analysis</p>
+                </a>
+              </li>
+       
+              </ul>
+            <ul class="nav nav-treeview ">
+              
+              <h2 class="tree-menu-heading">Recieve</h2>
+
+              <li class="nav-item {{ Request::is('inventory/recieve') ? 'active' : '' }}">
+                <a href="{{url()->to('inventory/stock-recieve')}}" class="nav-link ">
+                  <p>Recieve</p>
+                </a>
+              </li>
+
+              </ul>
+            <ul class="nav nav-treeview ">
+              
+              <h2 class="tree-menu-heading">Memo</h2>
+
+              <li class="nav-item {{ Request::is('inventory/memo-in') ? 'active' : '' }}">
+                <a href="{{url()->to('inventory/memo-in')}}" class="nav-link ">
+                  <p>Memo In</p>
+                </a>
+              </li>
+              <li class="nav-item {{ Request::is('inventory/memo-return') ? 'active' : '' }}">
+                <a href="{{url()->to('inventory/memo-return')}}" class="nav-link ">
+                  <p>Memo Return</p>
+                </a>
+              </li>
+         
+          
+
+              </ul>
+            <ul class="nav nav-treeview ">
+              
+              <h2 class="tree-menu-heading">Purchase</h2>
+
+              <li class="nav-item {{ Request::is('inventory/purchase') ? 'active' : '' }}">
+                <a href="{{url()->to('inventory/purchase')}}" class="nav-link ">
+                  <p>Purchase</p>
+                </a>
+              </li>
+              
+          
+
+              </ul>
+            <ul class="nav nav-treeview ">
+              
+              <h2 class="tree-menu-heading">Service Order</h2>
+
+              <li class="nav-item {{ Request::is('inventory/custom-order') ? 'active' : '' }}">
+                <a href="{{url()->to('inventory/custom-order')}}" class="nav-link ">
+                  <p>Custom Order</p>
+                </a>
+              </li>
+              
+          
+              <li class="nav-item {{ Request::is('inventory/repair-order') ? 'active' : '' }}">
+                <a href="{{url()->to('inventory/repair-order')}}" class="nav-link ">
+                  <p>Repair Order</p>
+                </a>
+              </li>
+              
+          
+
+              </ul>
+          </li>
           
         </ul>
       </nav>
