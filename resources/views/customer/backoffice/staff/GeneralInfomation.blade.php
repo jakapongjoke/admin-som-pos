@@ -107,7 +107,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Company name
                             </div>
-                            <input type="text" class="page-form__input company_name" name="company_name">
+                            <input type="text" class="page-form__input company_name required_field" name="company_name">
                         </div>
                         <!-- Company name end -->
 
@@ -116,7 +116,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Branch location
                             </div>
-                            <input type="text" class="page-form__input branch_location" name="branch_location">
+                            <input type="text" class="page-form__input branch_location required_field" name="branch_location">
                         </div>
                         <!-- Branch location end -->
 
@@ -126,7 +126,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Branch code
                             </div>
-                            <input type="text" class="page-form__input branch_code" name="branch_code">
+                            <input type="text" class="page-form__input branch_code required_field" name="branch_code">
                         </div>
                         <!-- Branch code end -->
 
@@ -135,7 +135,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Tax ID
                             </div>
-                            <input type="number" class="page-form__input tax_id"
+                            <input type="number" class="page-form__input tax_id required_field"
                                 onkeydown="javascript: return event.keyCode == 69 ? false : true" name="tax_id">
                         </div>
                         <!-- Tax ID end -->
@@ -146,7 +146,7 @@ General Infomation
                             <div class="page-form__input-label" style="margin-top: -40px;">
                                 Address
                             </div>
-                            <textarea class="page-form__input address" style="resize: none;height: 75px;"
+                            <textarea class="page-form__input address required_field" style="resize: none;height: 75px;"
                                 name="address"></textarea>
                         </div>
                         <!-- Address end -->
@@ -156,7 +156,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Country
                             </div>
-                            <input type="text" class="page-form__input country" name="country">
+                            <input type="text" class="page-form__input country required_field" name="country">
                         </div>
                         <!-- country end -->
 
@@ -165,7 +165,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Province
                             </div>
-                            <input type="text" class="page-form__input province" name="province">
+                            <input type="text" class="page-form__input province required_field" name="province">
                         </div>
                         <!-- Province end -->
 
@@ -174,7 +174,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 City
                             </div>
-                            <input type="text" class="page-form__input city" name="city">
+                            <input type="text" class="page-form__input city required_field" name="city">
                         </div>
                         <!-- city end -->
 
@@ -183,7 +183,7 @@ General Infomation
                             <div class="page-form__input-label">
                                 Zipcode
                             </div>
-                            <input type="number" class="page-form__input zipcode"
+                            <input type="number" class="page-form__input zipcode required_field"
                                 onkeydown="javascript: return event.keyCode == 69 ? false : true" name="zip_code">
                         </div>
                         <!-- zip code end -->
@@ -278,14 +278,8 @@ General Infomation
     
 @endsection
 @section('footer_script')
-
-<script src="{{ URL::asset('/js/general_info.js') }}"></script>
-<script src="{{ URL::asset('/js/helpers/input_helper.js') }}"></script>
-<script src="{{ URL::asset('/js/helpers/modal_helper.js') }}"></script>
-
 <script>
-
-    const branchData = {
+        const branchData = {
         headOffice :{
             brand_logo:"",
             company_name:"",
@@ -323,17 +317,74 @@ General Infomation
         },
         get getHeadOfficeBrandLogo(){
             return this.headOffice.brand_logo
+        },
+        set setBranchData(data){
+            this.branch.splice(0,this.branch.length);
+            this.branch.push(data)
+            return this.branch;
+        },
+        set updateBranchImage(obj){
+           const filterData =  this.branch.filter((branch)=>{
+                return branch.id = obj.formId;
+            }) ;
+            filterData.forEach(function(item){
+                item.brand_logo = obj.brandLogo
+            });
+        },
+        get getBranchData(){
+            return this.branch;
         }
     }
     const formDom = {
         currentFormDom:"",
+        requied:"",
+        currentFormId:"",
+        prevFormId:"",
+        nexFormId:"",
         set setCurrentFormDom(val){
             this.currentFormDom = val
         },
         get getCurrentFormDom(){
             return this.currentFormDom
+        },
+        set setRequied(val){
+            this.requied = val
+        },
+        get getRequied(){
+            return this.requied
+        },
+        set setCurrentFormId(val){
+            this.currentFormId = val
+        },
+        get getCurrentFormId(){
+            return this.currentFormId
+        },
+         
+
+        set setNextFormId(val){
+            this.nextFormId = val
+        },
+        get getNextFormId(){
+            return this.nextFormId
+        },
+
+        set setPrevFormId(val){
+            this.prevFormId = val
+        },
+        get getPrevFormId(){
+            return this.prevFormId
         }
+
+
     }
+</script>
+<script src="{{ URL::asset('/js/general_info.js') }}"></script>
+<script src="{{ URL::asset('/js/helpers/input_helper.js') }}"></script>
+<script src="{{ URL::asset('/js/helpers/modal_helper.js') }}"></script>
+
+<script>
+
+
     
         document.addEventListener('readystatechange',async function() {
             
@@ -369,6 +420,7 @@ General Infomation
             
                 });
                 $('.head_office .page-form__img-preview').attr('src',branchData.getHeadOffice.brand_logo).show();
+                updateFormAttrTrigger()
             }
         
             if(document.readyState=="complete"){
@@ -395,11 +447,13 @@ jQuery('.save_branch').click(function(){
     const headBranchForm = jQuery('.head_office');
     const BranchModal = jQuery('#BranchModal');
     const ModalContent =  BranchModal.find('.modal-content');
+  
     ModalContent.html("");
     ModalContent.prepend(modalHeader('Update Branch'));
     ModalContent.append(modalConfirmBodyContent("Do you want to updating Branch Infomation?","/images/icons/question.png"));
     ModalContent.append(modalConfirmFooterContent())
     BranchModal.modal();
+    
 
 
 
@@ -408,8 +462,11 @@ jQuery('.save_branch').click(function(){
     ModalContent.find('.confirm-modal-confirm').on('click',async function(e){
 e.preventDefault();
 e.stopPropagation();
+if(checkRequied()===true){
+    
+    getBranchFormData()
 
-      const update =  await SendAjaxPost("/api/general-infomation/branch/",{
+    const update =  await SendAjaxPost("/api/general-infomation/branch/",{
             _method:"PUT",
             head_branch:{
                 id:0 ,
@@ -431,10 +488,7 @@ e.stopPropagation();
                 certificate_footer:headBranchForm.find('.certificate_footer').val()
             },
             branch:[
-                // {
-                //     id:"",
-                //     branch_type:"branch"
-                // }
+            
             ]
         },
         {
@@ -449,13 +503,16 @@ e.stopPropagation();
               contentType: true, // Set the content type to false as FormData will set it correctly
         }
         )
-        // $(this).prop('disabled',true)
-    //     if(update.status==200){
-    //         ModalContent.html("");
-    // ModalContent.prepend(modalHeader('Update Branch'));
-    // ModalContent.append(modalConfirmBodyContent("Update Branch Infomation Successful?","/images/icons/checked.png"));
-    // ModalContent.append(modalCompleteFooterContent())
-    //     }
+            //     $(this).prop('disabled',true)
+            //     if(update.status==200){
+            //         ModalContent.html("");
+            // ModalContent.prepend(modalHeader('Update Branch'));
+            // ModalContent.append(modalConfirmBodyContent("Update Branch Infomation Successful?","/images/icons/checked.png"));
+            // ModalContent.append(modalCompleteFooterContent())
+            //     }
+    
+}
+      
     });
 
 
@@ -465,7 +522,7 @@ e.stopPropagation();
 
 
 // image upload data set 
-$('.brandLogo').on('change',function(e){
+$('.head_office').find('.brandLogo').on('change',function(e){
 
 e.preventDefault();
       e.stopPropagation();
@@ -478,22 +535,164 @@ lastModified: file.lastModified,
 
 
 branchData.setHeadOfficeBrandLogo = newFile;
-$(this).parents('form').attr("status","update");
-console.log(branchData.getHeadOfficeBrandLogo)
+$(this).parents('form').attr("status","edit");
+
+
 });
 
-jQuery('.tab').on('click',function(){
-    console.log('hey click')
-    formDom.setCurrentFormDom = jQuery(this).parents('#page-form');
+jQuery('.tab').on('click',function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  formDom.setCurrentFormDom = jQuery(this).parents('.page-form__wrapper');
+  
+     const current_add_form = formDom.getCurrentFormDom.find('.branch[status="add"]');
+
+     if(checkRequied()===true){
+        
+    if(current_add_form.length==0){
+        // add tab if not hav any tab and set current tab id active
+
+            formDom.setCurrentFormId = addTab()
+       
+       formDom.getCurrentFormDom.find('.branch').eq(0).attr('status','add');
+      
+       formDom.getCurrentFormDom.find('.branch').eq(0).find('.page-form__img-preview').attr('src',branchData.getHeadOfficeBrandLogo).show()
+
+       
+
+
+
+        // formDom.setCurrentFormId = 
+        // formDom.getCurrentFormDom.find('.page-form__tab').hasClass('active').attr("data-unique-id");
+    
+
+    }else{
+   
+        
+
+ 
+            // formDom.setCurrentFormId = jQuery('.branch').hasClass('active').attr('data-unique-id');  
+            formDom.setNextFormId = addTab()
+
+       
+
+        formDom.setCurrentFormId = formDom.getNextFormId
+
+            formDom.getCurrentFormDom.find('.branch[data-unique-id="'+formDom.getNextFormId+'"]').attr('status','add')
+            
+            formDom.setCurrentFormDom = jQuery(this).parents('.page-form__wrapper');
+                  
+            formDom.getCurrentFormDom.find('.branch[data-unique-id="'+formDom.getNextFormId+'"]').attr('status','add');
+      
+       formDom.getCurrentFormDom.find('.branch[data-unique-id="'+formDom.getNextFormId+'"]').find('.page-form__img-preview').attr('src',branchData.getHeadOfficeBrandLogo).show()
+            updateFormAttrTrigger()
+        
+        
+    }
+     }
+    
+
+});
+
+function updateFormAttrTrigger(){
+    
     formDom.getCurrentFormDom.find('input').on('change',function(e){
                     e.preventDefault();
                     e.stopPropagation();
+                    const parentForm = $(this).parents(".page-form__form");
+                    switch (parentForm.attr('status')){
+                        case "add" :
+                            return false;
+                        break;
+                        case "edit" :
+                            return false;
+                        break;
+                        case "list" :
+                            parentForm.attr('status','edit')
+                        default :
+                        parentForm.attr('status','edit')
+                        break;
+
+                    }
+        
     
 })
-})
+}
     
 
+function checkRequied() {
+    let status = false;
+    formDom.getCurrentFormDom.find('.required_field').each(function(k,v){ 
+      
+      
+            if($(this).val()==""){
+                const tabRequiredName = '.page-form__tab[data-unique-id="'+$(this).parents('.branch').attr('data-unique-id')+'"]'
+                formDom.getCurrentFormDom.find(tabRequiredName).addClass('focus_error');
 
+                alert("please Input Require field On Branch "+ k+1);
+                status = false;
+                return false;
+            }else{
+                status = true;
+            }
+          
+        });
+   
+
+        return status;
+}
+function getBranchFormData(){
+    let branch_form_data = []
+    jQuery('.branch').each(function(){
+        branch_form_data.push({
+            form_status:$(this).attr("status"),
+            business_type:$(this).find('.business_type').val(),
+            brand_logo:branchData.getHeadOfficeBrandLogo,
+            branch_location:$(this).find('.branch_location').val(),
+            branch_code:$(this).find('.branch_code').val(),
+            tax_id:$(this).find('.tax_id').val(),
+            address:$(this).find('.address').val(),
+            country:$(this).find('.country').val(),
+            province:$(this).find('.province').val(),
+            city:$(this).find('.city').val(),
+            zipcode:$(this).find('.zipcode').val(),
+            email:$(this).find('.email').val(),
+            phone_number:$(this).find('.phone_number').val(),
+            phone_code:$(this).find('.phone_code').val(),
+            fax_number:$(this).find('.fax_number').val(),
+            general_footer:$(this).find('.general_footer').val(),
+            certificate_footer:$(this).find('.certificate_footer').val()
+        })
+    });
+}
+function setBranchObjData(form_id){
+    return branchData.setBranchData({
+            formId:form_id,
+            brand_logo:"",
+            company_name:"",
+            business_type:"",
+            email:"",
+            branch_location:"",
+            branch_code:"",
+            tax_id:"",
+            address:"",
+            country:"",
+            province:"",
+            city:"",
+            zipcode:"",
+            phone_number:"",
+            phone_code:"",
+            fax_number:"",
+            general_footer:"",
+            certificate_footer:"",     
+    })
+}
+function updateBranchObjData(form_id,obj){
+    branchData.getBranchData.filter(function(formId){
+        formId == form_id
+    });
+}
 </script>
+
 @endsection
 

@@ -82,8 +82,10 @@ class BranchController extends Controller
     {
         $rq = $request->all();
 if($request->file('head_branch.brand_logo')!=""){
-    echo $request->file('head_branch.brand_logo')->hashName();
+
 }
+
+
         // if($request->head_branch['brand_logo'] instanceof File){
 
         // }

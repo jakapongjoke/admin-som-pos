@@ -27,13 +27,8 @@ const cloneFormFirstCopy = form.cloneNode(true);
 // set the inital value of tab index
 let tabIndex = 1;
 // new tab add event
-const required = true;
-addIcon.addEventListener("click", () => {
+function addTab(){
 
-  if(required===false){
-    alert('Please input required head office data  before adding branch');
-    return false;
-  }
   // generate a unique id for new tab, this unique id will be set in tab button, tab cross icon and form in order to make a relation between them
   const uniqueID = Date.now().toString();
 
@@ -78,7 +73,7 @@ addIcon.addEventListener("click", () => {
   // add a eventlistener in tab button
   cloneTab.addEventListener("click", tabFunction);
   // set the branch name with index number
-  cloneTab.querySelector("span").innerText = tabIndex++ + ".Branch";
+  cloneTab.querySelector("span").innerHTML = '<span class="branch_tab_number">'+ tabIndex++ +'.</span>'+ "<span class='branch_name_tab_text'>Branch</span>";
 
   // close icon used to close a tab
   const closeIcon = cloneTab.querySelector(".page-form__cross-wrapper");
@@ -91,13 +86,17 @@ addIcon.addEventListener("click", () => {
 
   // when the tab overflow, scroll positiona always will be in the right by default
   tabContainer.scrollTo(tabContainer.scrollWidth, 0);
-  
-
-});
+  return uniqueID;
+}
 // set inital tab event
 tab.addEventListener("click", tabFunction);
 // tab function
 function tabFunction(event) {
+
+
+
+
+  
   // at first remove previous active tab and set the current tab as active
   tabWrapper.querySelector(".active").classList.remove("active");
   event.currentTarget.classList.add("active");

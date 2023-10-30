@@ -649,6 +649,7 @@ const modalType = $('#MasterProductModal').attr('modalType')
         let sale_price_number = parseFloat(currentInfoList.find('.sale_price').eq(0).text());
         let std_weight_number_fix =  std_weight_number.toFixed(2);
         let sale_price_number_fix =  sale_price_number.toFixed(2);
+        
           if(key==l){
             listData.push( {
                     group:currentInfoList.find('.product_info_group').val(),

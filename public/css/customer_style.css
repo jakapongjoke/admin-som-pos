@@ -2776,3 +2776,9 @@ img.current_cert_img {
     width: 75px;
     margin-left: 8px;
 }
+.page-form__tab.active.focus_error::after {
+    background: red;
+}
+.page-form__tab.focus_error {
+    border: 3px solid #c75b5b;
+}
