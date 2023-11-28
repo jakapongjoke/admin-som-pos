@@ -11,10 +11,11 @@ class Branch extends Model
 
     use HasFactory;
 
-    protected $fillable = ['branch_name','company_name','branch_code','phone_number','fax_number','email','master_description','business_type','branch_info','branch_image','branch_type','certificate_footer','general_footer','tax_id'];
+    protected $fillable = ['branch_name','company_name','branch_code','phone_number','branch_location','fax_number','email','master_description','phone_code','business_type','province','city','zipcode','branch_info','branch_image','branch_type','certificate_footer','general_footer','tax_id','form_id','country','brand_logo'];
     protected $casts = [
         'branch_info' => 'array',
         'branch_image' => 'array',
+        
     ];
 
 }

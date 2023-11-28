@@ -80,11 +80,19 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::get('/get-master-info-by-stone-group/{stone_group_id}',[ProductMasterStoneController::class,'getMasterInfoByProductStoneGroupId']);
 
 });
+Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('check')->group(function ($company_name) {
+
+
+    Route::get('/add_branch',[BranchController::class,'checkCanAddBranch']);
+
+});
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('general-infomation')->group(function ($company_name) {
+    Route::post('/add_mock_branch',[BranchController::class,'createBranchMockdata']);
 
     Route::post('/branch',[BranchController::class,'create']);
+    Route::post('/branch/updateinfomation',[BranchController::class,'updateInfomation']);
 
-    Route::put('/branch',[BranchController::class,'update']);
+    // Route::put('/branch',[BranchController::class,'update']);
 
 
     Route::get('/getbranch',[BranchController::class,'getAllBranch']);

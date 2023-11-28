@@ -26,7 +26,7 @@ General Infomation
             <div class="page-form__tabs-wrapper">
                 <div class="page-form__tabs">
                     <div class="page-form__tab head_branch_tab active" >
-                        <span class="branch_name_tab_text">Head office</span>
+                        <span>Head office</span>
                         <div class="page-form__cross-wrapper" style="display: none;">
                             <div style="position: relative;">
                                 <div class="page-form__cross-icon one"></div>
@@ -112,23 +112,12 @@ General Infomation
                         </div>
                         <!-- Company name end -->
 
-                        <!-- Branch name start -->
-                        <div class="page-form__input-field required">
-                            <div class="page-form__input-label">
-                            Branch name </br>
-                            ( For tab display Only )
-                            </div>
-                            <input type="text" class="page-form__input branch_name required_field" name="branch_name">
-                        </div>
-                        <!-- Branch name end -->
-
                         <!-- Branch location start -->
                         <div class="page-form__input-field required">
                             <div class="page-form__input-label">
                                 Branch location
                             </div>
                             <input type="text" class="page-form__input branch_location required_field" name="branch_location">
-                            <input type="hidden" class="page-form__input branch_type required_field" name="branch" value="branch">
                         </div>
                         <!-- Branch location end -->
 
@@ -300,9 +289,7 @@ General Infomation
             business_type:"",
             email:"",
             branch_location:"",
-            branch_type:"head_branch",
             branch_code:"",
-            branch_name:"",
             tax_id:"",
             address:"",
             country:"",
@@ -353,7 +340,7 @@ General Infomation
         },
         set updateBranchData(formObjData){
             // const filterData =  this.branch.filter((branch)=>{
-            //     return branch.id = formObjData.form_id;
+            //     return branch.id = formObjData.formId;
             // }) ;
 
             // filterData.forEach(function(item){
@@ -363,7 +350,7 @@ General Infomation
 
         set updateBranchProp(obj){
             const filterData =  this.branch.filter((branch)=>{
-                return branch.id = formObjData.form_id;
+                return branch.id = formObjData.formId;
             }) ;
         },
 
@@ -374,13 +361,13 @@ General Infomation
             let Branch = this.getBranchData;
             this.getBranchData.map(function(v,k){
                 console.log(k)
-               if(v.form_id==obj.form_id){
-                Branch[k].brand_logo = obj.brand_logo
+               if(v.formId==obj.formId){
+                Branch[k].setBrandLogo = obj.brand_logo
                }
             });
             console.log(this.getBranchData,'this.getBranchDatathis.getBranchData')
         //    const filterData =  this.getBranchData.filter((branch)=>{
-        //         return branch.id = obj.form_id;
+        //         return branch.id = obj.formId;
         //     }) ;
 
         //     console.log(filterData,'color:red')
@@ -451,86 +438,22 @@ General Infomation
             
             if(document.readyState=='interactive'){
                 formDom.setCurrentFormDom = jQuery('#page-form');
-                    const branch = await SendAjaxGet('/api/general-infomation/getbranch');
+                    const head_branch = await SendAjaxGet('/api/general-infomation/getbranch?type=head_office');
 
-            const branch_resp = branch.data;
+            const branch_resp = head_branch.data;
   if(branch_resp.count>0){
-                 console.log(branch_resp.data,'cccresp')
+                 console.log(branch_resp.data)
 
 
                 branchData.setHeadOffice = branch_resp.data.headBranch[0];
-                
-                const allBranch = await branch_resp.data.branch;
-    console.log(allBranch.length,"allBranch");
-            for(let b =0 ; b< allBranch.length;b++){
-                const theBranch = await allBranch[b];
-                addTab(theBranch.form_id,theBranch.id)
-
-                formDom.setCurrentFormDom = jQuery("#page-form");
-
-                
-                branchData.addBranchData = {
-                    "id":theBranch.id,
-                    "form_id":theBranch.form_id,
-                    "brand_logo":theBranch.brand_logo,
-                    "branch_type":"branch",
-                    "branch_location":theBranch.branch_location,
-                    "branch_code":theBranch.branch_code,   
-                    "branch_name":theBranch.branch_name, "company_name":theBranch.company_name,  "business_type":theBranch.business_type,
-                    "tax_id":theBranch.tax_id,
-                    "address":theBranch.address,
-                    "country":theBranch.country,
-                    "province":theBranch.province,
-                    "city":theBranch.city,
-                    "zipcode":theBranch.zipcode,
-                    "email":theBranch.email,
-                    "fax_number":theBranch.fax_number,
-                    "phone_number":theBranch.phone_number,
-                    "phone_code":theBranch.phone_code,
-                    "general_footer":theBranch.general_footer,
-                    "certificate_footer":theBranch.certificate_footer,
-            
-                }
-
-                const form_id = '.branch[data-unique-id="'+theBranch.form_id+'"]';
-               
-                 mapFillInput(jQuery(form_id),{
-                    "id":theBranch.id,
-                    "form_id":theBranch.form_id,
-                    "branch_location":theBranch.branch_location,
-                    "branch_type":"branch",
-                    "branch_code":theBranch.branch_code,   
-                    "branch_name":theBranch.branch_name, "company_name":theBranch.company_name,  "business_type":theBranch.business_type,
-                    "tax_id":theBranch.tax_id,
-                    "address":theBranch.address,
-                    "country":theBranch.country,
-                    "province":theBranch.province,
-                    "city":theBranch.city,
-                    "zipcode":theBranch.zipcode,
-                    "email":theBranch.email,
-                    "fax_number":theBranch.fax_number,
-                    "phone_number":theBranch.phone_number,
-                    "phone_code":theBranch.phone_code,
-                    "general_footer":theBranch.general_footer,
-                    "certificate_footer":theBranch.certificate_footer,
-            
-                });
-                brandImageUpload(jQuery(form_id))
-                jQuery(form_id).find('.page-form__img-preview').attr('src',window.location.protocol+"//"+window.location.host+"/"+theBranch.brand_logo).css("display","block");
-                
-                jQuery('.page-form__tab[data-unique-id="'+theBranch.form_id+'"]').find('.branch_name_tab_text').text(theBranch.branch_name);
-            }
 
             }else{
                 console.log('no head branch onfp')
             }
             mapFillInput(jQuery(".head_office"),{
                     "id":branchData.getHeadOffice.id,
-                    "form_id":branchData.getHeadOffice.form_id,
                     "branch_location":branchData.getHeadOffice.branch_location,
-                    "branch_type":"branch",
-                    "branch_code":branchData.getHeadOffice.branch_code,   
-                    "branch_name":branchData.getHeadOffice.branch_name, "company_name":branchData.getHeadOffice.company_name,  "business_type":branchData.getHeadOffice.business_type,
+                    "branch_code":branchData.getHeadOffice.branch_code,   "company_name":branchData.getHeadOffice.company_name,  "business_type":branchData.getHeadOffice.business_type,
                     "tax_id":branchData.getHeadOffice.tax_id,
                     "address":branchData.getHeadOffice.address,
                     "country":branchData.getHeadOffice.country,
@@ -554,71 +477,56 @@ General Infomation
                 jQuery('.head_branch_tab').find('.page-form__cross-wrapper').attr("data-unique-id",branchData.getHeadOffice.form_id);
 console.log(branchData.getHeadOffice.form_id,"branchData.getHeadOffice.form_id")
                 updateFormAttrTrigger()
-                bindBranchName()
-                
-// end of interactive
             }
         
             if(document.readyState=="complete"){
-             
+
 
                 setTimeout(()=>{
                     $('.page-form__wrapper').removeClass('d-none')
                 },60)
-                
-                console.log(formDom.getCurrentFormDom,"complete")
-                console.log(formDom.getCurrentFormDom.find('.branch'),"complete length")
+                formDom.getCurrentFormDom.find('input').on('change',function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+    console.log(e.target.value)
+})
 
             }
+          
 
 
         });
 
-// jQuery(window).on('load',function(){
-//     formDom.setCurrentFormDom = jQuery('.page-form__wrapper');
- 
-// })
 
-jQuery('.save_branch').on('click',function(e){
-
-e.preventDefault();
-e.stopPropagation();
-
-
-if(checkRequied()===false){
-    return false;
-}
+jQuery('.save_branch').click(function(){
 
  let formBranchData  = [] ;
-
+    
+    if(checkRequied()===true){
      
-  console.log(branchData.getBranchData.length,'aaa')
+  console.log(branchData.getBranchData)
     const formBranchObj = [];
 
 
 // LOOP ข้อมูลทั้งหมด ทุก form
 
     // 
-   const branchF = branchData.getBranchData;
-   branchF.map(function(val,idx){
+    branchData.getBranchData.map(function(val,idx){
 
-console.log(idx,"save .getBranchData.map")
+console.log(val,"save .getBranchData.map")
 
         const currentDomLoop = jQuery(this);
 
-const frm = jQuery('.branch[data-unique-id="'+val.form_id+'"]');
+const frm = jQuery('.branch[data-unique-id="'+val.formId+'"]');
 
         const formBranchObjData = {
-                id:val.id,
-                form_id:val.form_id,
+                formId:val.formId,
                 form_status:frm.attr("status"),
                 business_type: frm.find(".business_type").val(),
                 branch_location: frm.find(".branch_location").val(),
-                branch_type:frm.find(".branch_type").val(),
-                company_name: frm.find(".company_name").val(),
+                company_name: frm.find(".branch_location").val(),
                 brand_logo:val.brand_logo,
-                branch_code:frm.find(".branch_code").val(),
-                branch_name:frm.find(".branch_name").val(),
+                branch_code:frm.find(".company_name").val(),
                 tax_id:frm.find(".tax_id").val(),
                 province:frm.find(".province").val(),
                 address:frm.find(".address").val(),
@@ -632,10 +540,11 @@ const frm = jQuery('.branch[data-unique-id="'+val.form_id+'"]');
                 general_footer:frm.find(".general_footer").val(),
                 certificate_footer:frm.find(".certificate_footer").val()
         }
-        formBranchObj.push(formBranchObjData)
-console.log(formBranchObj)
+        
+        val.setTheBranchData = formBranchObjData;
+        console.log(formBranchObjData);
+     
     });
-    
 
 
 
@@ -670,14 +579,12 @@ e.stopPropagation();
                 form_status:headBranchForm.attr("status")?headBranchForm.attr("status"):"not_update",
                 "id":headBranchForm.find('.id').val(),
                 form_id:headBranchForm.attr("data-unique-id"),
-                company_name:headBranchForm.find('.company_name').val(),
+                "company_name":headBranchForm.find('.company_name').val(),
                 form_id:headBranchForm.attr("data-unique-id"),
                 business_type:headBranchForm.find('.business_type').val(),
                 brand_logo:branchData.getHeadOfficeBrandLogo,
                 branch_location:headBranchForm.find('.branch_location').val(),
-                branch_type:headBranchForm.find('.branch_type').val(),
                 branch_code:headBranchForm.find('.branch_code').val(),
-                branch_name:headBranchForm.find('.branch_name').val(),
                 tax_id:headBranchForm.find('.tax_id').val(),
                 address:headBranchForm.find('.address').val(),
                 country:headBranchForm.find('.country').val(),
@@ -691,7 +598,7 @@ e.stopPropagation();
                 general_footer:headBranchForm.find('.general_footer').val(),
                 certificate_footer:headBranchForm.find('.certificate_footer').val()
             },
-            branch:formBranchObj
+            branch:branchData.getBranchData
         },
         {
           
@@ -705,13 +612,13 @@ e.stopPropagation();
               contentType: true, // Set the content type to false as FormData will set it correctly
         }
         )
-                $(this).prop('disabled',true)
-                if(update.status==200){
-                    ModalContent.html("");
-            ModalContent.prepend(modalHeader('Update Branch'));
-            ModalContent.append(modalConfirmBodyContent("Update Branch Infomation Successful?","/images/icons/checked.png"));
-            ModalContent.append(modalCompleteFooterContent())
-                }
+            //     $(this).prop('disabled',true)
+            //     if(update.status==200){
+            //         ModalContent.html("");
+            // ModalContent.prepend(modalHeader('Update Branch'));
+            // ModalContent.append(modalConfirmBodyContent("Update Branch Infomation Successful?","/images/icons/checked.png"));
+            // ModalContent.append(modalCompleteFooterContent())
+            //     }
     
 
       
@@ -719,10 +626,8 @@ e.stopPropagation();
 
 
 
-
+}
 });
-
-
 // end of save branch
 
 // image upload data set 
@@ -745,41 +650,63 @@ $(this).parents('form').attr("status","edit");
 });
 
 
-const addMockBranch = (form_id)=>{
-    // double check last requied form input
-    if(checkRequied()===true){
-            return SendAjaxPost("/api/general-infomation/add_mock_branch");
-    }
-}
+
 
 // add branch tab | addbranch
-jQuery('.tab').on('click',async function(e){
+jQuery('.tab').on('click',function(e){
   e.preventDefault();
   e.stopPropagation();
 
   formDom.setCurrentFormDom = jQuery(this).parents('.page-form__wrapper');
   
+     const current_add_form = formDom.getCurrentFormDom.find('.branch[status="add"]');
 
      if(checkRequied()===true){
         
-        const checkCanAddBranch = await SendAjaxGet("/api/check/add_branch");
-        if(checkCanAddBranch.data.can_add===true){
-            const addBranch = await addMockBranch();
-            const respAddBranchData = addBranch.data.data;
-            setBranchObjData(respAddBranchData.form_id,addBranch.data.id);
-            addTab(respAddBranchData.form_id);
+    if(current_add_form.length==0){
+
+        
+        // add tab if not hav any tab and set current tab id active
+
+            formDom.setCurrentFormId = addTab()
+       
+       formDom.getCurrentFormDom.find('.branch').eq(0).attr('status','add');
+      
+    //    formDom.getCurrentFormDom.find('.branch').eq(0).find('.page-form__img-preview').attr('src',branchData.getHeadOfficeBrandLogo).show()
+       setBranchObjData(formDom.getCurrentFormId)
+ 
+
+       brandImageUpload(formDom.getCurrentFormDom)
+
+
+
+        // formDom.setCurrentFormId = 
+        // formDom.getCurrentFormDom.find('.page-form__tab').hasClass('active').attr("data-unique-id");
+    
+
+    }else{
+   
+        
+        
+ 
+            // formDom.setCurrentFormId = jQuery('.branch').hasClass('active').attr('data-unique-id');  
+            formDom.setCurrentFormId = addTab()
+
+       
+            formDom.getCurrentFormDom.find('.branch[data-unique-id="'+formDom.getCurrentFormId+'"]').attr('status','add')
+            
             formDom.setCurrentFormDom = jQuery(this).parents('.page-form__wrapper');
+                  
+            formDom.getCurrentFormDom.find('.branch[data-unique-id="'+formDom.getCurrentFormId+'"]').attr('status','add');
+      
+       formDom.getCurrentFormDom.find('.branch[data-unique-id="'+formDom.getCurrentFormId+'"]').find('.page-form__img-preview').attr('src',branchData.getHeadOfficeBrandLogo).show()
+            updateFormAttrTrigger()
+            setBranchObjData(formDom.getCurrentFormId)
+            console.log(branchData.getBranchData)
+            brandImageUpload(formDom.getCurrentFormDom)
 
-            const form_id = '.branch[data-unique-id="'+respAddBranchData.form_id+'"]';
-
-            formDom.getCurrentFormDom.find(form_id).find('.id').val(addBranch.data.id)
-            brandImageUpload(jQuery(form_id))
-
-            bindBranchName();
-        }
-
+    }
      }
-
     
 
 });
@@ -810,32 +737,23 @@ function updateFormAttrTrigger(){
 }
     
 
-function checkRequied(parentElem="") {
+function checkRequied() {
     let status = false;
-    console.log(jQuery('.branch').length,'checkRequied')
-    if(parentElem!=""){
-        formDom.setCurrentFormDom = parentElem;
-    }
-
-
     formDom.getCurrentFormDom.find('.required_field').each(function(k,v){ 
-    
+      
       
             if($(this).val()==""){
-                console.log("empty found")
                 const tabRequiredName = '.page-form__tab[data-unique-id="'+$(this).parents('.branch').attr('data-unique-id')+'"]'
                 formDom.getCurrentFormDom.find(tabRequiredName).addClass('focus_error');
                 
 
-                alert("please Input Require field On Branch "+ formDom.getCurrentFormDom.find(tabRequiredName).find('.branch_name_tab_text').text()+formDom.getCurrentFormDom.find(tabRequiredName).find('.branch_tab_number').text());
+                alert("please Input Require field On "+ formDom.getCurrentFormDom.find(tabRequiredName).find('.branch_name_tab_text').text()+formDom.getCurrentFormDom.find(tabRequiredName).find('.branch_tab_number').text());
                 status = false;
-             
                 return false;
             }else{
                 status = true;
             }
           
-            
         });
    
 
@@ -848,11 +766,8 @@ function getBranchFormData(){
             form_status:$(this).attr("status"),
             business_type:$(this).find('.business_type').val(),
             brand_logo:branchData.getHeadOfficeBrandLogo,
-            company_name:$(this).find('.company_name').val(),
             branch_location:$(this).find('.branch_location').val(),
             branch_code:$(this).find('.branch_code').val(),
-            branch_type:$(this).find('.branch_type').val(),
-            branch_name:$(this).find('.branch_name').val(),
             tax_id:$(this).find('.tax_id').val(),
             address:$(this).find('.address').val(),
             country:$(this).find('.country').val(),
@@ -868,18 +783,15 @@ function getBranchFormData(){
         })
     });
 }
-function setBranchObjData(form_id,id){
+function setBranchObjData(form_id){
     return branchData.addBranchData = {
-            form_id:form_id,
-            id:id,
+            formId:form_id,
             brand_logo:"",
             company_name:"",
-            business_type:"retail",
+            business_type:"",
             email:"",
             branch_location:"",
             branch_code:"",
-            branch_type:"branch",
-            branch_name:"",
             tax_id:"",
             address:"",
             country:"",
@@ -895,15 +807,13 @@ function setBranchObjData(form_id,id){
                 this.brand_logo = val
             },
             set setTheBranchData(obj){
-                this.form_id = obj.form_id,
+                this.formId = obj.formId,
                 this.form_status = obj.form_status,
                 this.brand_logo = obj.brand_logo,
                 this.company_name = obj.company_name,
                 this.business_type = obj.business_type,
                 this.email = obj.email,
-                this.branch_type = "branch",
                 this.branch_location = obj.branch_location,
-                this.branch_name = obj.branch_name,
                 this.branch_code = obj.branch_code,
                 this.tax_id = obj.tax_id,
                 this.address = obj.address,
@@ -921,15 +831,15 @@ function setBranchObjData(form_id,id){
     }
 }
 // function updateBranchObjData(form_id,obj){
-//     const branch_data = branchData.getBranchData.filter(function(form_id){
-//         form_id == form_id
+//     const branch_data = branchData.getBranchData.filter(function(formId){
+//         formId == form_id
 //     });
 // }
 
 function updateBranchImage(form_id,imgObj){
     console.log('updateBranchImage')
     
-    branchData.setBranchImage = {form_id:form_id,brand_logo:imgObj}
+    branchData.setBranchImage = {formId:form_id,brand_logo:imgObj}
 
  
 }
@@ -951,7 +861,6 @@ const form_id = $(this).parents('.branch').attr('data-unique-id');
 
 updateBranchImage(form_id,newFile);
 const img = URL.createObjectURL(file);
-
  $(this).parent('.page-form__input-field').find('.page-form__img-preview').attr('src',img).show()
 
 if($(this).parents('form').attr("status")!=="add"){
@@ -962,24 +871,6 @@ $(this).parents('form').attr("status","edit");
 
 
 }
-
-
-function bindBranchName(){
-    
-formDom.getCurrentFormDom.find('.branch_name').on('input',function(e){
-    e.stopPropagation();
-const curParentWrp = $(this).parents('.page-form__wrapper');
-const curformParent = $(this).parents('.page-form__form');
-const formId = curformParent.attr('data-unique-id')
-curParentWrp.find('.page-form__tab[data-unique-id="'+formId+'"]').find('.branch_name_tab_text').text(e.target.value)
-
-});
-}
-
-
-
-
-
 </script>
 
 @endsection
