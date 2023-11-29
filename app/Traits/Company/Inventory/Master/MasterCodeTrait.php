@@ -16,14 +16,18 @@ MasterCodeTrait เป็นไฟล์สำหรับ รวม ฟิว�
 */
 trait MasterCodeTrait{
 
-    public function GetMasterCodeByType(string $company_name , string $master_type,$limit=100,$skip=0){
+    public function GetMasterCodeByType(string $company_name , string $master_type,$perPage=10,$page=1,$field_select=[]){
         $mastercode = new MasterCode();
-    
+        $skip = ($page - 1) * $perPage;
         $model = $mastercode->newInstance([], true);
         $tb = $company_name."_master_code";
         $model->setTable($tb);  
+        if(is_array($field_select)&&count($field_select)>0){
+            return $model->select($field_select)->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get();
+        }else{
+                return $model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get();
+        }
     
-        return $model->where("master_type","=",$master_type)->skip($skip)->take($limit)->get();
     
     }
 
@@ -81,14 +85,21 @@ trait MasterCodeTrait{
             ], 200);
         }
     }
-    public function getMasterCodeById(string $company_name , int $master_id){
+    public function getMasterCodeById(string $company_name , int $master_id,$field_select=""){
         $mastercode = new MasterCode();
     
         $model = $mastercode->newInstance([], true);
         $tb = $company_name."_master_code";
         $model->setTable($tb);  
-        $result =  $model->where('id', $master_id)->first();
- 
+
+        if(is_array($field_select)&&count($field_select)>0){
+                    $result =  $model->select($field_select)->where('id', $master_id)->first();
+
+        }else{
+            $result =  $model->where('id', $master_id)->first();
+
+        }
+       
         if (!$result) {
             return response()->json([
                 "status" => 404,

@@ -316,19 +316,21 @@
                 let MountedDom = jQuery("#mastertable").html(headerTable(dataField.heading,dataField.options));
                 
                 const data = await fetchdata(options.listDataRoute+'?perPage='+options.paginate.perPage+'&page=1');
-
                 const master_list_resp = await data.data;
 
-                const listobj = [...master_list_resp];
-                paginate.setTotalPage = parseInt(Math.ceil(data.total_record/options.paginate.perPage));
-              
-                masterItem.setListData = listobj;
+                if(master_list_resp.length>=1){
+                    const listobj = [...master_list_resp];
+                    paginate.setTotalPage = parseInt(Math.ceil(data.total_record/options.paginate.perPage));
+                  
+                    masterItem.setListData = listobj;
+                    
                 
-            
-                MountedDom.append(listTableData(  masterItem.getListData,dataField.colData,dataField.options))
-                jQuery("#mastertable").after(footerTable("copyright @2022",1,paginate.getTotalPage));
-            
-                playBootstrapSwitch(MountedDom)
+                    MountedDom.append(listTableData(  masterItem.getListData,dataField.colData,dataField.options))
+                    jQuery("#mastertable").after(footerTable("copyright @2022",1,paginate.getTotalPage));
+                
+                    playBootstrapSwitch(MountedDom)
+                }
+              
             
             
             actionListInit(jQuery("#mastertable"))  
@@ -516,11 +518,19 @@
             
                 e.stopPropagation();
                 e.preventDefault();
-                if(options.masterType=="master_stone_name"){
-                    
-                    insertOption("parent_id",data,"Stone Group");
 
+                switch(options.masterType){
+                    case "master_stone_name" :
+                        insertOption("parent_id",data,"Stone Group");
+
+                    break;
+              
                 }
+                // if(options.masterType=="master_stone_name"){
+                    
+                //     insertOption("branch_location",data,"Branch location");
+
+                // }else
 
            
                 
@@ -542,8 +552,15 @@
                 const master_data = master_data_resp.data;
     
                 masterCodeItemData.setData(master_data.data);
-            console.log(masterCodeItemData.getMasterName)
-            
+                
+                switch(options.masterType){
+                    case "master_account_storage":
+                        const masterInfo = JSON.parse(master_data.data.master_infomation);
+                        const branch_location = masterInfo.branch_location;
+                        jQuery("#branch_location").val(branch_location);
+                    break;
+                }
+          
                 mapFillInput(jQuery(options.modalId),{
                     "master_id":master_id,
                     "parent_id":masterCodeItemData.getParentId,
@@ -552,6 +569,7 @@
                     "master_description":masterCodeItemData.getDescription,
                     "master_status":masterCodeItemData.getStatus,
                     "master_type":masterCodeItemData.getMasterType,
+
                 })
             
                     jQuery('.status').each(function(){
@@ -679,7 +697,7 @@ if(typeof checkUsing != "undefined"){
         }else if(options.masterType=="master_base_metal"){
 
 
-        }else{
+        }else if(options.masterType=="master_account_storage"){
            
 
         }
@@ -715,18 +733,26 @@ function getRoute(formMethod){
 }
 
               document.addEventListener('DOMContentLoaded',async function() {
-              
+              if(options.masterType=="master_account_storage"){
+                const branch_location_list = await fetchdata("/api/general-infomation/listallbranch");
+                const branch_location_list_data = await branch_location_list.data;
+                branch_location_list_data.map((v,k)=>{
+                    jQuery("#branch_location").append("<option value='"+v['id']+"'>"+v['branch_name']+"</option>")
+                })
+              }
               jQuery('.modal_form').on('submit',async function(e){
                 
                 e.preventDefault();
                 e.stopPropagation();
             
             
-                // let formMethod = modalConfig.getFormMethod;
-                // console.log('formMethod is '+modalConfig.getFormMethod );
+                let formMethod = modalConfig.getFormMethod;
+                console.log('formMethod is '+modalConfig.getFormMethod );
+                console.log(getRoute(modalConfig.getFormMethod ) );
             
                 modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,$('.modal_form').serialize(),'form',options.message)
             
+                
               });
             });
 

@@ -15,9 +15,9 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
             "running_number"=>1,
             "master_name"=>$data['master_name'],
             "master_status"=>$data['status'],
-            "master_type"=>$data['type'],
+            "master_type"=>"master_account_storage",
             "master_description"=>$data['desctiption'],
-            "addional_infomation"=>json_encode(["branch_location"=>$data['branch_location']],true)
+            "master_infomation"=>json_encode(["branch_location"=>$data['branch_location']],true)
 
         ]);
         return response()->json([
@@ -28,6 +28,7 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
     public function getProductStoneMasterCodeInfoByProductStoneId(string $company_name,int $stone_id){
         $master_name = $this->GetMasterCodeByParentID( $company_name ,  $stone_id , 'master_name',$limit=100,$skip=0,"array");
     }
+
 }
 ?>
 

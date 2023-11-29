@@ -21,7 +21,7 @@ const form = document.querySelector(".page-form__form");
 const tabWrapper = document.querySelector(".page-form__tabs-wrapper");
 const tabContainer = document.querySelector(".page-form__tabs");
 const tab = document.querySelector(".page-form__tab");
-const closeIcon = document.querySelector(".page-form__cross-wrapper");
+// const closeIcon = document.querySelector(".page-form__cross-wrapper");
 const cloneFormFirstCopy = form.cloneNode(true);
 
 // set the inital value of tab index
@@ -80,14 +80,14 @@ function addTab(form_id,id){
   cloneTab.querySelector("span").innerHTML = '<span class="branch_tab_number">'+ tabIndex++ +'.</span>'+ "<span class='branch_name_tab_text'>Branch</span>";
   cloneTab.classList.remove('head_branch_tab')
 
-  // close icon used to close a tab
-  const closeIcon = cloneTab.querySelector(".page-form__cross-wrapper");
-  // display the cross button, because its initialy hidden
-  closeIcon.style.display = "flex";
-  // add a event listener to cross button to close a tab
-  closeIcon.addEventListener("click", tabCloseFunction);
-  // add a unique id in cross button
-  closeIcon.setAttribute("data-unique-id", uniqueID);
+  // // close icon used to close a tab
+  // const closeIcon = cloneTab.querySelector(".page-form__cross-wrapper");
+  // // display the cross button, because its initialy hidden
+  // closeIcon.style.display = "flex";
+  // // add a event listener to cross button to close a tab
+  // closeIcon.addEventListener("click", tabCloseFunction);
+  // // add a unique id in cross button
+  // closeIcon.setAttribute("data-unique-id", uniqueID);
 
   // when the tab overflow, scroll positiona always will be in the right by default
   tabContainer.scrollTo(tabContainer.scrollWidth, 0);

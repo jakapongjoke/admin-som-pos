@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Inventory\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Customer\Inventory\Master\MasterCodeService;
+use App\Services\Customer\Inventory\Master\MasterStorageService;
 use App\Http\Requests\Customer\Inventory\Master\CompanyMasterStorageRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +17,11 @@ class CompanyMasterStorageController extends Controller
      * @return \Illuminate\Http\Response
      */
     private MasterCodeService $MasterCodeService;
-    public function __construct(MasterCodeService $MasterCodeService)
+    private MasterStorageService $MasterStorageService;
+    public function __construct(MasterCodeService $MasterCodeService,MasterStorageService $MasterStorageService)
     {
         $this->MasterCodeService = $MasterCodeService;
+        $this->MasterStorageService = $MasterStorageService;
     }
     public function index(Request $request)
     {
@@ -26,7 +29,12 @@ class CompanyMasterStorageController extends Controller
          $data = ['masterdata'=>$masterdata];
          return view('customer.backoffice.inventory.Master.MasterStorage',['data'=>$data]);
     }
-
+    public function ViewStorageMaster(Request $request){
+        $master_id = $request->query('master_id')?$request->query('master_id'):"";
+        if($master_id!==""){
+            return $this->MasterStorageService->GetByid($request->company_name,$master_id);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -37,9 +45,14 @@ class CompanyMasterStorageController extends Controller
         //
     }
 
-    public function GetLimit(Request $request){
-        
-        return $this->MasterCodeService->GetMasterCodeByType( $request->company_name,$request->master_type);
+    public function GetStorageMaster(Request $request){
+        $perpage = $request->query("perPage")?$request->query("perPage"):10;
+        $page = $request->query("page")?$request->query("page"):10;
+        return $this->MasterStorageService->GetStorageMaster( $request->company_name,$perpage,$page);
+    }
+
+    public function list(){
+
     }
     
     public function ValidateData(CompanyMasterStorageRequest $request)

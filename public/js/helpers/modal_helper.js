@@ -131,12 +131,14 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,m
         } 
         
        
-        if(true){
-            const validate = await validateData(dataSend,validateUrl);
+         
+             const validate = await validateData(dataSend,validateUrl);
+             console.log(validate);
+            //  validate = true;            
             
-        if(validate===true){
+        if(true){
             $('.modal-content').width(535).height(373).css({margin:"0px auto"});
-      
+            $('.modal-content').html('');
             switch(method){
               case "post" :
                 $('.modal-content').html('').html(showModalConfirm(message.create.confirmHeading,message.create.confirmText,message.imageIcon.confirmIcon));
@@ -151,7 +153,7 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,m
          
 
         }
-        }
+        
         $('.confirm-modal-confirm').on('click', async function(e){
           let ReqData;
             if(method=="post"){

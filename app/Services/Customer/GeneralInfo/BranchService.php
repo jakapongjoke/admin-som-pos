@@ -29,6 +29,19 @@ class BranchService{
 
 
     }
+    public function listBranch($company_name){
+        // branch and headbranch are merge together
+
+        $branchData = $this->listAllBranchData($company_name);
+
+        return response()->json([
+            "status" => 200,
+            "data" => $branchData,
+            "count" => count($branchData),
+        ], 200);
+
+
+    }
 
 public function checkCanAddBranch($company_name,$returnType="json"){
     $countAllCompanyBranch =0;

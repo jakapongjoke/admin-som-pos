@@ -201,6 +201,7 @@ class MasterStoneController extends Controller
     }
     public function ValidateData(Request $request){
         return response()->json([
+            "message"=>"validation passed",
             "status"=>"complete"
         ], 200);
     }

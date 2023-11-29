@@ -29,6 +29,12 @@ class BranchController extends Controller
 
     }
 
+    public function listAllBranch(Request $request){
+
+       return $this->BranchService->listBranch($request->company_name);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

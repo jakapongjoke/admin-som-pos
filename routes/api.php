@@ -65,14 +65,18 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::delete('/master-basic-info',[MasterStoneController::class,'destroy']);
 
 
+
+
     Route::put('/master-stone',[MasterStoneController::class,'update']);
     Route::put('/master-stone/changestatus/',[MasterStoneController::class,'updateStatus']);
     Route::delete('/master-stone',[MasterStoneController::class,'destroy']);
     Route::post('/master-stone-validate',[MasterStoneController::class,'ValidateData']);
 
 
-    Route::post('/master-stroage-validate',[CompanyMasterStorageController::class,'ValidateData']);
-    Route::post('/master-stroage',[CompanyMasterStorageController::class,'store']);
+    Route::post('/master-storage-validate',[CompanyMasterStorageController::class,'ValidateData']);
+    Route::post('/master-storage',[CompanyMasterStorageController::class,'store']);
+    Route::get('/master-storage',[CompanyMasterStorageController::class,'GetStorageMaster']);
+    Route::get('/master-storage/view',[CompanyMasterStorageController::class,'ViewStorageMaster']);
     Route::post('/master',[CompanyMasterStorageController::class,'store']);
     Route::get('/get-by-id/{master_id}',[MasterCodeController::class,'getMasterCodeById']);
     Route::get('/master-name-by-id/{master_id}',[MasterCodeController::class,'getMasterNameById']);
@@ -90,12 +94,16 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('gene
     Route::post('/add_mock_branch',[BranchController::class,'createBranchMockdata']);
 
     Route::post('/branch',[BranchController::class,'create']);
+
+
+
     Route::post('/branch/updateinfomation',[BranchController::class,'updateInfomation']);
 
     // Route::put('/branch',[BranchController::class,'update']);
 
 
     Route::get('/getbranch',[BranchController::class,'getAllBranch']);
+    Route::get('/listallbranch',[BranchController::class,'listAllBranch']);
 
 });
 

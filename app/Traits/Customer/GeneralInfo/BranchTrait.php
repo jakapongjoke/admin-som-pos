@@ -66,6 +66,22 @@ trait BranchTrait{
   
 
     }
+    public function listAllBranchData($company_name){
+
+        
+        $model = $this->setBranchTable($company_name);
+
+        if($model->get()->count()<=0){
+            $branch = [];
+        }else{
+            $branch = $model->select(["id","branch_name"])->limit(100)->get()->toArray();
+        }
+
+
+        return   $branch;
+  
+
+    }
  
     public function createBranch($company_name,$branch_data){
         $model = $this->setBranchTable($company_name);
