@@ -73,15 +73,21 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::post('/master-stone-validate',[MasterStoneController::class,'ValidateData']);
 
 
-    Route::post('/master-storage-validate',[CompanyMasterStorageController::class,'ValidateData']);
+    
     Route::post('/master-storage',[CompanyMasterStorageController::class,'store']);
+    Route::put('/master-storage',[CompanyMasterStorageController::class,'update']);
+    Route::patch('/master-storage',[CompanyMasterStorageController::class,'update']);
     Route::get('/master-storage',[CompanyMasterStorageController::class,'GetStorageMaster']);
     Route::get('/master-storage/view',[CompanyMasterStorageController::class,'ViewStorageMaster']);
     Route::post('/master',[CompanyMasterStorageController::class,'store']);
     Route::get('/get-by-id/{master_id}',[MasterCodeController::class,'getMasterCodeById']);
     Route::get('/master-name-by-id/{master_id}',[MasterCodeController::class,'getMasterNameById']);
 
+
+    Route::post('/master-storage-validate',[CompanyMasterStorageController::class,'ValidateData']);
+
     Route::get('/get-master-info-by-stone-group/{stone_group_id}',[ProductMasterStoneController::class,'getMasterInfoByProductStoneGroupId']);
+
 
 });
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('check')->group(function ($company_name) {

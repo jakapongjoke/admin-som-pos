@@ -54,19 +54,23 @@ class CompanyMasterStorageController extends Controller
     public function list(){
 
     }
-    
-    public function ValidateData(CompanyMasterStorageRequest $request)
+    //CompanyMasterStorageRequest $request
+    public function ValidateData()
     {   
+        return true;
+        //      return response()->json([
+        //     "status"=>"complete"
+        // ], 200);
         
-       if($request->validated()){
-        return response()->json([
-            "status"=>"complete"
-        ], 200);
+    //    if($request->validated()){
+    //     return response()->json([
+    //         "status"=>"complete"
+    //     ], 200);
 
-       }else{
-        return response()->json($validator->errors(), 422);
+    //    }else{
+    //     return response()->json($validator->errors(), 422);
 
-       }
+    //    }
     }
 
     /**
@@ -78,7 +82,7 @@ class CompanyMasterStorageController extends Controller
     public function store(Request $request)
     {
      
-       return $this->MasterCodeService->CreateMasterStorage($request->company_name,$request->all());
+       return $this->MasterStorageService->CreateMasterStorage($request->company_name,$request->all());
     }
 
     /**
@@ -110,9 +114,23 @@ class CompanyMasterStorageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // "{\"branch_location\":\"27\"}"
+
+        $location = $request->branch_location;
+      
+        $data = [
+            "parent_id"=>$request->parent_id,
+            "master_name"=>$request->master_name,
+            "master_code"=>$request->master_code,
+            "master_description"=>$request->desctiption,
+            "master_infomation"=>json_encode(["branch_location"=>$location]),
+
+            "master_status"=>$request->master_status,
+        ];
+        return $this->MasterCodeService->updateMasterCode($request->company_name,$data ,$request->master_id);
+
     }
 
     /**

@@ -132,8 +132,8 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,m
         
        
          
-             const validate = await validateData(dataSend,validateUrl);
-             console.log(validate);
+            //  const validate = await validateData(dataSend,validateUrl);
+            //  console.log(validate);
             //  validate = true;            
             
         if(true){

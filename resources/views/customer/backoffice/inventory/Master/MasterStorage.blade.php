@@ -62,7 +62,7 @@
             postRoute:"api/master/master-storage",
             updateRoute:"api/master-storage",
             deleteRoute:"api/master-storage",
-            validateRoute:"api/master/master-stone-validate",
+            validateRoute:"api/master/master-storage-validate",
             changeStatusUrl:"",
             checkExistUrl:"",
             dataField : {

@@ -555,7 +555,7 @@
                 
                 switch(options.masterType){
                     case "master_account_storage":
-                        const masterInfo = JSON.parse(master_data.data.master_infomation);
+                        const masterInfo = JSON.parse(JSON.stringify(master_data.data.master_infomation));
                         const branch_location = masterInfo.branch_location;
                         jQuery("#branch_location").val(branch_location);
                     break;
@@ -749,7 +749,13 @@ function getRoute(formMethod){
                 let formMethod = modalConfig.getFormMethod;
                 console.log('formMethod is '+modalConfig.getFormMethod );
                 console.log(getRoute(modalConfig.getFormMethod ) );
-            
+                let Frmdata = $('.modal_form').serialize();
+
+                if(modalConfig.getFormMethod=="put"){
+                $('.modal_form').append("<input type='hidden' name='_method' value='PUT'>");
+                modalConfig.setFormMethod = "post";
+
+                }
                 modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,$('.modal_form').serialize(),'form',options.message)
             
                 

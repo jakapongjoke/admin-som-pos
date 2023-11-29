@@ -17,8 +17,10 @@ async function SendAjaxPost(url,data,options={}){
 
 }
 async function SendAjaxPut(url,data,options={}){
-      
-        return await instance.put(url,data,options);
+      const dataReq = JSON.parse(data);
+      dataReq._method = "put";
+      console.log(dataReq)
+        return await instance.put(url,dataReq,options);
     
 
 }
