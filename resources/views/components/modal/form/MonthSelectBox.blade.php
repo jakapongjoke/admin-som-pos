@@ -1,4 +1,4 @@
-<select id="month" class="form-control  {{ $CustomClass ? $CustomClass : '' }}"  name="month" @if($required===true) required @endif>
+<select id="month" class="form-control  {{ $CustomClass ? $CustomClass : '' }}"  name="@isset($SelectName){{$SelectName}}@endisset"  @if($required===true) required @endif>
     <option value="">Month</option>
     <option value="01">January</option>
     <option value="02">February</option>

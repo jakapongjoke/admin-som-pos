@@ -1,4 +1,5 @@
-<select class="form-control  @isset($CustomClass){{$CustomClass}} @endisset" @if($required===true) required @endif>
+<select class="form-control  @isset($CustomClass){{$CustomClass}} @endisset" name="@isset($SelectName){{$SelectName}}@endisset" > 
+
 <option value="">
 @isset($TextOption){{ $TextOption }}@endisset
 </option>

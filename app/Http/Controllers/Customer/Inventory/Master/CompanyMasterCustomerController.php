@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\Inventory\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Customer\Inventory\Master\MasterCodeService;
+use App\Services\Customer\Inventory\Master\MasterCustomerService;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -17,13 +18,16 @@ class CompanyMasterCustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     private MasterCodeService $MasterCodeService;
-    public function __construct(MasterCodeService $MasterCodeService)
+    private MasterCustomerService $MasterCustomerService;
+    public function __construct(MasterCodeService $MasterCodeService,MasterCustomerService $MasterCustomerService)
     {
         $this->MasterCodeService = $MasterCodeService;
+        $this->MasterCustomerService = $MasterCustomerService;
     }
     public function index(Request $request)
     {
         $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
+        
         $data = ['masterdata'=>$masterdata];
      
         return view('customer.backoffice.inventory.Master.MasterCustomer',['data'=>$data]);
@@ -47,7 +51,8 @@ class CompanyMasterCustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        return $this->MasterCustomerService->CreateCustomerMaster( $request->company_name,$request->all());
     }
 
     /**
@@ -93,5 +98,13 @@ class CompanyMasterCustomerController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function GetCustomerMaster(Request $request){
+        $perpage = $request->query("perPage")?$request->query("perPage"):10;
+        $page = $request->query("page")?$request->query("page"):10;
+        return $this->MasterCustomerService->GetMasterCustomer( $request->company_name,$perpage,$page);
+    }
+    public function viewCustomerMaster(Request $request){
+        return $this->MasterCustomerService->GetCustomerMaster( $request->company_name,$request->id);
     }
 }

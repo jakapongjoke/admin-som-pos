@@ -10,7 +10,7 @@
     <div class="block phone-block">
     @component('components.modal.form.input.PhoneCode',["required"=>true])
                 @endcomponent         
-  <input type="text" class="form-control phone_number" id="phone_number" name="phone" placeholder="Phone Number">
+  <input type="text" class="form-control phone_number" id="phone_number" name="master_infomation[phone_number]" placeholder="Phone Number">
   </div> 
 
 

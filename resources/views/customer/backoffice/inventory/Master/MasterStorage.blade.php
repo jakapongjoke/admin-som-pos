@@ -53,7 +53,7 @@
 <script>
             const checkbox = '<input type="checkbox" class="check_all_list"/>';
     let tableOptions = {
-            masterType:"master_account_storage",
+            masterType:"master_storage",
             masterTypeRouteName:"master-storage",
             modalId:"#MasterStorageModal",
             listDataRoute:"/api/master/master-storage",
@@ -62,7 +62,7 @@
             postRoute:"api/master/master-storage",
             updateRoute:"api/master-storage",
             deleteRoute:"api/master-storage",
-            validateRoute:"api/master/master-storage-validate",
+            validateRoute:"api/master/master-stroage-validate",
             changeStatusUrl:"",
             checkExistUrl:"",
             dataField : {
@@ -97,20 +97,20 @@
            
                 create:{
                      confirmHeading:"Create",
-                    confirmText : "Do you want to create this master stone name ?",
+                    confirmText : "Do you want to create this Master Storage ?",
                     doneHeading : "Successful",
                     doneText : "Save  Master Successful",
                 },
                 edit:{
                      confirmHeading:"Edit",
-                    confirmText : "Do you want to change master stone?",
+                    confirmText : "Do you want to change  Master Storage ?",
                     doneHeading : "Successful",
                     doneText : "Edit Master Successful",
 
                 },
                 delete:{
                      confirmHeading:"Delete",
-                    confirmText : "Do you want to delete this master  ?",
+                    confirmText : "Do you want to delete this  Master Storage  ?",
                     doneHeading : "Successful",
                     doneText : "Delete  Master Successful",
                 },

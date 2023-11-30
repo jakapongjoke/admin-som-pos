@@ -9,6 +9,7 @@ use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
+use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterCustomerController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterStoneController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductGroupInfoController;
@@ -26,6 +27,12 @@ use App\Http\Controllers\CountrySelectorContoller;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
+    
+Route::get('/countries',[CountrySelectorContoller::class,'ListCountry']);
+Route::get('/states/{CountryID}',[CountrySelectorContoller::class,'ListStates']);
+Route::get('/cities/{StateID}',[CountrySelectorContoller::class,'ListCities']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -74,12 +81,18 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
 
 
     
+    Route::post('/master-customer',[CompanyMasterCustomerController::class,'store']);
+    Route::put('/master-customer',[CompanyMasterCustomerController::class,'update']);
+    Route::patch('/master-customer',[CompanyMasterCustomerController::class,'update']);
+    Route::get('/master-customer',[CompanyMasterCustomerController::class,'GetCustomerMaster']);
+    Route::get('/master-customer/view',[CompanyMasterCustomerController::class,'ViewCustomerMaster']);
+
+    
     Route::post('/master-storage',[CompanyMasterStorageController::class,'store']);
     Route::put('/master-storage',[CompanyMasterStorageController::class,'update']);
-    Route::patch('/master-storage',[CompanyMasterStorageController::class,'update']);
+    // Route::patch('/master-storage',[CompanyMasterStorageController::class,'update']);
     Route::get('/master-storage',[CompanyMasterStorageController::class,'GetStorageMaster']);
     Route::get('/master-storage/view',[CompanyMasterStorageController::class,'ViewStorageMaster']);
-    Route::post('/master',[CompanyMasterStorageController::class,'store']);
     Route::get('/get-by-id/{master_id}',[MasterCodeController::class,'getMasterCodeById']);
     Route::get('/master-name-by-id/{master_id}',[MasterCodeController::class,'getMasterNameById']);
 
@@ -138,16 +151,3 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('prod
 
 
 });
-
-
-Route::middleware('auth:company_users')->prefix('master')->group(function () {
-
-    
-    Route::get('/countries',[CountrySelectorContoller::class,'ListCountry']);
-    Route::get('/states/{CountryID}',[CountrySelectorContoller::class,'ListStates']);
-    Route::get('/cities/{StateID}',[CountrySelectorContoller::class,'ListCities']);
-    
-
-});
-
-

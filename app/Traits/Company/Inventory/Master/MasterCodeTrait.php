@@ -166,14 +166,25 @@ trait MasterCodeTrait{
         $model = $mastercode->newInstance([], true);
         $tb = $company_name."_master_code";
         $model->setTable($tb);
-       
-        return response()->json([
-            "status"=>200,
-            "data"=> $model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get()->toArray(),
-            "total_record"=> $model->where("master_type","=",$master_type)->get()->count()
+        $data =  $model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get()?$model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get()->toArray():[];
 
-            // "data"=> $model->where("master_type","=",$master_type)->where("master_status","=","active")->skip($skip)->take($limit)->get()->toArray()
-        ], 200);
+        if($data){
+            return response()->json([
+                "status"=>200,
+                "data"=>  $data,
+                "total_record"=> $model->where("master_type","=",$master_type)->get()->count()
+    
+                // "data"=> $model->where("master_type","=",$master_type)->where("master_status","=","active")->skip($skip)->take($limit)->get()->toArray()
+            ], 200);
+        }else{
+            return response()->json([
+                "status"=>500,
+                "message"=>"query error" 
+    
+                // "data"=> $model->where("master_type","=",$master_type)->where("master_status","=","active")->skip($skip)->take($limit)->get()->toArray()
+            ], 500);
+        }
+     
          
     }
  

@@ -20,17 +20,17 @@
     "label_heading_required"=>true,
     'input_field_data'=>[
         "input_1"=>[
-            "name"=>"first_name",
+            "name"=>"master_infomation[first_name]",
             "placeholder"=>"First Name",
             "required"=>"required"
             ],
         "input_2"=>[
-            "name"=>"middle_name",
+            "name"=>"master_infomation[middle_name]",
             "placeholder"=>"Middle Name",
             "required"=>"required"
             ],
         "input_3"=>[
-            "name"=>"last_name",
+            "name"=>"master_infomation[last_name]",
             "placeholder"=>"Last Name",
             "required"=>"required"
             ]
@@ -57,15 +57,16 @@
                     "startnum"=>0,
                     "num"=>31,
                     "CustomClass"=>"birthdate",
-                    "TextOption"=>"Day"
-
+                    "TextOption"=>"Day",
+                    "SelectName"=>"master_infomation[birthdate]"
                     ])
                 @endcomponent
                         </div>
                         <div class="col-sm-4">
                         @component('components.modal.form.MonthSelectBox',[
                     "required"=>true,
-                    "CustomClass"=>"birthmonth"
+                    "CustomClass"=>"birthmonth",
+                    "SelectName"=>"master_infomation[birthmonth]"
                     ])
                 @endcomponent
                         </div>
@@ -78,7 +79,9 @@
                     "startnum"=>1940,
                     "num"=>2023,
                     "CustomClass"=>"birthyear",
-                    "TextOption"=>"Year"
+                    "TextOption"=>"Year",
+                    "SelectName"=>"master_infomation[birthyear]"
+
                     ])
                 @endcomponent
                         </div>    

@@ -13,15 +13,26 @@ class CountrySelectorContoller extends Controller
 {
     public function ListCountry(){
         // return Country::get()->all();
-        return  Response::json(Country::get()->all(), 200);
+        return response()->json([
+            "status"=>200,
+            "data"=>  Country::get()->toArray(),
+        ],200);
     }
     public function ListStates(Request $request){
-        return  Response::json(State::where('country_id','=',$request->CountryID)->get(), 200);
-
+        return response()->json([
+            "status"=>200,
+            "data"=>  State::where('country_id','=',$request->CountryID)->get()->toArray(),
+        ],200);
     }
     
     public function ListCities(Request $request){
-        return  Response::json(City::where('state_id','=',$request->StateID)->get(), 200);
+
+        return response()->json([
+            "status"=>200,
+            "data"=>  City::where('state_id','=',$request->StateID)->get()->toArray(),
+        ],200);
+
+
 
     }
 }

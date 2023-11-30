@@ -10,24 +10,24 @@
         <span style='color:red;'>*</span>
    
     </label>
-            <textarea class="form-control" name="tax_address" id="tax_address"></textarea>
+            <textarea class="form-control" name="master_infomation[tax_address]" id="tax_address"></textarea>
 
          </div>
 
-<select class="form-control tax_address_country" name="tax_address_country" id="tax_address_country">
+<select class="form-control country" name="master_infomation[tax_address_country]" id="tax_address_country">
  <option value="">Country</option>
 
 </select>
-<select class="form-control tax_address_state" name="tax_address_state" id="tax_address_state" >
+<select class="form-control tax_address_state" name="master_infomation[tax_address_state]" id="tax_address_state" >
  <option value="">State</option>
 
 </select>
-<select class="form-control tax_address_city" name="tax_address_city" id="tax_address_city" >
+<select class="form-control tax_address_city" name="master_infomation[tax_address_city]" id="tax_address_city" >
  <option value="">City</option>
 
 </select>
 <div class="block">
-<input type="text" class="form-control tax_address_poscode" id="tax_address_poscode" placeholder="Postal Code">
+<input type="text" class="form-control tax_address_poscode" id="tax_address_poscode" placeholder="Postal Code" name="master_infomation[tax_address_poscode]">
 </div>
 <script>
  
@@ -46,7 +46,7 @@
             select.add(option);
 
             
- v.data.map((v,idx)=>{
+ v.data.data.map((v,idx)=>{
             //{id: 220, shortname: 'TO', name: 'Tonga', phonecode: 676}
           
             let select = document.getElementById("tax_address_city")
@@ -75,7 +75,7 @@
             option.value = "";
 
             }
- v.data.map((v,idx)=>{
+ v.data.data.map((v,idx)=>{
 
             //{id: 220, shortname: 'TO', name: 'Tonga', phonecode: 676}
           
@@ -93,7 +93,7 @@
     }
              
    window.addEventListener('DOMContentLoaded', async (event) => {
-    jQuery('.tax_address_country').on('change',function(){
+    jQuery('#tax_address_country').on('change',function(){
         getTaxStates(jQuery(this).val())
           jQuery('#tax_address_city option').remove();
           let select = document.getElementById("tax_address_city")
@@ -106,15 +106,15 @@
     jQuery('.tax_address_state').on('change',function(){
         getTaxCities(jQuery(this).val())
     });
-        let taxCountries =  await axios.get('/api/countries');
-        taxCountries.data.map((v,idx)=>{
-            //{id: 220, shortname: 'TO', name: 'Tonga', phonecode: 676}
-            let select = document.getElementById("tax_address_country")
-            let option = document.createElement("option");
-            option.text = v.name;
-            option.value = v.id;
-            select.add(option);
-        })
+        // let taxCountries =  await axios.get('/api/countries');
+        // taxCountries.data.data.map((v,idx)=>{
+        //     //{id: 220, shortname: 'TO', name: 'Tonga', phonecode: 676}
+        //     let select = document.getElementById("country")
+        //     let option = document.createElement("option");
+        //     option.text = v.name;
+        //     option.value = v.id;
+        //     select.add(option);
+        // })
    }); 
  
 </script>
