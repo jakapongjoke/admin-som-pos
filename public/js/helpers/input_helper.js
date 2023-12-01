@@ -44,6 +44,7 @@ function mapFillInput(parentElm,inputObj){
 
     for(let key in inputObj){
         if (inputObj.hasOwnProperty(key)) {
+
             let inputClassName = key
             // console.log(inputClassName)
 
@@ -72,3 +73,83 @@ function mapFillInput(parentElm,inputObj){
 
 
 }
+
+ 
+
+
+
+
+async function getCities(StateID,StateSelectElem={},fillMode=false,fillSelectedValue=""){
+    let states =  await axios.get('/api/cities/'+StateID).then((v)=>{
+        if(v.status==200){
+         
+            jQuery('#city option').remove();
+            
+        let select = document.getElementById("city");
+        
+        let option = document.createElement("option");
+        option.text = 'City';
+        option.value = "";
+        select.add(option);
+
+        
+v.data.data.map((v,idx)=>{
+        
+        let option = document.createElement("option");
+        option.text = v.name;
+        option.value = v.id;
+      
+        select.add(option);
+    })
+
+
+    
+if(fillMode===true){
+    jQuery(StateSelectElem[2]).val(fillSelectedValue).change()
+
+}
+
+        }
+    });
+   
+}
+async function getStates(countryID,StateSelectElem={},fillMode=false,fillSelectedValue=""){
+    let states =  await axios.get('/api/states/'+countryID).then((v)=>{
+        if(v.status==200){
+            if(jQuery(StateSelectElem[1]).find('option').length>1){
+                jQuery(StateSelectElem[1]).empty();
+            
+        let select = document.getElementById("state");
+        
+        let option = document.createElement("option");
+        option.text = 'State';
+        option.value = "State";
+
+        }
+v.data.data.map((v,idx)=>{
+
+        //{id: 220, shortname: 'TO', name: 'Tonga', phonecode: 676}
+      
+        // let select = document.getElementsByClassName("state");
+        
+        // var option = document.createElement("option");
+        // option.text = v.name;
+        // option.value = v.id;
+      
+        // select.add(option);
+       
+        jQuery(StateSelectElem[1]).append($('<option>', { 
+            value: v.id,
+            text : v.name
+        }));
+        
+    })
+    if(fillMode===true){
+        jQuery(StateSelectElem[1]).val(fillSelectedValue).change()
+    }
+
+        }
+    });
+   
+}
+         

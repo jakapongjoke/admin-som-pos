@@ -10,24 +10,24 @@
         <span style='color:red;'>*</span>
    
     </label>
-            <textarea class="form-control" name="master_infomation[tax_address]" id="tax_address"></textarea>
+            <textarea class="form-control tax_address" name="master_infomation[tax_address]" id="tax_address"></textarea>
 
          </div>
 
-<select class="form-control country" name="master_infomation[tax_address_country]" id="tax_address_country">
+<select class="form-control country tax_address_country" name="master_infomation[tax_address_country]" id="tax_address_country">
  <option value="">Country</option>
 
 </select>
-<select class="form-control tax_address_state" name="master_infomation[tax_address_state]" id="tax_address_state" >
+<select class="form-control state tax_address_state" name="master_infomation[tax_address_state]" id="tax_address_state" >
  <option value="">State</option>
 
 </select>
-<select class="form-control tax_address_city" name="master_infomation[tax_address_city]" id="tax_address_city" >
+<select class="form-control city tax_address_city" name="master_infomation[tax_address_city]" id="tax_address_city" >
  <option value="">City</option>
 
 </select>
 <div class="block">
-<input type="text" class="form-control tax_address_poscode" id="tax_address_poscode" placeholder="Postal Code" name="master_infomation[tax_address_poscode]">
+<input type="text" class="form-control poscode tax_address_poscode" id="tax_address_poscode" placeholder="Postal Code" name="master_infomation[tax_address_poscode]">
 </div>
 <script>
  

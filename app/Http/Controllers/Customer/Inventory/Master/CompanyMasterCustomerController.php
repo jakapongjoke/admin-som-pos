@@ -104,7 +104,13 @@ class CompanyMasterCustomerController extends Controller
         $page = $request->query("page")?$request->query("page"):10;
         return $this->MasterCustomerService->GetMasterCustomer( $request->company_name,$perpage,$page);
     }
-    public function viewCustomerMaster(Request $request){
-        return $this->MasterCustomerService->GetCustomerMaster( $request->company_name,$request->id);
+    public function ViewCustomerMaster(Request $request){
+        $master_id = $request->query('master_id')?$request->query('master_id'):"";
+  
+        return $this->MasterCustomerService->GetCustomerMasterByid( $request->company_name,$master_id);
+    }
+    
+    public function GetCustomerMasterByid(Request $request){
+        return $this->MasterCustomerService->GetCustomerMasterByid( $request->company_name,$request->id);
     }
 }

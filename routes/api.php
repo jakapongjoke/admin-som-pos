@@ -85,6 +85,7 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::put('/master-customer',[CompanyMasterCustomerController::class,'update']);
     Route::patch('/master-customer',[CompanyMasterCustomerController::class,'update']);
     Route::get('/master-customer',[CompanyMasterCustomerController::class,'GetCustomerMaster']);
+    // Route::get('/master-customer-by-id/{master_id}',[CompanyMasterCustomerController::class,'GetCustomerMasterByid']);
     Route::get('/master-customer/view',[CompanyMasterCustomerController::class,'ViewCustomerMaster']);
 
     

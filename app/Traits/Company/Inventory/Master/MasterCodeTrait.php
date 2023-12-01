@@ -92,8 +92,16 @@ trait MasterCodeTrait{
         $tb = $company_name."_master_code";
         $model->setTable($tb);  
 
+
+        if($master_id==""){
+            return response()->json([
+                "status" => 404,
+                "message" => "please input master id",
+            ], 404);
+        }
         if(is_array($field_select)&&count($field_select)>0){
-                    $result =  $model->select($field_select)->where('id', $master_id)->first();
+            $result =  $model->select($field_select)->where('id', $master_id)->first();
+
 
         }else{
             $result =  $model->where('id', $master_id)->first();
@@ -166,13 +174,19 @@ trait MasterCodeTrait{
         $model = $mastercode->newInstance([], true);
         $tb = $company_name."_master_code";
         $model->setTable($tb);
-        $data =  $model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get()?$model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get()->toArray():[];
+      
+        if($model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get()->count()==0){
+            $data = [];
+        }else{
+            $data =  $model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get()->toArray();
+        }
 
-        if($data){
+
+        if(is_array($data)||count($data)>0){
             return response()->json([
                 "status"=>200,
                 "data"=>  $data,
-                "total_record"=> $model->where("master_type","=",$master_type)->get()->count()
+                "total_record"=> count($data)
     
                 // "data"=> $model->where("master_type","=",$master_type)->where("master_status","=","active")->skip($skip)->take($limit)->get()->toArray()
             ], 200);

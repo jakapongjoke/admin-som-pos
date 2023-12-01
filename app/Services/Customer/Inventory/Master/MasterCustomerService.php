@@ -21,13 +21,16 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
         return mt_rand($min, $max);
     }
     public function generateCode() {
-        $prefix = "mc-";
+        $prefix = "MC-";
         $date = date("Ymd");
         $randomNumber = $this->generateRandomNumber(6);
     
         $code = $prefix . $date . "-" . $randomNumber;
     
         return $code;
+    }
+    public function GetCustomerMasterByid($company_name,$master_id){
+        return $this->GetMasterCodeById($company_name,$master_id,['id','master_infomation']);
     }
     
     public function CreateCustomerMaster($company_name,$data){

@@ -94,6 +94,69 @@
 
 
   
+    window.addEventListener('DOMContentLoaded', async (event) => {
+    
+    $(".ship_address_country").on("country_change", function(country, state_city_elem, state_city_value) {
+        if(typeof(state_city_value)=="undefined"){
+        // getStates(state_city_value[0],state_city_elem,true,state_city_value[1])
+        }else{
+                     getStates(state_city_value[0],state_city_elem,true,state_city_value[1])
+        }
+
+      });   
+    $(".ship_address_state").on("state_change", function(country, state_city_elem, state_city_value) {
+        if(typeof(state_city_value)=="undefined"){
+        // getStates(state_city_value[0],state_city_elem,true,state_city_value[1])
+        }else{
+            getCities(state_city_value[1],state_city_elem,true,state_city_value[2])
+        }
+
+      });
+      $(".ship_address_country").trigger("country_change");
+      $(".ship_address_state").trigger("state_change");
+
+    // $(".ship_address_state").on("state_change", function(country, elem, fillValue) {
+    //     console.log(country)
+    //      getStates(country,jQuery(elem),true,fillValue)
+
+    //   });
+
+
+    jQuery('.ship_address_country').on('change',function(){
+    // getStates(jQuery(this).val(),jQuery('.ship_address_state'),true,masterInfo.ship_address_state)
+    }); 
+
+      jQuery('#city option').remove();
+    let select = document.getElementById("city");
+        
+    let option = document.createElement("option");
+        option.text = 'City';
+        option.value = "";
+        select.add(option);
+
+
+//     jQuery('.state').on('change',function(){
+//     getCities(jQuery(this).val())
+// })
+
+;
+
+    let countries =  await axios.get('/api/countries');
+    console.log(countries.data.data)
+    countries.data.data.map((v,idx)=>{
+        //{id: 220, shortname: 'TO', name: 'Tonga', phonecode: 676}
+        let select = jQuery('.ship_address_country')
+        var option = document.createElement("option");
+        option.text = v.name;
+        option.value = v.id;
+        
+        $(select).append(jQuery('<option>', { 
+            value: v.id,
+            text : v.name
+        }));
+    })
+ 
+}); 
 
 </script>
 

@@ -518,7 +518,11 @@
             
                 e.stopPropagation();
                 e.preventDefault();
-
+                modalConfig.setMessageConfirmHeading = options.message.edit.confirmHeading;
+                modalConfig.setMessageConfirmText = options.message.edit.confirmText;
+                modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
+                modalConfig.setMessageDoneText = options.message.edit.doneText;
+                modalConfig.setFormMethod = "edit";
                 switch(options.masterType){
                     case "master_stone_name" :
                         insertOption("parent_id",data,"Stone Group");
@@ -534,43 +538,87 @@
 
            
                 
-                modalConfig.setMessageConfirmHeading = options.message.edit.confirmHeading;
-                modalConfig.setMessageConfirmText = options.message.edit.confirmText;
-                modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
-                modalConfig.setMessageDoneText = options.message.edit.doneText;
-                modalConfig.setFormMethod = "put";
-                
-                
             
                 const master_id = jQuery(this).parents('tr').find('.master_id').val();
 
 
                 jQuery(options.modalId).find('form').prepend('<input type="hidden" name="master_id" value="'+ master_id+'">');
-
+                jQuery(options.modalId).addClass('modal_edit');
 
                 const master_data_resp = await SendAjaxGet(options.viewRoute+"?master_id="+master_id);
                 const master_data = master_data_resp.data;
     
                 masterCodeItemData.setData(master_data.data);
-                
+
+                let masterInfo = "";
+              
+
                 switch(options.masterType){
                     case "master_account_storage":
-                        const masterInfo = JSON.parse(JSON.stringify(master_data.data.master_infomation));
-                        const branch_location = masterInfo.branch_location;
-                        jQuery("#branch_location").val(branch_location);
+                        masterInfo = await JSON.parse(master_data.data.master_infomation);
+                      
+                        jQuery("#branch_location").val(masterInfo.branch_location);
+                    break;
+                    case "master_account_customer":
+                        masterInfo = await JSON.parse(master_data.data.master_infomation);
+                     console.log(master_data.data.master_infomation)
                     break;
                 }
-          
-                mapFillInput(jQuery(options.modalId),{
-                    "master_id":master_id,
-                    "parent_id":masterCodeItemData.getParentId,
-                    "master_code":masterCodeItemData.getMasterCode,
-                    "master_name":masterCodeItemData.getMasterName,
-                    "master_description":masterCodeItemData.getDescription,
-                    "master_status":masterCodeItemData.getStatus,
-                    "master_type":masterCodeItemData.getMasterType,
+                switch(options.masterType){
+                    case "master_account_customer":
+                        console.log(masterInfo.ship_address_country)
+                        jQuery('.ship_address_country').val(masterInfo.ship_address_country).change();
+                        
+                        const country_state_city_value = [masterInfo.ship_address_country,masterInfo.ship_address_state,masterInfo.ship_address_city]
 
-                })
+                        const country_state_city_elem = [jQuery('.ship_address_country'),jQuery('.ship_address_state'),jQuery('.ship_address_city')]
+
+                        $(".ship_address_country").trigger("country_change",[country_state_city_elem,country_state_city_value]);
+                        $(".ship_address_state").trigger("state_change",[country_state_city_elem,country_state_city_value]);
+
+                        mapFillInput(jQuery(options.modalId),{
+                            "master_id":master_id,
+                            "first_name":masterInfo.first_name,
+                            "middle_name":masterInfo.middle_name,
+                            "last_name":masterInfo.last_name,
+                            "gender":masterInfo.gender,
+                            "birthdate":masterInfo.birthdate ,
+                            "birthmonth":masterInfo.birthmonth ,
+                            "birthyear ":masterInfo.birthyear  ,
+                            "email ":masterInfo.email  ,
+                            "phone_code ":masterInfo.phone_code  ,
+                            "phone_number ":masterInfo.phone_number  ,
+                            "ship_address ":masterInfo.ship_address  ,
+                            // "ship_address_country ":masterInfo.ship_address_country  ,
+                            // "ship_address_state ":masterInfo.ship_address_state  ,
+                            // "ship_address_city ":masterInfo.ship_address_city  ,
+                            "ship_address_poscode ":masterInfo.ship_address_poscode  ,
+                             "tax_address":masterInfo.tax_address  ,
+                            // "tax_address_country":masterInfo.tax_address_country  ,
+                            // "tax_address_state":masterInfo.tax_address_state  ,
+                            // "tax_address_city":masterInfo.tax_address_city  ,
+                            "tax_address_poscode":masterInfo.tax_address_poscode  ,
+
+        
+                        })
+                    break;
+                    default:
+                        mapFillInput(jQuery(options.modalId),{
+                            "master_id":master_id,
+                            "parent_id":masterCodeItemData.getParentId,
+                            "master_code":masterCodeItemData.getMasterCode,
+                            "master_name":masterCodeItemData.getMasterName,
+                            "master_description":masterCodeItemData.getDescription,
+                            "master_status":masterCodeItemData.getStatus,
+                            "master_type":masterCodeItemData.getMasterType,
+        
+                        })
+                    break;
+
+
+                }
+          
+               
             
                     jQuery('.status').each(function(){
                         if($(this).val()==masterCodeItemData.getStatus){
@@ -622,6 +670,7 @@
             
             }
             });
+
             
             })
             // end edit list
@@ -671,14 +720,12 @@ if(typeof checkUsing != "undefined"){
             jQuery('.create').click( function(e){
                 e.preventDefault();
                 e.stopPropagation();
+                modalConfig.setMessageConfirmHeading = options.message.create.confirmHeading;
+                modalConfig.setMessageConfirmText = options.message.create.confirmText;
+                modalConfig.setMessageDoneHeading =  options.message.create.doneHeading;
+                modalConfig.setMessageDoneText = options.message.create.doneText;
+                modalConfig.setFormMethod = "post"
 
-            
-                 modalConfig.setMessageConfirmHeading = options.message.create.confirmHeading;
-                 modalConfig.setMessageConfirmText = options.message.create.confirmText;
-                 modalConfig.setMessageDoneHeading =  options.message.create.doneHeading;
-                 modalConfig.setMessageDoneText = options.message.create.doneText;
-                 modalConfig.setFormMethod = "post"
-                
                 mapFillInput(jQuery(options.modalId),options.dataField.inputFillAble)
                 
 
@@ -701,14 +748,16 @@ if(typeof checkUsing != "undefined"){
            
 
         }
+        jQuery(options.modalId).addClass('modal_add')
 
         jQuery(options.modalId).modal();
 
-
+            
+  
 
 
             });
-            
+
             jQuery('#stone_group').on('change',function(e){
                 jQuery(this).val(e.target.value);
                     })
@@ -761,6 +810,29 @@ function getRoute(formMethod){
                 
               });
             });
+
+
+
+
+
+
+
+
+            $(options.modalId).on('shown.bs.modal', function (e) {
+                if(jQuery(e.currentTarget).hasClass('modal_add')){
+            
+                }
+                
+                if(jQuery(e.currentTarget).hasClass('modal_edit')){
+                    
+            
+                
+                
+                }
+                
+        
+            });
+                   
 
 
             return this;
