@@ -29,7 +29,7 @@
 <div class="block">
 <input type="text" class="form-control poscode tax_address_poscode" id="tax_address_poscode" placeholder="Postal Code" name="master_infomation[tax_address_poscode]">
 </div>
-<script>
+<!-- <script>
  
    
     async function getTaxCities(StateID){
@@ -117,4 +117,4 @@
         // })
    }); 
  
-</script>
+</script> -->

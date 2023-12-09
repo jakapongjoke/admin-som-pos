@@ -15,6 +15,18 @@
 
 
         <div class="form-group row label-top">
+        <div class="row  p-0 inputs-3-row">
+
+
+<div class="col-sm-12">
+<label for="name" class="col-sm-12 col-form-label">Citizen ID</label>
+<input type="text" class="form-control citizen_id" id="citizen_id" name="master_infomation[citizen_id]" placeholder="Citizen ID">
+</div>
+
+
+</div>
+      </div>
+        <div class="form-group row label-top">
 @component('components.modal.form.Input3Col',[
     "label_heading"=>"Contact Name",
     "label_heading_required"=>true,

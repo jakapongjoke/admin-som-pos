@@ -97,6 +97,7 @@
                         master_code:data[i]['master_code'],
                         master_description:data[i]['master_description'],
                         master_status:data[i]['master_status'],
+                        master_info:data[i]['master_info'],
                         updated_at:data[i]['updated_at'],
         
                     }
@@ -145,7 +146,7 @@
                 masterPrice:"",
                 masterFomula:[],
                 masterAvailableFor:"",
-                masterInfomation:"",
+                masterInfo:"",
                 status:"active",
                 masterBaseInfomation:[],
                 get getParentId(){
@@ -168,7 +169,7 @@
                 },
                 
                 set setMasterFomula(data){
-                    this.masterFomula = this.masterFomula;
+                    this.masterFomula = data;
 
                 },
 
@@ -216,6 +217,14 @@
                     return this.masterType = data;
             
                 },
+                get getMasterInfo(){
+                    return this.masterInfo;
+            
+                },
+                set setMasterInfo(data){
+                    return this.masterInfo = data;
+            
+                },
                 checkMasterCode: async (master_code)=>{
                   return true
                 },
@@ -226,6 +235,7 @@
                     this.setDescription = data.master_description
                     this.setStatus = data.master_status
                     this.setMasterType = data.master_type
+                    this.setMasterInfo = data.master_infomation
                 }
 
 
@@ -293,10 +303,62 @@
                     return parseInt(this.totalPage);
                 }
             }
-            
+            function playGenderChecker(){
+                
+                jQuery('.radio_check').on('click',function(e){
+  
+                    e.stopPropagation();
+                    let parent = jQuery(this).parents('.radio_div_wrp');
+                    
+                    if(parent.hasClass('toggle_self')==true){
+                        parent.find('.radio_check').toggleClass('checked');
+                        parent.find('.radio_checkbox').attr( 'checked', !parent.find('.radio_checkbox').prop("checked"));
+                    }else{
+                        parent.find('.radio_div_group').each(function(){
+                            jQuery(this).find('.radio_check').removeClass('checked');         
+                    
+                        });
+                        jQuery(this).toggleClass('checked');
+                    
+                       const statuscheck = jQuery(this).parent('.radio_div_group').find('.radio_checkbox').attr( 'checked', 'checked' );
+                        masterCodeItemData.setStatus = statuscheck.val();
+                        parent.find('.status_value').val(statuscheck.val());
+                    
+                    }
+                    });
+        
+            }
             
             //   first init
             document.addEventListener('DOMContentLoaded',async function() {
+                playGenderChecker()
+
+                    jQuery('.radio_check').on('click',function(e){
+  
+            e.stopPropagation();
+            let parent = jQuery(this).parents('.radio_div_wrp');
+            
+            if(parent.hasClass('toggle_self')==true){
+                parent.find('.radio_check').toggleClass('checked');
+                parent.find('.radio_checkbox').attr( 'checked', !parent.find('.radio_checkbox').prop("checked"));
+            }else{
+                parent.find('.radio_div_group').each(function(){
+                    jQuery(this).find('.radio_check').removeClass('checked');         
+            
+                });
+                jQuery(this).toggleClass('checked');
+            
+               const statuscheck = jQuery(this).parent('.radio_div_group').find('.radio_checkbox').attr( 'checked', 'checked' );
+                masterCodeItemData.setStatus = statuscheck.val();
+                parent.find('.status_value').val(statuscheck.val());
+            
+            }
+            });
+
+
+
+
+
              // Addional For Stone name page modal 
                 if(options.masterType=="master_stone_name"){
                     let stone_group_list = await SendAjaxGet('api/master/master-stone/master-stone-group?page=1&perpage=10');
@@ -522,7 +584,7 @@
                 modalConfig.setMessageConfirmText = options.message.edit.confirmText;
                 modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
                 modalConfig.setMessageDoneText = options.message.edit.doneText;
-                modalConfig.setFormMethod = "edit";
+                modalConfig.setFormMethod = "put";
                 switch(options.masterType){
                     case "master_stone_name" :
                         insertOption("parent_id",data,"Stone Group");
@@ -547,6 +609,7 @@
 
                 const master_data_resp = await SendAjaxGet(options.viewRoute+"?master_id="+master_id);
                 const master_data = master_data_resp.data;
+                
     
                 masterCodeItemData.setData(master_data.data);
 
@@ -562,19 +625,42 @@
                     case "master_account_customer":
                         masterInfo = await JSON.parse(master_data.data.master_infomation);
                      console.log(master_data.data.master_infomation)
+              
+                     jQuery('.gender_check').each(function(k,v){
+                     
+                        if($(this).val()==masterInfo.gender){
+                            $(this).parent('.radio_check').addClass('checked');
+                        }else{
+                            $(this).parent('.radio_check').removeClass('checked');
+                
+                        }
+                    })
+                    
                     break;
                 }
                 switch(options.masterType){
                     case "master_account_customer":
                         console.log(masterInfo.ship_address_country)
                         jQuery('.ship_address_country').val(masterInfo.ship_address_country).change();
+                        jQuery('.tax_address_country').val(masterInfo.tax_address_country).change();
                         
                         const country_state_city_value = [masterInfo.ship_address_country,masterInfo.ship_address_state,masterInfo.ship_address_city]
 
                         const country_state_city_elem = [jQuery('.ship_address_country'),jQuery('.ship_address_state'),jQuery('.ship_address_city')]
 
+
+                        const tax_country_state_city_value = [masterInfo.tax_address_country,masterInfo.tax_address_state,masterInfo.tax_address_city]
+
+                        const tax_country_state_city_elem = [jQuery('.tax_address_country'),jQuery('.tax_address_state'),jQuery('.tax_address_city')]
+
+
+                        // Run trigger Function from masterCustomer.blade.php
                         $(".ship_address_country").trigger("country_change",[country_state_city_elem,country_state_city_value]);
-                        $(".ship_address_state").trigger("state_change",[country_state_city_elem,country_state_city_value]);
+                        $(".ship_address_state").trigger("state_change",[country_state_city_elem[2],country_state_city_value])
+
+
+                        $(".tax_address_country").trigger("tax_country_change",[tax_country_state_city_elem,tax_country_state_city_value]);
+                        $(".tax_address_state").trigger("tax_state_change",[tax_country_state_city_elem[2],tax_country_state_city_value]);
 
                         mapFillInput(jQuery(options.modalId),{
                             "master_id":master_id,
@@ -629,14 +715,14 @@
                         }
                     })
                     
-                jQuery('.status').each(function(){
-                    if($(this).val()==masterCodeItemData.getStatus){
-                        $(this).parent('.radio_check').addClass('checked');
-                    }else{
-                        $(this).parent('.radio_check').removeClass('checked');
+                // jQuery('.status').each(function(){
+                //     if($(this).val()==masterCodeItemData.getStatus){
+                //         $(this).parent('.radio_check').addClass('checked');
+                //     }else{
+                //         $(this).parent('.radio_check').removeClass('checked');
             
-                    }
-                })
+                //     }
+                // })
                 
                 jQuery('input,select,textarea').each(function(){
                     $(this).prop('disabled', false);
@@ -647,10 +733,10 @@
             
                     
                     jQuery(options.modalId).modal()
-            
+
             
                     jQuery('.radio_check').on('click',function(e){
-            
+  
             e.stopPropagation();
             let parent = jQuery(this).parents('.radio_div_wrp');
             
@@ -794,18 +880,22 @@ function getRoute(formMethod){
                 e.preventDefault();
                 e.stopPropagation();
             
-            
+                let putMethod = false;
                 let formMethod = modalConfig.getFormMethod;
                 console.log('formMethod is '+modalConfig.getFormMethod );
                 console.log(getRoute(modalConfig.getFormMethod ) );
-                let Frmdata = $('.modal_form').serialize();
+                 let Frmdata = $('.modal_form').serialize();
 
                 if(modalConfig.getFormMethod=="put"){
                 $('.modal_form').append("<input type='hidden' name='_method' value='PUT'>");
                 modalConfig.setFormMethod = "post";
+                putMethod = true;
 
                 }
-                modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,$('.modal_form').serialize(),'form',options.message)
+
+console.log(options.message)
+
+                modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,$('.modal_form').serialize(),'form',options.message,putMethod)
             
                 
               });
@@ -819,22 +909,175 @@ function getRoute(formMethod){
 
 
             $(options.modalId).on('shown.bs.modal', function (e) {
-                if(jQuery(e.currentTarget).hasClass('modal_add')){
-            
-                }
-                
-                if(jQuery(e.currentTarget).hasClass('modal_edit')){
+                jQuery('.ship_address_country').on('change',function(){
+
+                                    console.log($(this).val(),"country on chage")
+                                    if(jQuery(e.currentTarget).hasClass('modal_add')){
+                            
+                                //,[country_state_city_elem,country_state_city_value] 
+                                let country_state_city_value = [$(this).val(),"",""]
+                                  
+                                const country_state_city_elem = [jQuery('.ship_address_country'),jQuery('.ship_address_state'),jQuery('.ship_address_city')]
+                                
+                                $(".ship_address_country").trigger("country_change",[country_state_city_elem,country_state_city_value]);
                     
-            
+
+                                    }
+                                    
+                                    if(jQuery(e.currentTarget).hasClass('modal_edit')){
+                                        let master_info = JSON.parse(masterCodeItemData.getMasterInfo)
+                                                
+                                    let country_state_city_value = [master_info.ship_address_country,master_info.ship_address_state,master_info.ship_address_city]
+
+                                    const country_state_city_elem = [jQuery('.ship_address_country'),jQuery('.ship_address_state'),jQuery('.ship_address_city')]
+                                   
+                                   if($(this).val()==master_info.ship_address_country){
+                                    $(".ship_address_country").trigger("country_change",[country_state_city_elem,country_state_city_value]);
+                                    $(".ship_address_state").trigger("state_change",[country_state_city_elem[2],country_state_city_value]);
+                                
+                                   }else{
+                                    jQuery('.ship_address_state').empty();
+                                    country_state_city_value = [$(this).val(),"",""];
+
+                                    $(".ship_address_country").trigger("country_change", [country_state_city_elem,country_state_city_value]);
+
+                                   }  
+                                
+                                   
+                                    
+                                    
+                                    }
+                                    
+                            
+                  });
+
+                  jQuery('.ship_address_state').on('change',function(e){
+              
+                    const country_state_city_elem = [jQuery('.ship_address_country'),jQuery('.ship_address_state'),jQuery('.ship_address_city')]
+                    // console.log(e.target.value,"change state")
+                  
+                // $(".ship_address_state").trigger("state_change",[{},e.target.value]);
+                    if(e.target.value!=""){
+                                            getCities(e.target.value,country_state_city_elem[2])
+
+                    }
+                });
+
                 
-                
-                }
-                
-        
-            });
+                jQuery('.tax_address_country').on('change',function(){
+
+                                    console.log($(this).val(),"country on chage")
+                                    if(jQuery(e.currentTarget).hasClass('modal_add')){
+                            
+                                //,[country_state_city_elem,country_state_city_value] 
+
+                                let tax_country_state_city_value = [$(this).val(),"",""]
+                                  
+                                let tax_country_state_city_elem = [jQuery('.tax_address_country'),jQuery('.tax_address_state'),jQuery('.tax_address_city')]
+
+                                $(".tax_address_country").trigger("tax_country_change",[tax_country_state_city_elem,tax_country_state_city_value]);
+
+                          
+
+                                    }
+                                    
+                                    if(jQuery(e.currentTarget).hasClass('modal_edit')){
+                                        let master_info = JSON.parse(masterCodeItemData.getMasterInfo)
+                                                
+                                    let tax_country_state_city_value = [master_info.tax_address_country,master_info.tax_address_state,master_info.tax_address_city]
+
+                                    let tax_country_state_city_elem = [jQuery('.tax_address_country'),jQuery('.tax_address_state'),jQuery('.tax_address_city')]
+
+
+
+
+                                   
+                                   if($(this).val()==master_info.tax_address_country){
+                                    $(".tax_address_country").trigger("tax_country_change",[tax_country_state_city_elem,tax_country_state_city_value]);
+
+                                    $(".tax_address_state").trigger("tax_state_change",[tax_country_state_city_elem[2],tax_country_state_city_value]);
+                                
+                                   }else{
+                                    jQuery('.tax_address_state').empty();
+                                    tax_country_state_city_value = [$(this).val(),"",""];
+
+                                    $(".tax_address_country").trigger("tax_country_change", [tax_country_state_city_elem,tax_country_state_city_value]);
+
+                                   }
+                                   
+                                    
+                                    
+                                    }
+                                    
+                            
+                  });
+
+                  jQuery('.tax_address_state').on('change',function(e){
+              
+                    // console.log(e.target.value,"change state")
+                  
+                // $(".ship_address_state").trigger("state_change",[{},e.target.value]);
+                const tax_country_state_city_elem = [jQuery('.tax_address_country'),jQuery('.tax_address_state'),jQuery('.tax_address_city')]
+                    if(e.target.value!=""){
+                                            getCities(e.target.value,tax_country_state_city_elem[2])
+
+                    }
+                });
                    
+        }); 
+
+        // validate area
+
+        // special char validate
+            if(options.dataField.specialCharFilterField.length>0){
+             
+                for(let specialCharFieldKey =0 ; specialCharFieldKey<options.dataField.specialCharFilterField.length;specialCharFieldKey++){
+
+                    jQuery('.'+options.dataField.specialCharFilterField[specialCharFieldKey]).on('change',function(e){
+            
+                        if(SpecialCharValidate($(this).val(),$(this),"change")===false){
+                            
+                            jQuery('.save').attr('disabled', 'disabled');
+                        }else{
+                            jQuery('.save').removeAttr('disabled');
+                        }
+                    });
+
+                }
+            }
+
+        // number validate
+            if(options.dataField.numberVailidateField.length>0){
+                for(let numberFieldKey =0 ; numberFieldKey<options.dataField.numberVailidateField.length;numberFieldKey++){
+                    console.log(options.dataField.numberVailidateField[numberFieldKey])
+
+                    jQuery('.'+options.dataField.numberVailidateField[numberFieldKey]).on('keypress keydown keyup',function(e){
+                        NumberValidate($(this).val(),$(this),options.dataField.numberCountValidate[numberFieldKey]);
+                    });
+
+                }
+            }
 
 
+
+
+
+            // email validate
+            if(options.dataField.emailValidateField.length>0){
+                
+                for(let EmailFieldKey =0 ; EmailFieldKey<options.dataField.emailValidateField.length;EmailFieldKey++){
+
+                    jQuery('.'+options.dataField.emailValidateField[EmailFieldKey]).on('change',function(e){
+                        if(EmailValidate($(this).val(),$(this),options.dataField.emailValidateField[EmailFieldKey])===false){
+                            jQuery('.save').attr('disabled', 'disabled');
+                        }else{
+                            jQuery('.save').removeAttr('disabled');
+
+                        }
+                    });
+
+                }
+            }
             return this;
         };
       })(jQuery);

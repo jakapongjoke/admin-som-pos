@@ -114,7 +114,7 @@ function ReloadModal(){
 
 // }
 
-async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,message=""){
+async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,message="",putMethod=false){
   
         let form  = $(this);
         let dataSend;
@@ -141,11 +141,15 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,m
             $('.modal-content').html('');
             switch(method){
               case "post" :
+                if(putMethod==false){
                 $('.modal-content').html('').html(showModalConfirm(message.create.confirmHeading,message.create.confirmText,message.imageIcon.confirmIcon));
-              break;
-              case "put":
+
+                }else{
                 $('.modal-content').html('').html(showModalConfirm(message.edit.confirmHeading,message.edit.confirmText,message.imageIcon.confirmIcon));
-              break;
+
+                }
+                break;
+        
               case "delete":
                 $('.modal-content').html('').html(showModalConfirm(message.delete.confirmHeading,message.delete.confirmText,message.imageIcon.confirmIcon));
               break;
@@ -153,24 +157,23 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,m
          
 
         }
-        
+      
         $('.confirm-modal-confirm').on('click', async function(e){
           let ReqData;
             if(method=="post"){
+              if(putMethod==false){
                ReqData = await SendAjaxPost(requestUrl,dataSend);
+              }else{
+                ReqData = await SendAjaxPut(requestUrl,dataSend);
 
+              }
             }
-            if(method=="put"){
-
-
-               ReqData = await SendAjaxPut(requestUrl,dataSend);
-
-            }
+      
             if(method=="delete"){
                ReqData = await SendAjaxDelete(requestUrl,dataSend);
 
             }
-
+            
             if(ReqData.status==200){
 
                  

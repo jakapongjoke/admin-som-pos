@@ -2782,3 +2782,14 @@ img.current_cert_img {
 .page-form__tab.focus_error {
     border: 3px solid #c75b5b;
 }
+span.input_message_danger {
+    position: absolute;
+    top: 20px;
+    color: red;
+}
+.inputs-3-row{
+    position: relative;
+}
+form.modal_form input.focus_error {
+    border:  1px solid red;
+}

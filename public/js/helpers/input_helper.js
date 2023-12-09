@@ -76,56 +76,27 @@ function mapFillInput(parentElm,inputObj){
 
  
 
-
-
-
-async function getCities(StateID,StateSelectElem={},fillMode=false,fillSelectedValue=""){
-    let states =  await axios.get('/api/cities/'+StateID).then((v)=>{
-        if(v.status==200){
-         
-            jQuery('#city option').remove();
-            
-        let select = document.getElementById("city");
-        
-        let option = document.createElement("option");
-        option.text = 'City';
-        option.value = "";
-        select.add(option);
-
-        
-v.data.data.map((v,idx)=>{
-        
-        let option = document.createElement("option");
-        option.text = v.name;
-        option.value = v.id;
-      
-        select.add(option);
-    })
-
-
-    
-if(fillMode===true){
-    jQuery(StateSelectElem[2]).val(fillSelectedValue).change()
-
-}
-
-        }
-    });
-   
-}
-async function getStates(countryID,StateSelectElem={},fillMode=false,fillSelectedValue=""){
+async function getStates(countryID,StateSelectElem="",fillMode=false,fillSelectedValue=""){
+    console.log(countryID,'countryID')
     let states =  await axios.get('/api/states/'+countryID).then((v)=>{
+        console.log(v,'getState')
         if(v.status==200){
-            if(jQuery(StateSelectElem[1]).find('option').length>1){
-                jQuery(StateSelectElem[1]).empty();
-            
-        let select = document.getElementById("state");
-        
+            let select;
+                if(StateSelectElem!==""){
+
+
+                    console.log(StateSelectElem.attr('id'),"id")
+                     select = document.getElementById(StateSelectElem.attr('id'));
+                    StateSelectElem.find("option").remove();
+                    
         let option = document.createElement("option");
         option.text = 'State';
-        option.value = "State";
-
-        }
+        option.value = "";
+        select.add(option)   
+        
+                }
+           
+        
 v.data.data.map((v,idx)=>{
 
         //{id: 220, shortname: 'TO', name: 'Tonga', phonecode: 676}
@@ -138,15 +109,69 @@ v.data.data.map((v,idx)=>{
       
         // select.add(option);
        
-        jQuery(StateSelectElem[1]).append($('<option>', { 
+        jQuery(StateSelectElem).append($('<option>', { 
             value: v.id,
             text : v.name
         }));
         
     })
     if(fillMode===true){
-        jQuery(StateSelectElem[1]).val(fillSelectedValue).change()
+        jQuery(StateSelectElem).val(fillSelectedValue).change()
     }
+
+        }
+    });
+   
+}
+
+
+
+
+
+
+async function getCities(StateID,CitySelectElem="",fillMode=false,fillSelectedValue=""){
+    let states =  await axios.get('/api/cities/'+StateID).then((v)=>{
+        if(v.status==200){
+            let select;
+            CitySelectElem.find('option').remove();
+        if(CitySelectElem!==""){
+            console.log(CitySelectElem.attr('id'))
+
+         select = document.getElementById(CitySelectElem.attr('id'));
+
+
+        }
+        
+        // let option = document.createElement("option");
+        // option.text = 'City';
+        // option.value = "";
+        // select.add(option);
+        // option.text = 'Not defined';
+        // option.value = "";
+        // select.add(option);
+
+v.data.data.map((v,idx)=>{
+        
+        jQuery(CitySelectElem).append($('<option>', { 
+            value: v.id,
+            text : v.name
+        }));
+    })
+
+
+    
+if(fillMode===true){
+    console.log(typeof(fillSelectedValue),'typeof(fillSelectedValue)')
+    if(fillSelectedValue!=="null"){
+        console.log(CitySelectElem,"CitySelectElem")
+
+            jQuery(CitySelectElem).val(fillSelectedValue).change()
+
+    }else{
+        jQuery(CitySelectElem).val("").change()
+    }
+
+}
 
         }
     });

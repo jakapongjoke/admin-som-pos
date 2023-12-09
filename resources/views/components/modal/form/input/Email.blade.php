@@ -8,7 +8,7 @@
         </label>
 
         <div class="block">
-      <input type="email" class="form-control email" id="email" name="master_infomation[email]" placeholder="email"  maxlength="13"  @isset($TextOption) {{$custominline}} @endisset required >
+      <input type="email" class="form-control email" id="email" name="master_infomation[email]" placeholder="email"  @isset($TextOption) {{$custominline}} @endisset required >
       </div> 
 
 

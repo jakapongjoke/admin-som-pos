@@ -14,11 +14,11 @@
  <option value="">Country</option>
 
 </select>
-<select class="form-control state ship_address_state" name="master_infomation[ship_address_state]" id="state" >
+<select class="form-control  ship_address_state" name="master_infomation[ship_address_state]" id="state" >
  <option value="">State</option>
 
 </select>
-<select class="form-control city ship_address_city" name="master_infomation[ship_address_city]" id="city" >
+<select class="form-control  ship_address_city" name="master_infomation[ship_address_city]" id="city" >
  <option value="">City</option>
 
 </select>

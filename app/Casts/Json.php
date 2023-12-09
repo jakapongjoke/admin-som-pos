@@ -31,6 +31,6 @@ class Json implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes)
     {
-        return json_encode($value);
+        return json_encode($value,JSON_FORCE_OBJECT);
     }
 }

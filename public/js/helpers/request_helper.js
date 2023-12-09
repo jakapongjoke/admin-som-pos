@@ -11,16 +11,23 @@ const instance = axios.create({
 
   });
 async function SendAjaxPost(url,data,options={}){
-      
+      console.log(data,"post req")
         return await instance.post(url,data,options);
     
 
 }
 async function SendAjaxPut(url,data,options={}){
-      const dataReq = JSON.parse(data);
-      dataReq._method = "put";
-      console.log(dataReq)
-        return await instance.put(url,dataReq,options);
+    console.log(data,"put req")
+
+    // let dataReq;
+    // dataReq = data;
+    // if(parseData===true){
+    //       const dataReq = JSON.parse(data);
+    //   dataReq._method = "put";
+    // }else{
+    //     dataReq = data;
+    // }
+        return await instance.put(url,data,options);
     
 
 }

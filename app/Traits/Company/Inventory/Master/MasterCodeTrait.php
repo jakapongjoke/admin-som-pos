@@ -1,7 +1,8 @@
 <?php
 namespace App\Traits\Company\Inventory\Master;  
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
+use DB;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -33,24 +34,30 @@ trait MasterCodeTrait{
 
     public function addMasterCode(string $company_name , $data =[]){
         $mastercode = new MasterCode();
-    
+
         $model = $mastercode->newInstance([], true);
         $tb = $company_name."_master_code";
         $model->setTable($tb);  
+     
 
-
-        $model->create($data);
+         $model->create($data);
     }
 
     public function updateMasterCode(string $company_name , $data =[],$id){
         $mastercode = new MasterCode();
-    
+
         $model = $mastercode->newInstance([], true);
         $tb = $company_name."_master_code";
         $model->setTable($tb);  
 
+
+
+
+
         $master =  $model->where("id",'=',$id);
-        $updatedata = $master->update($data);
+        $updatedata = $master->update(["master_infomation"=>json_encode($data['master_infomation'],true)]);
+
+        
            if ($updatedata) {
             return response()->json([
                 "status" => 200,
