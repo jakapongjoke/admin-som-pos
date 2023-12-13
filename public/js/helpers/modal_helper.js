@@ -114,7 +114,7 @@ function ReloadModal(){
 
 // }
 
-async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,message="",putMethod=false){
+async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,message="",putMethod=false,optionsSend={}){
   
         let form  = $(this);
         let dataSend;
@@ -162,9 +162,9 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,m
           let ReqData;
             if(method=="post"){
               if(putMethod==false){
-               ReqData = await SendAjaxPost(requestUrl,dataSend);
+               ReqData = await SendAjaxPost(requestUrl,dataSend,optionsSend);
               }else{
-                ReqData = await SendAjaxPut(requestUrl,dataSend);
+                ReqData = await SendAjaxPost(requestUrl,dataSend,optionsSend);
 
               }
             }

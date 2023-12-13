@@ -696,8 +696,7 @@ e.stopPropagation();
         {
           
           headers: {
-            // 'Accept': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded' 
+
                 'Content-Type': 'multipart/form-data'
        
           },

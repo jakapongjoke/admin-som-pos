@@ -1,6 +1,6 @@
 
 <!-- Modal -->
-<div class="modal fade" id="MasterVendorModal" tabindex="-1" role="dialog" aria-labelledby="MasterCustomerModal" aria-hidden="true">
+<div class="modal fade" id="MasterVendorModal" tabindex="-1" role="dialog" aria-labelledby="MasterVendorModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -20,11 +20,26 @@
 
       <div class="form-group row label-top">
            <div class="col-8">
-           @component('components.modal.form.input.InputText',["required"=>true,'ClassName'=>'company_name','LabelText'=>'Company Name','PlaceHolder'=>'Company Name'])
+           @component('components.modal.form.input.InputText',[
+            "required"=>true,
+            'ClassName'=>'company_name',
+            'Inputname'=>'master_infomation[company_name]',
+            'LabelText'=>'Company Name',
+            'PlaceHolder'=>'Company Name'
+            
+            ])
                 @endcomponent          
            </div>       
            <div class="col-4">
-           @component('components.modal.form.input.InputText',["required"=>true,'ClassName'=>'company_registration_number','LabelText'=>'Company Registration NO.','PlaceHolder'=>'Company Registration NO'])
+           @component('components.modal.form.input.InputText',
+           [
+            "required"=>true,
+           'ClassName'=>'company_registration_number',
+           'Inputname'=>'master_infomation[company_registration_number]',
+           'LabelText'=>'Company Registration NO.',
+           'PlaceHolder'=>'Company Registration NO'
+           
+           ])
                 @endcomponent                              
            </div>                      
        </div>

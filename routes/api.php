@@ -7,9 +7,10 @@ use App\Services\Customer\Inventory\Master\MasterCodeService;
 use App\Http\Controllers\Customer\Inventory\Master\MasterCodeController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
-use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
+use App\Http\Controllers\Customer\Inventory\Master\MasterItemController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterCustomerController;
+use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterVendorController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterStoneController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductGroupInfoController;
@@ -51,8 +52,7 @@ Route::middleware('auth:company_users')->prefix('master')->group(function () {
 // });
 
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('master')->group(function ($company_name) {
-    Route::get('master-item/',[MasterItemsController::class,'find']);
-    Route::get('master-item/{master_type}',[MasterItemsController::class,'find']);
+
     Route::get('master-stone/view/',[MasterStoneController::class,'findByMasterStoneId']);
 
     Route::get('master-stone/{master_type}',[MasterStoneController::class,'findByType']);
@@ -89,6 +89,28 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::get('/master-customer/view',[CompanyMasterCustomerController::class,'ViewCustomerMaster']);
 
     
+    Route::post('/master-vendor',[CompanyMasterVendorController::class,'store']);
+    Route::put('/master-vendor',[CompanyMasterVendorController::class,'update']);
+    Route::patch('/master-vendor',[CompanyMasterVendorController::class,'update']);
+    Route::get('/master-vendor',[CompanyMasterVendorController::class,'GetVendorMaster']);
+    // Route::get('/master-customer-by-id/{master_id}',[CompanyMasterCustomerController::class,'GetCustomerMasterByid']);
+    Route::get('/master-vendor/view',[CompanyMasterVendorController::class,'ViewVendorMaster']);
+
+
+
+    Route::get('master-item/',[MasterItemController::class,'find']);
+    Route::get('master-item/{master_type}',[MasterItemController::class,'find']);
+    Route::post('/master-item',[MasterItemController::class,'store']);
+    Route::put('/master-item',[MasterItemController::class,'update']);
+    Route::patch('/master-item',[MasterItemController::class,'update']);
+    Route::get('/master-item',[MasterItemController::class,'GetItemMaster']);
+    // Route::get('/master-customer-by-id/{master_id}',[CompanyMasterCustomerController::class,'GetCustomerMasterByid']);
+    Route::get('/master-item/view/item',[MasterItemController::class,'ViewItemMaster']);
+
+    
+
+
+
     Route::post('/master-storage',[CompanyMasterStorageController::class,'store']);
     Route::put('/master-storage',[CompanyMasterStorageController::class,'update']);
     // Route::patch('/master-storage',[CompanyMasterStorageController::class,'update']);

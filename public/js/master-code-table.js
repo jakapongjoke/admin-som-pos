@@ -144,6 +144,7 @@
                 description:"",
                 masterType:"",
                 masterPrice:"",
+                masterImage:"",
                 masterFomula:[],
                 masterAvailableFor:"",
                 masterInfo:"",
@@ -213,10 +214,24 @@
                     return this.masterType;
             
                 },
+            
                 set setMasterType(data){
                     return this.masterType = data;
             
                 },
+
+
+                get getMasterImage(){
+                    return this.masterImage;
+            
+                },
+                 
+                set setMasterImage(data){
+                    return this.masterImage = data;
+            
+                },
+
+
                 get getMasterInfo(){
                     return this.masterInfo;
             
@@ -230,6 +245,7 @@
                 },
                 setData(data){
                     this.setParentId = data.parent_id
+                    this.setMasterImage = data.master_image
                     this.setMasterCode = data.master_code
                     this.setMasterName = data.master_name
                     this.setDescription = data.master_description
@@ -331,7 +347,49 @@
             
             //   first init
             document.addEventListener('DOMContentLoaded',async function() {
+
+
                 playGenderChecker()
+
+
+                if(typeof options.singleImage !== "undefined" && options.singleImage===true){
+            
+
+                    if(typeof options.singleImageElement !== "undefined"){
+                       const closeIcon = "/images/icons/cancel.png"
+                       const uploadImageIcon = "/images/icons/image_upload.png"
+                       jQuery(options.singleImageElement).on('change',function(){
+                           var input = this;
+                           let inputElement = $(this);
+                           var files = $(this)[0].files;
+                                   if (input.files && input.files[0]) {
+                                       console.log(input.files[0])
+                                       console.log(files)
+                                       console.log(files[0])
+                                       var reader = new FileReader();
+                                  
+                                       
+                                       reader.onload = function (e) {
+                                       // Set the source of the image element to the data URL of the selected file
+                                       jQuery('.image-upload-preview img').attr('src', e.target.result);
+                                       };
+                                       if(typeof options.singleImageParent !== "undefined"){
+                                           jQuery(options.singleImageParent).append('<img src="'+closeIcon+'" class="close_single_image">');
+                                           
+                                       }
+                                       jQuery('.close_single_image').on('click',function(){
+                                           jQuery('.image-upload-preview img').attr('src', uploadImageIcon);
+                                           inputElement.val("");
+                                           jQuery('.close_single_image').remove();
+                                       })
+                                       // Read the selected file as a data URL
+                                       reader.readAsDataURL(input.files[0]);
+                                   }
+                       })
+                   }
+               }
+               
+
 
                     jQuery('.radio_check').on('click',function(e){
   
@@ -604,13 +662,13 @@
                 const master_id = jQuery(this).parents('tr').find('.master_id').val();
 
 
-                jQuery(options.modalId).find('form').prepend('<input type="hidden" name="master_id" value="'+ master_id+'">');
+                jQuery(options.modalId).find('form').prepend('<input type="hidden" name="master_id" id="master_id" value="'+ master_id+'">');
                 jQuery(options.modalId).addClass('modal_edit');
 
                 const master_data_resp = await SendAjaxGet(options.viewRoute+"?master_id="+master_id);
                 const master_data = master_data_resp.data;
                 
-    
+                console.log(master_data)
                 masterCodeItemData.setData(master_data.data);
 
                 let masterInfo = "";
@@ -635,6 +693,14 @@
                 
                         }
                     })
+                    
+                    break;
+
+            
+                    case "master_account_vendor":
+                        masterInfo = await JSON.parse(master_data.data.master_infomation);
+              
+            
                     
                     break;
                 }
@@ -664,6 +730,7 @@
 
                         mapFillInput(jQuery(options.modalId),{
                             "master_id":master_id,
+                            "citizen_id":masterInfo.citizen_id,
                             "first_name":masterInfo.first_name,
                             "middle_name":masterInfo.middle_name,
                             "last_name":masterInfo.last_name,
@@ -688,6 +755,54 @@
         
                         })
                     break;
+
+                    case "master_account_vendor":
+                        console.log(masterInfo.ship_address_country)
+                        jQuery('.ship_address_country').val(masterInfo.ship_address_country).change();
+                        jQuery('.tax_address_country').val(masterInfo.tax_address_country).change();
+                        
+                        const vendor_country_state_city_value = [masterInfo.ship_address_country,masterInfo.ship_address_state,masterInfo.ship_address_city]
+
+                        const vendor_country_state_city_elem = [jQuery('.ship_address_country'),jQuery('.ship_address_state'),jQuery('.ship_address_city')]
+
+
+                        const vendor_tax_country_state_city_value = [masterInfo.tax_address_country,masterInfo.tax_address_state,masterInfo.tax_address_city]
+
+                        const vendor_tax_country_state_city_elem = [jQuery('.tax_address_country'),jQuery('.tax_address_state'),jQuery('.tax_address_city')]
+
+
+                        // Run trigger Function from masterCustomer.blade.php
+                        $(".ship_address_country").trigger("country_change",[vendor_country_state_city_elem,vendor_country_state_city_value]);
+                        $(".ship_address_state").trigger("state_change",[vendor_country_state_city_elem[2],vendor_country_state_city_value])
+
+
+                        $(".tax_address_country").trigger("tax_country_change",[vendor_tax_country_state_city_elem,vendor_tax_country_state_city_value]);
+                        $(".tax_address_state").trigger("tax_state_change",[vendor_tax_country_state_city_elem[2],vendor_tax_country_state_city_value]);
+
+                        mapFillInput(jQuery(options.modalId),{
+                            "master_id":master_id,
+                            "company_name":masterInfo.company_name,
+                            "company_registration_number":masterInfo.company_registration_number,
+
+                            "email ":masterInfo.email  ,
+                            "phone_code ":masterInfo.phone_code  ,
+                            "phone_number ":masterInfo.phone_number  ,
+                            "ship_address ":masterInfo.ship_address  ,
+                            // "ship_address_country ":masterInfo.ship_address_country  ,
+                            // "ship_address_state ":masterInfo.ship_address_state  ,
+                            // "ship_address_city ":masterInfo.ship_address_city  ,
+                            "ship_address_poscode ":masterInfo.ship_address_poscode  ,
+                             "tax_address":masterInfo.tax_address  ,
+                            // "tax_address_country":masterInfo.tax_address_country  ,
+                            // "tax_address_state":masterInfo.tax_address_state  ,
+                            // "tax_address_city":masterInfo.tax_address_city  ,
+                            "tax_address_poscode":masterInfo.tax_address_poscode  ,
+
+        
+                        })
+                    break;
+
+                    
                     default:
                         mapFillInput(jQuery(options.modalId),{
                             "master_id":master_id,
@@ -701,10 +816,24 @@
                         })
                     break;
 
+               
+
+
+
+
 
                 }
+
+                switch(options.singleImage){
+                    case true :
+                    
+                        jQuery(options.singleImageParent).find('img').attr('src',window.location.protocol+"//"+window.location.host+"/"+masterCodeItemData.getMasterImage)
+                    break;
+
+                }
+
           
-               
+               console.log(masterCodeItemData.getStatus)
             
                     jQuery('.status').each(function(){
                         if($(this).val()==masterCodeItemData.getStatus){
@@ -803,7 +932,11 @@ if(typeof checkUsing != "undefined"){
             
             // end delete list
             
-            jQuery('.create').click( function(e){
+
+           
+
+
+            jQuery('.create').on('click', function(e){
                 e.preventDefault();
                 e.stopPropagation();
                 modalConfig.setMessageConfirmHeading = options.message.create.confirmHeading;
@@ -814,6 +947,7 @@ if(typeof checkUsing != "undefined"){
 
                 mapFillInput(jQuery(options.modalId),options.dataField.inputFillAble)
                 
+                // console.log(modalConfig.getFormMethod)
 
         if(options.masterType=="master_stone_name"){
                     
@@ -835,6 +969,10 @@ if(typeof checkUsing != "undefined"){
 
         }
         jQuery(options.modalId).addClass('modal_add')
+
+
+
+
 
         jQuery(options.modalId).modal();
 
@@ -884,18 +1022,60 @@ function getRoute(formMethod){
                 let formMethod = modalConfig.getFormMethod;
                 console.log('formMethod is '+modalConfig.getFormMethod );
                 console.log(getRoute(modalConfig.getFormMethod ) );
-                 let Frmdata = $('.modal_form').serialize();
+                 
+                let optionsSend = {};
+                // single image upload before send form data
+                let Frmdata;
+              
 
+            if(typeof options.singleImage !== "undefined" && options.singleImage===true){
+                console.log(jQuery('#master_name').val())
+                Frmdata = new FormData(); 
+                let files = jQuery("#image-input")[0].files;
+                Frmdata.append('file',files[0]);
+                if(typeof files[0] !== 'undefined'){
+                    Frmdata.append('image_upload',files[0]);
+
+                }
+                if(formMethod=="put"){
+                    Frmdata.append('master_id',jQuery('#master_id').val());
+                    Frmdata.append('_method',"PUT");
+
+                }
+                Frmdata.append('master_name',jQuery('#master_name').val());
+                Frmdata.append('master_code',jQuery('#master_code').val());
+                Frmdata.append('master_description',jQuery('#master_description').val());
+                Frmdata.append('master_status',jQuery('#master_status').val());
+
+           }else{
+
+             Frmdata = $('.modal_form').serialize();
+           }
+
+
+                if(options.singleImage===true){
+                    
+                 
+                    
+                    optionsSend =      {
+          
+                        processData: false, // Prevent jQuery from processing the data
+                            contentType: false, // Set the content type to false as FormData will set it correctly
+                      }
+                }
+
+                
                 if(modalConfig.getFormMethod=="put"){
-                $('.modal_form').append("<input type='hidden' name='_method' value='PUT'>");
+                $('.modal_form').append('<input type="hidden" name="_method" value="PUT">');
                 modalConfig.setFormMethod = "post";
                 putMethod = true;
 
                 }
 
-console.log(options.message)
 
-                modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,$('.modal_form').serialize(),'form',options.message,putMethod)
+                
+
+                modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,Frmdata,'form',options.message,putMethod,optionsSend)
             
                 
               });

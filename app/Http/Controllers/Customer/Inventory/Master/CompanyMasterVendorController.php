@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Customer\Inventory\Master;
 
 use App\Http\Controllers\Controller;
 
-use App\Services\Customer\Inventory\Master\MasterCodeService;
 
 use Illuminate\Http\Request;
+
+use App\Services\Customer\Inventory\Master\MasterCodeService;
+use App\Services\Customer\Inventory\Master\MasterVendorService;
+
+use Illuminate\Support\Facades\Auth;
 
 class CompanyMasterVendorController extends Controller
 {
@@ -15,11 +19,18 @@ class CompanyMasterVendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     private MasterCodeService $MasterCodeService;
-    public function __construct(MasterCodeService $MasterCodeService)
+    private MasterVendorService $MasterVendorService;
+    public function __construct(MasterCodeService $MasterCodeService,MasterVendorService $MasterVendorService)
     {
         $this->MasterCodeService = $MasterCodeService;
+        $this->MasterVendorService = $MasterVendorService;
     }
+
+
+
     public function index(Request $request)
     {
         $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
@@ -46,7 +57,8 @@ class CompanyMasterVendorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->MasterVendorService->CreateVendorMaster( $request->company_name,$request->all());
+
     }
 
     /**
@@ -78,9 +90,10 @@ class CompanyMasterVendorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        return $this->MasterVendorService->UpdateMasterVendor($request->company_name,$request->all());
+
     }
 
     /**
@@ -93,4 +106,23 @@ class CompanyMasterVendorController extends Controller
     {
         //
     }
+
+
+    public function GetVendorMaster(Request $request){
+        $perpage = $request->query("perPage")?$request->query("perPage"):10;
+        $page = $request->query("page")?$request->query("page"):10;
+        return $this->MasterVendorService->GetMasterVendor( $request->company_name,$perpage,$page);
+    }
+    public function ViewVendorMaster(Request $request){
+        $master_id = $request->query('master_id')?$request->query('master_id'):"";
+  
+        return $this->MasterVendorService->GetVendorMasterByid( $request->company_name,$master_id);
+    }
+    
+    public function GetVendorMasterByid(Request $request){
+        return $this->MasterVendorService->GetVendorMasterByid( $request->company_name,$request->id);
+    }
+
+
+
 }

@@ -15,7 +15,7 @@ use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterVendorController
 use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
-use App\Http\Controllers\Customer\Inventory\Master\MasterItemsController;
+use App\Http\Controllers\Customer\Inventory\Master\MasterItemController;
 use App\Http\Controllers\Customer\Inventory\Stock\StockController;
 
 /*
@@ -91,10 +91,10 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
     // Route::get('/master-vendor', [CompanyMasterVendorController::class, 'index'])->name('master-vendor');
 
 
-    Route::get('/master-item',[MasterItemsController::class, 'index'])->name('master-item');
+    Route::get('/master-item',[MasterItemController::class, 'index'])->name('master-item');
 
-    Route::get('/master-collection', [MasterItemsController::class, 'index'])->name('master-collection');
-    Route::get('/master-item-size', [MasterItemsController::class, 'index'])->name('master-item-size');
+    Route::get('/master-collection', [MasterItemController::class, 'index'])->name('master-collection');
+    Route::get('/master-item-size', [MasterItemController::class, 'index'])->name('master-item-size');
 
 
     // ใช้ MasterStoneController ชั่วคราว

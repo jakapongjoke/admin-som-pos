@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form class="modal_form">
+        <form class="modal_form" id="single_image_modal_form" enctype="multipart/form-data">
             <div class="form-group row">
             <div class="col-5">
 
@@ -26,7 +26,7 @@
                         <img src="{{URL::asset('images/icons/image_upload.png')}}"
                             class="w-100 h-100" alt="">
                     </div>
-                    <input type="file" id="image-input" class="d-none" multiple>
+                    <input type="file" id="image-input" class="d-none" name="image-input">
                     <label for="image-input" class="add-image-btn">Add Image</label>
                 </div>
      </div>
@@ -35,13 +35,13 @@
             <div class="form-group row">
     <label for="name" class="col-sm-3 col-form-label">Name</label>
        <div class="col-sm-9">
-      <input type="text" class="form-control gray_input" id="name" name="master_name" placeholder="Name" required>
+      <input type="text" class="form-control gray_input master_name" id="master_name" name="master_name" placeholder="Name" required>
        </div>
      </div>          
         <div class="form-group row">
     <label for="code" class="col-sm-3 col-form-label">Code</label>
        <div class="col-sm-9">
-      <input type="text" class="form-control gray_input" name="master_code" id="code" placeholder="code" required>
+      <input type="text" class="form-control gray_input master_code" name="master_code" id="master_code" placeholder="code" required>
        </div>
      </div>  
        
@@ -50,7 +50,7 @@
         <div class="form-group row">
     <label for="description" class="col-sm-3 col-form-label">Description</label>
        <div class="col-sm-9">
-      <textarea class="form-control description" id="description" name="desctiption" placeholder="Master Item desctiption"></textarea>
+      <textarea class="form-control description master_description" id="master_description" name="master_description" placeholder="Master Item desctiption"></textarea>
        </div>
      </div>
      

@@ -40,10 +40,10 @@ trait MasterCodeTrait{
         $model->setTable($tb);  
      
 
-         $model->create($data);
+        return $model->create($data);
     }
 
-    public function updateMasterCode(string $company_name , $data =[],$id){
+    public function updateMasterCode(string $company_name , $data =[],$id,$returnType="json"){
         $mastercode = new MasterCode();
 
         $model = $mastercode->newInstance([], true);
@@ -55,21 +55,83 @@ trait MasterCodeTrait{
 
 
         $master =  $model->where("id",'=',$id);
-        $updatedata = $master->update(["master_infomation"=>json_encode($data['master_infomation'],true)]);
-
-        
-           if ($updatedata) {
-            return response()->json([
-                "status" => 200,
-                "message" =>"Updating Complete" ,
-            ], 200);
-        } else {
-            return response()->json([
-                "status" => 500,
-                "message" => "Update Query Error",
-            ], 500);
-        
+        $master_code = isset($data['master_code'])?$data['master_code']:NULL;
+        if(isset($data['master_image'])){
+            $updatedata = $master->update([
+            
+                "master_name"=>$data['master_name'],
+                "master_status"=>$data['master_status']?$data['master_status']:"active",
+                "master_image"=>$data['master_image'],
+                "master_code"=> $master_code,
+                "master_description"=>$data['master_description']?$data['master_description']:"",
+                "master_infomation"=>json_encode($data['master_infomation'],true)
+            
+            ]);
+        }else{
+            $updatedata = $master->update([
+            
+                "master_name"=>$data['master_name'],
+                "master_status"=>$data['master_status']?$data['master_status']:"active",
+                "master_code"=> $master_code,
+                "master_description"=>$data['master_description']?$data['master_description']:"",
+                "master_infomation"=>json_encode($data['master_infomation'],true)
+            
+            ]);
         }
+     
+
+
+        switch($returnType){
+            case "json" :
+                if ($updatedata) {
+                    return response()->json([
+                        "status" => 200,
+                        "message" =>"Updating Complete" ,
+                    ], 200);
+                } else {
+                    return response()->json([
+                        "status" => 500,
+                        "message" => "Update Query Error",
+                    ], 500);
+                
+                }
+
+            break;
+            case "bool":
+                if ($updatedata) {
+                    return true;
+                } else {
+                    return false;
+                
+                }
+            break;
+
+            case "object":
+                return   $updatedata;
+                
+            break;
+
+            default :
+
+            if ($updatedata) {
+                return response()->json([
+                    "status" => 200,
+                    "message" =>"Updating Complete" ,
+                ], 200);
+            } else {
+                return response()->json([
+                    "status" => 500,
+                    "message" => "Update Query Error",
+                ], 500);
+            
+            }
+
+            break;
+        }
+      
+
+
+
     }
 
     public function getMasterNameById(string $company_name , int $master_id){

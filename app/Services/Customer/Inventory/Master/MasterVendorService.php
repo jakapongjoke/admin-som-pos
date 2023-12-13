@@ -3,15 +3,15 @@ namespace App\Services\Customer\Inventory\Master;
 
 use Request;
 
-class MasterCustomerService {
+class MasterVendorService {
 
 use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
 
-    public function GetMasterCustomer($company_name,$perpage,$page){
+    public function GetMasterVendor($company_name,$perpage,$page){
        return $this->GetMasterCodeByTypeJson($company_name,"master_account_vendor",$perpage,$page);
 
     }
-    public function GetCustomerMaster($company_name,$master_id){
+    public function GetVendorMaster($company_name,$master_id){
 
     }
 
@@ -21,7 +21,7 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
         return mt_rand($min, $max);
     }
     public function generateCode() {
-        $prefix = "MC-";
+        $prefix = "MV-";
         $date = date("Ymd");
         $randomNumber = $this->generateRandomNumber(6);
     
@@ -29,21 +29,15 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
     
         return $code;
     }
-    public function GetCustomerMasterByid($company_name,$master_id){
+    public function GetVendorMasterByid($company_name,$master_id){
         return $this->GetMasterCodeById($company_name,$master_id,['id','master_infomation']);
     }
     
-    public function CreateCustomerMaster($company_name,$data){
+    public function CreateVendorMaster($company_name,$data){
 
         $master_info = [
-            "citizen_id"=>$data['master_infomation']['citizen_id'],
-            "first_name"=>$data['master_infomation']['first_name'],
-            "middle_name"=>$data['master_infomation']['middle_name'],
-            "last_name"=>$data['master_infomation']['last_name'],
-            "gender"=>$data['master_infomation']['gender'],
-            "birthdate"=>$data['master_infomation']['birthdate'],
-            "birthmonth"=>$data['master_infomation']['birthmonth'],
-            "birthyear"=>$data['master_infomation']['birthyear'],
+            "company_registration_number"=>$data['master_infomation']['company_registration_number'],
+            "company_name"=>$data['master_infomation']['company_name'],
             "email"=>$data['master_infomation']['email'],
             "phone_code"=>$data['master_infomation']['phone_code'],
             "phone_number"=>$data['master_infomation']['phone_number'],
@@ -61,9 +55,9 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
         $this->addMasterCode($company_name,[
             "master_code"=>$this->generateCode(),
             "running_number"=>1,
-            "master_name"=>$data['master_infomation']['first_name']." ".$data['master_infomation']['middle_name']." ".$data['master_infomation']['last_name'],
+            "master_name"=>$data['master_infomation']['company_name'],
             "master_status"=>"active",
-            "master_type"=>"master_account_customer",
+            "master_type"=>"master_account_vendor",
             "master_description"=>"",
             "master_infomation"=>json_encode($master_info ,JSON_FORCE_OBJECT)
     
@@ -71,17 +65,11 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
     }
 
 
-    public function UpdateMasterCustomer($company_name,$data){
+    public function UpdateMasterVendor($company_name,$data){
   
         $master_info = [
-            "citizen_id"=>$data['master_infomation']['citizen_id'],
-            "first_name"=>$data['master_infomation']['first_name'],
-            "middle_name"=>$data['master_infomation']['middle_name'],
-            "last_name"=>$data['master_infomation']['last_name'],
-            "gender"=>$data['master_infomation']['gender'],
-            "birthdate"=>$data['master_infomation']['birthdate'],
-            "birthmonth"=>$data['master_infomation']['birthmonth'],
-            "birthyear"=>$data['master_infomation']['birthyear'],
+            "company_registration_number"=>$data['master_infomation']['company_registration_number'],
+            "company_name"=>$data['master_infomation']['company_name'],
             "email"=>$data['master_infomation']['email'],
             "phone_code"=>$data['master_infomation']['phone_code'],
             "phone_number"=>$data['master_infomation']['phone_number'],
@@ -100,18 +88,15 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
      
         $this->updateMasterCode($company_name,[
             "running_number"=>1,
-            "master_name"=>$data['master_infomation']['first_name']." ".$data['master_infomation']['middle_name']." ".$data['master_infomation']['last_name'],
+            "master_name"=>$data['master_infomation']['company_name'],
             "master_status"=>"active",
-            "master_type"=>"master_account_customer",
+            "master_type"=>"master_account_vendor",
             "master_description"=>"",
             "master_infomation"=>json_encode($master_info ,JSON_FORCE_OBJECT)
     
         ],$master_id);
 
     }
-
-
-    
 
 }
 ?>
