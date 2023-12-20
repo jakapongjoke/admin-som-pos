@@ -435,7 +435,7 @@
                 // List master data
                 let MountedDom = jQuery("#mastertable").html(headerTable(dataField.heading,dataField.options));
                 
-                const data = await fetchdata(options.listDataRoute+'?perPage='+options.paginate.perPage+'&page=1');
+                const data = await fetchdata(options.listDataRoute+'?master_type='+options.masterType+'&perPage='+options.paginate.perPage+'&page=1');
                 const master_list_resp = await data.data;
 
                 if(master_list_resp.length>=1){
@@ -573,19 +573,15 @@
             
             e.stopPropagation();
             e.preventDefault();
-            if(options.masterType=="master_stone_name"){
-          
-                
-                insertOption("parent_id",stone_group.getData,"Stone Group");
-                
-            }
+            let masterAvailableFor = "";
+         
    
             
             modalConfig.setMessageConfirmHeading = options.message.edit.confirmHeading;
             modalConfig.setMessageConfirmText = options.message.edit.confirmText;
             modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
             modalConfig.setMessageDoneText = options.message.edit.doneText;
-            modalConfig.setFormMethod = "put";
+            modalConfig.setFormMethod = "view";
             
             
             const master_id = jQuery(this).parents('tr').find('.master_id').val();
@@ -629,6 +625,65 @@
                 return false;
             });
             
+            switch(options.masterType){
+                case "master_stone_name":
+                    insertOption("parent_id",stone_group.getData,"Stone Group");
+
+                break;
+                case "master_item_size":
+                    if(!master_data.data.master_available_for){
+                        masterAvailableFor = "all_item"
+
+                    }else{
+                        masterAvailableFor = await JSON.parse(master_data.data.master_available_for);
+
+
+                    }
+
+                    let avaliableSelectList = jQuery('.select_avaliable_list').clone(true,true);
+                    jQuery('.select_avaliable_list').remove();
+                  
+                    
+                    console.log(masterAvailableFor)
+                    mapFillInput(jQuery(options.modalId),{
+                        "master_id":master_id,
+                        "parent_id":masterCodeItemData.getParentId,
+                        "master_code":masterCodeItemData.getMasterCode,
+                        "master_name":masterCodeItemData.getMasterName,
+                        "master_description":masterCodeItemData.getDescription,
+                        "master_status":masterCodeItemData.getStatus,
+                        "master_type":masterCodeItemData.getMasterType,
+    
+                    });
+
+                    if(masterAvailableFor=="all_item"){
+                        jQuery(options.modalId).find('#all-item-radio').prop("checked", true);
+                        jQuery('.select_avaliable_list_block').append('<div class="select_avaliable_list"> '+avaliableSelectList.html()+ '</div>');
+                    }else{
+                        
+                        jQuery(options.modalId).find('#available-radio').prop("checked", true);
+
+                        masterAvailableFor.map((v,k)=>{
+                            // console.log(k);
+                            // avaliableSelectList.insertAfter('.select_avaliable_list_block');
+                          
+                            jQuery('.select_avaliable_list_block').append('<div class="select_avaliable_list"> '+avaliableSelectList.html()+ '</div>');
+                            if(parseInt(k+1)==masterAvailableFor.length&&k>0){
+                                
+                                jQuery('.select_avaliable_list').eq(k).find('.delete-row-btn').show();
+                            }
+                            jQuery('.select_avaliable_list').eq(k).find('.master_available_for').val(v);
+
+                            
+                        })
+                        jQuery('.action_avaliable').hide();
+                    }
+                    jQuery('.select_avaliable_list').on('change',function(){
+                        jQuery(options.modalId).find('#available-radio').prop("checked", true);
+                    })
+
+                break;
+            }
             
             })
             // end preview list
@@ -643,6 +698,9 @@
                 modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
                 modalConfig.setMessageDoneText = options.message.edit.doneText;
                 modalConfig.setFormMethod = "put";
+
+
+
                 switch(options.masterType){
                     case "master_stone_name" :
                         insertOption("parent_id",data,"Stone Group");
@@ -672,14 +730,17 @@
                 masterCodeItemData.setData(master_data.data);
 
                 let masterInfo = "";
+                let masterAvailableFor = "";
               
 
                 switch(options.masterType){
+
                     case "master_account_storage":
                         masterInfo = await JSON.parse(master_data.data.master_infomation);
                       
                         jQuery("#branch_location").val(masterInfo.branch_location);
                     break;
+
                     case "master_account_customer":
                         masterInfo = await JSON.parse(master_data.data.master_infomation);
                      console.log(master_data.data.master_infomation)
@@ -699,11 +760,24 @@
             
                     case "master_account_vendor":
                         masterInfo = await JSON.parse(master_data.data.master_infomation);
-              
-            
-                    
+                break;
+
+                    case "master_item_size":
+                        console.log(master_data.data.master_available_for,'master_data.data.master_available_for')
+                        if(!master_data.data.master_available_for){
+                            masterAvailableFor = "all_item"
+
+                        }else{
+                            masterAvailableFor = await JSON.parse(master_data.data.master_available_for);
+
+
+                        }
+                        
                     break;
+                  
                 }
+
+
                 switch(options.masterType){
                     case "master_account_customer":
                         console.log(masterInfo.ship_address_country)
@@ -801,7 +875,48 @@
         
                         })
                     break;
+                    case "master_item_size" :
+                        let avaliableSelectList = jQuery('.select_avaliable_list').clone(true,true);
+                        jQuery('.select_avaliable_list').remove();
+                        console.log(masterAvailableFor)
+                        mapFillInput(jQuery(options.modalId),{
+                            "master_id":master_id,
+                            "parent_id":masterCodeItemData.getParentId,
+                            "master_code":masterCodeItemData.getMasterCode,
+                            "master_name":masterCodeItemData.getMasterName,
+                            "master_description":masterCodeItemData.getDescription,
+                            "master_status":masterCodeItemData.getStatus,
+                            "master_type":masterCodeItemData.getMasterType,
+        
+                        });
 
+                        if(masterAvailableFor=="all_item"){
+                            jQuery(options.modalId).find('#all-item-radio').prop("checked", true);
+                            jQuery('.select_avaliable_list_block').append('<div class="select_avaliable_list"> '+avaliableSelectList.html()+ '</div>');
+                        }else{
+                            
+                            jQuery(options.modalId).find('#available-radio').prop("checked", true);
+
+                            masterAvailableFor.map((v,k)=>{
+                                // console.log(k);
+                                // avaliableSelectList.insertAfter('.select_avaliable_list_block');
+                              
+                                jQuery('.select_avaliable_list_block').append('<div class="select_avaliable_list"> '+avaliableSelectList.html()+ '</div>');
+                                if(parseInt(k+1)==masterAvailableFor.length&&k>0){
+                                    
+                                    jQuery('.select_avaliable_list').eq(k).find('.delete-row-btn').show();
+                                }
+                                jQuery('.select_avaliable_list').eq(k).find('.master_available_for').val(v);
+    
+                                
+                            })
+                        }
+                        jQuery('.select_avaliable_list').on('change',function(){
+                            jQuery(options.modalId).find('#available-radio').prop("checked", true);
+                        })
+
+                        availablePlayer()
+                    break;
                     
                     default:
                         mapFillInput(jQuery(options.modalId),{
@@ -1044,14 +1159,20 @@ function getRoute(formMethod){
                 }
                 Frmdata.append('master_name',jQuery('#master_name').val());
                 Frmdata.append('master_code',jQuery('#master_code').val());
+                Frmdata.append('master_type',jQuery('#master_type').val());
                 Frmdata.append('master_description',jQuery('#master_description').val());
                 Frmdata.append('master_status',jQuery('#master_status').val());
 
            }else{
-
+            if(modalConfig.getFormMethod=="put"){
+                $('.modal_form').append('<input type="hidden" name="_method" value="PUT">');
+                modalConfig.setFormMethod = "post";
+                putMethod = true;
+    
+                }
              Frmdata = $('.modal_form').serialize();
            }
-
+          
 
                 if(options.singleImage===true){
                     
@@ -1065,12 +1186,6 @@ function getRoute(formMethod){
                 }
 
                 
-                if(modalConfig.getFormMethod=="put"){
-                $('.modal_form').append('<input type="hidden" name="_method" value="PUT">');
-                modalConfig.setFormMethod = "post";
-                putMethod = true;
-
-                }
 
 
                 
@@ -1232,6 +1347,7 @@ function getRoute(formMethod){
                     console.log(options.dataField.numberVailidateField[numberFieldKey])
 
                     jQuery('.'+options.dataField.numberVailidateField[numberFieldKey]).on('keypress keydown keyup',function(e){
+                        console.log(e)
                         NumberValidate($(this).val(),$(this),options.dataField.numberCountValidate[numberFieldKey]);
                     });
 
@@ -1258,6 +1374,72 @@ function getRoute(formMethod){
 
                 }
             }
+
+
+            function availablePlayer(){
+                
+
+            // Hide delete button if there is only one row
+            if ($('.select_avaliable_list').length === 1) {
+                $('.delete-row').hide();
+            }
+
+            // Add click event for add button
+            $('.add-row').click(function () {
+                // Remove event listeners from cloned add buttons
+                $('.add-row').off('click');
+
+                // Clone the last row
+                var newRow = $('.select_avaliable_list').last().clone();
+                // Clear the selected value in the new row
+                newRow.find('select').val('');
+                newRow.find('.form-check').hide();
+                newRow.find('label[for="available-radio"]').hide();
+                // Show the add button on the new last row
+                newRow.insertAfter('.select_avaliable_list:last-child');
+                $('.add-row').before().hide();
+                $('.add-row').last().show();
+                // Reattach click event listener to add button
+                $('.add-row').click(arguments.callee);
+                // Show delete button if there is more than one row
+                jQuery('.select_avaliable_list').each(function(k){
+                    if(k>0){
+                        $(this).find('.delete-row').show();
+                    }
+                });
+               
+            });
+
+            // Define the deleteRow function
+       
+            // Add click event for delete button to use the deleteRow function
+            $(document).on('click', '.delete-row' ,function(){
+                console.log('delete')
+                var $row = $(this).parents('.select_avaliable_list');
+                // Show form-check on next row if it's the first row that was deleted
+                if ($row.index() === 0) {
+                    $row.next('.select_avaliable_list').find('.form-check, .form-check-label').show();
+                }
+               
+                // Remove the row
+                $row.remove();
+                $('.select_avaliable_list').last().find('.add-row').show();
+                // Hide delete button if there is only one row
+                if ($('.select_avaliable_list').length === 1) {
+                    $('.delete-row').hide();
+                }
+            });
+
+   
+            }
+
+         
+            $(options.modalId).on('hidden.bs.modal', function () {
+               
+              window.location.reload();
+            });
+
+
             return this;
         };
       })(jQuery);

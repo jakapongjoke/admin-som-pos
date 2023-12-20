@@ -85,6 +85,7 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::put('/master-customer',[CompanyMasterCustomerController::class,'update']);
     Route::patch('/master-customer',[CompanyMasterCustomerController::class,'update']);
     Route::get('/master-customer',[CompanyMasterCustomerController::class,'GetCustomerMaster']);
+    Route::delete('/master-customer',[CompanyMasterCustomerController::class,'destroy']);
     // Route::get('/master-customer-by-id/{master_id}',[CompanyMasterCustomerController::class,'GetCustomerMasterByid']);
     Route::get('/master-customer/view',[CompanyMasterCustomerController::class,'ViewCustomerMaster']);
 
@@ -93,16 +94,18 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::put('/master-vendor',[CompanyMasterVendorController::class,'update']);
     Route::patch('/master-vendor',[CompanyMasterVendorController::class,'update']);
     Route::get('/master-vendor',[CompanyMasterVendorController::class,'GetVendorMaster']);
+    Route::delete('/master-vendor',[CompanyMasterVendorController::class,'destroy']);
     // Route::get('/master-customer-by-id/{master_id}',[CompanyMasterCustomerController::class,'GetCustomerMasterByid']);
     Route::get('/master-vendor/view',[CompanyMasterVendorController::class,'ViewVendorMaster']);
 
 
 
-    Route::get('master-item/',[MasterItemController::class,'find']);
+    // Route::get('master-item/',[MasterItemController::class,'find']);
     Route::get('master-item/{master_type}',[MasterItemController::class,'find']);
     Route::post('/master-item',[MasterItemController::class,'store']);
     Route::put('/master-item',[MasterItemController::class,'update']);
     Route::patch('/master-item',[MasterItemController::class,'update']);
+    Route::delete('/master-item',[MasterItemController::class,'destroy']);
     Route::get('/master-item',[MasterItemController::class,'GetItemMaster']);
     // Route::get('/master-customer-by-id/{master_id}',[CompanyMasterCustomerController::class,'GetCustomerMasterByid']);
     Route::get('/master-item/view/item',[MasterItemController::class,'ViewItemMaster']);
@@ -115,6 +118,7 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::put('/master-storage',[CompanyMasterStorageController::class,'update']);
     // Route::patch('/master-storage',[CompanyMasterStorageController::class,'update']);
     Route::get('/master-storage',[CompanyMasterStorageController::class,'GetStorageMaster']);
+    Route::delete('/master-storage',[CompanyMasterStorageController::class,'destroy']);
     Route::get('/master-storage/view',[CompanyMasterStorageController::class,'ViewStorageMaster']);
     Route::get('/get-by-id/{master_id}',[MasterCodeController::class,'getMasterCodeById']);
     Route::get('/master-name-by-id/{master_id}',[MasterCodeController::class,'getMasterNameById']);

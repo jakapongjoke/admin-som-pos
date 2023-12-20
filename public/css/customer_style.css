@@ -2796,3 +2796,249 @@ form.modal_form input.focus_error {
     width: 20px;
     top: 10px;
 }
+
+
+
+/* avaliable for */
+
+.available_for_block .wrapper {
+    width: 346px;
+    height: 229px;
+    overflow-y: scroll;
+    border: 1px solid #C8C8C8;
+    border-radius: 5px;
+    position: relative;
+}
+
+.available_for_block .wrapper-items {
+    width: 100%;
+    height: 271px;
+    border-radius: 5px;
+    position: relative;
+    background: #F7F7F8;
+    float: left;
+    padding-top: 10px;
+    padding-left: 19px;
+}
+.available_for_block .form-check-input {
+    height: 27px!important;
+    width: 27px;
+}
+
+.available_for_block .available_for_block #formImage .card-header {
+    background-color: transparent;
+}
+
+.available_for_block #formImage .card {
+    height: 100%;
+}
+
+.available_for_block #formImage .col-sm-4,
+.available_for_block #formImage .col-sm-5,
+.available_for_block #formImage .col-sm-7,
+.available_for_block #formImage .col-sm-10 {
+    padding: 0;
+}
+
+.available_for_block #formImage .col-form-label {
+    padding-right: 0;
+    max-width: 14%;
+}
+
+.available_for_block .add-image-btn {
+    position: absolute;
+    width: 121px;
+    height: 32px;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #597074;
+    color: #597074;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    bottom: 20%;
+}
+
+.available_for_block .form-check-label {
+    font-weight: 700;
+    position: relative;
+    left: 10px;
+    top: 6px;
+}
+.available_for_block .form-check-input:checked {
+    background-color: #4F6D70;
+    border-color: #4F6D70;
+}
+.available_for_block .image-upload-preview {
+    position: absolute;
+    left: 50%;
+    bottom: 65%;
+    transform: translate(-50%, 50%);
+    width: 100px;
+    height: 100px;
+}
+
+.available_for_block .image-upload-1 {
+    width: 100%;
+    height: 100%;
+}
+
+.available_for_block .image-upload-2,
+.available_for_block .image-upload-3 {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+}
+
+.available_for_block .image-upload-2 {
+    left: 10%;
+    top: 10%;
+}
+
+.available_for_block .image-upload-3 {
+    left: 10%;
+    top: 40%;
+}
+
+.available_for_block form {
+    font-size: 14px;
+}
+
+.available_for_block .col-8 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.available_for_block .delete-image-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: #FF4136;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 16px;
+    cursor: pointer;
+    display: none;
+    /* Hide the delete button by default */
+}
+
+.available_for_block .wrapper:not(:empty) .delete-image-btn {
+    display: block;
+    /* Show the delete button when the .wrapper element is not empty */
+}
+
+.available_for_block .status-radio {
+    background: #f7f7f7;
+    border-radius: 5px;
+}
+
+.available_for_block .status-radio .form-check-label {
+    padding: 0 20px;
+}
+
+.available_for_block .card-body .form-check-label {
+    padding-left: 10px;
+}
+
+.available_for_block .val-txt {
+    position: relative;
+    padding: 0;
+}
+
+.available_for_block .placeholder-text {
+    position: absolute;
+    left: 40%;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.available_for_block .text-g {
+    left: 55%;
+}
+
+.available_for_block .available_for_block .text-thb {
+    left: 70%;
+}
+
+.available_for_block .available_for_block textarea {
+    resize: none;
+}
+
+.available_for_block .btn-del {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #f37f7f;
+    padding: 0;
+}
+.delete-row-btn.delete-row {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background: #f37f7f;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 7px;
+    margin-left: 10px;
+}
+.available_for_block .add-btn {
+    padding: 0 0.5rem;
+}
+
+#MasterItemSizeModal .modal-body {
+    height: 100% !important;
+}
+
+#MasterItemSizeModal .modal-dialog {
+    height: 100% !important;
+}
+#MasterItemSizeModal textarea#master_description {
+    height: 100px;
+}
+
+
+#MasterItemSizeModal .btn-add.add-row {
+    position: relative;
+    margin-left: 10px;
+}
+.select_avaliable_list {
+    width: 460px;
+    float: left;
+}
+
+
+.select_avaliable_list .select_avaliable {
+    width: 350px;
+    float: left;
+}
+div#avalible-row {
+    height: 189px;
+    overflow-y: scroll;
+}
+
+.action_avaliable {
+    float: left;
+    width: 75px;
+}
+.price_block{
+    display: block;
+    position: relative;
+    width: 100%;
+    border: 1px solid #E4E4E4;
+    overflow-x: hidden;
+
+}
+
+.price_input{
+    width: 100%;
+}
+.price_value{
+    display: inline-block;
+}
+.price_currency{
+    display: inline-block;
+}

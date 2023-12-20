@@ -1,6 +1,6 @@
 
 <!-- Modal -->
-<div class="modal fade" id="MasterMetalModal" tabindex="-1" role="dialog" aria-labelledby="MasterMetalModal" aria-hidden="true">
+<div class="modal fade" id="MasterBaseMetalModal" tabindex="-1" role="dialog" aria-labelledby="MasterMetalModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,25 +13,36 @@
         <form class="modal_form">
 
         <div class="form-group row">
-    <label for="name" class="col-sm-3 col-form-label">Name</label>
+    <label for="name" class="col-sm-3 col-form-label">Name <span style="color:red;">*</span></label>
        <div class="col-sm-9">
-      <input type="text" class="form-control" id="name" name="master_name" placeholder="Name" required>
+      <input type="text" class="form-control master_name" id="name" name="master_name" placeholder="Name" required>
+
+      <input type="hidden" class="master_type" id="master_type" name="master_type" value="master_base_metal" >
        </div>
      </div>          
-        <div class="form-group row">
-    <label for="code" class="col-sm-3 col-form-label">Code</label>
-       <div class="col-sm-9">
-      <input type="text" class="form-control" name="master_code" id="code" placeholder="code" required>
-       </div>
-     </div>  
+     
  
 
 
         <div class="form-group row">
     <label for="description" class="col-sm-3 col-form-label">Description</label>
        <div class="col-sm-9">
-      <textarea class="form-control" id="description" name="desctiption">
+      <textarea class="form-control master_description" id="master_description" name="master_description">
       </textarea>
+       </div>
+     </div>
+
+     <div class="form-group row">
+    <label for="master_price" class="col-sm-3 col-form-label">Price <span style="color:red;">*</span></label>
+       <div class="col-sm-9">
+        <div class="price_block">
+          <div class="price_value" contenteditable="true">1000</div>
+          <div class="price_currency">THB</div>
+<!--               
+            <input type="text" class="form-control price_input master_price" id="name" name="master_price"  required> -->
+
+        </div>
+
        </div>
      </div>
 

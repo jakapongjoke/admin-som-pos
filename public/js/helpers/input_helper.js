@@ -178,3 +178,12 @@ if(fillMode===true){
    
 }
          
+function price_input(){
+    if(jQuery('.price_block').length()>0){
+        jQuery('.price_block').each(function(){
+            // $(this).css({position:'relative'});
+
+            // $(this).append("<span class")
+        });
+    }
+}

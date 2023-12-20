@@ -1,14 +1,14 @@
 <div class="table_wrp">
 <div class="table_header">
 <h1>
-MASTER BASE METAL
+ITEM SIZE MASTER
 </h1>
     <div class="search_area">
         @component('components.util.SearchList')
         @endcomponent
     </div>
     @component('components.util.ControlArea',["data"=>[
-      "modalName"=>'#MasterBaseMetalModal'
+      "modalName"=>'#MasterItemSizeModal'
     ]
   ])
   @endcomponent

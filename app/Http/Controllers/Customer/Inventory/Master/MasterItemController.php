@@ -53,7 +53,7 @@ class MasterItemController extends Controller
                 $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_item_size',10);
                 $data = ['masterdata'=>$masterdata];
              
-                return view('customer.backoffice.inventory.Master.MasterVendor',['data'=>$data]);
+                return view('customer.backoffice.inventory.Master.MasterItemSize',['data'=>$data]);
              break;
           
             default:
@@ -71,6 +71,9 @@ class MasterItemController extends Controller
             case "master-item-size":
                 return $this->MasterCodeService->GetMasterCodeByTypeJson($request->company_name,"master_item_size",50);
             break;
+            case "master-item":
+                return $this->MasterCodeService->GetMasterCodeByTypeJson($request->company_name,"master_item",500);
+            break;
        
         }
     }
@@ -78,7 +81,8 @@ class MasterItemController extends Controller
     public function store(Request $request){
 
         // print_r($request->file('image_upload'));
-        // print_r($request->all());
+        //  print_r($request->all());
+        //  exit();
         return $this->MasterItemService->CreateItemMaster( $request->company_name,$request->all());
 
         
@@ -89,12 +93,25 @@ class MasterItemController extends Controller
         return $this->MasterItemService->UpdateMasterItem($request->company_name,$request->all());
 
     }
+    public function destroy(Request $request)
+    {
+    
+        $id = $request->query('id');
+        return $this->MasterCodeService->deleteMasterCode($request->company_name,$id);
+    }
     
     public function GetItemMaster(Request $request){
+    
+        
         $perpage = $request->query("perPage")?$request->query("perPage"):10;
-        $page = $request->query("page")?$request->query("page"):10;
-        return $this->MasterItemService->GetMasterItem( $request->company_name,$perpage,$page);
+        $page = $request->query("page")?$request->query("page"):1;
+
+        $master_type = $request->query("master_type")?$request->query("master_type"):"master_item";
+
+        return $this->MasterItemService->GetMasterItem( $request->company_name,$master_type ,$perpage,$page);
     }
+
+
     public function ViewItemMaster(Request $request){
         $master_id = $request->query('master_id')?$request->query('master_id'):"";
   
@@ -104,5 +121,6 @@ class MasterItemController extends Controller
     public function GetItemMasterByid(Request $request){
         return $this->MasterItemService->GetItemMasterByid( $request->company_name,$request->id);
     }
+    
 
 }

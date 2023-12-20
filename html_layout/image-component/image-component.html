@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Image Component</title>
+</head>
+<style>
+    .wrapper {
+        width: 346px;
+        height: 229px;
+        border: 1px solid #C8C8C8;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    .wrapper-items {
+        width: 700px;
+        height: 229px;
+        border: 1px solid #C8C8C8;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    #formImage .card-header {
+        background-color: transparent;
+    }
+
+    #formImage .card {
+        height: 100%;
+    }
+
+    #formImage .col-sm-4,
+    #formImage .col-sm-5,
+    #formImage .col-sm-7,
+    #formImage .col-sm-10 {
+        padding: 0;
+    }
+
+    #formImage .col-form-label {
+        padding-right: 0;
+        max-width: 14%;
+    }
+
+    .add-image-btn {
+        position: absolute;
+        width: 121px;
+        height: 32px;
+        box-shadow: 0px 3px 6px #00000029;
+        border: 1px solid #597074;
+        color: #597074;
+        text-align: center;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        bottom: 20%;
+    }
+
+    .form-check-label {
+        font-weight: 700;
+    }
+
+    .image-upload-preview {
+        position: absolute;
+        left: 50%;
+        bottom: 65%;
+        transform: translate(-50%, 50%);
+        width: 100px;
+        height: 100px;
+    }
+
+    .image-upload-1 {
+        width: 100%;
+        height: 100%;
+    }
+
+    .image-upload-2,
+    .image-upload-3 {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+    }
+
+    .image-upload-2 {
+        left: 10%;
+        top: 10%;
+    }
+
+    .image-upload-3 {
+        left: 10%;
+        top: 40%;
+    }
+
+    form {
+        font-size: 14px;
+    }
+
+    .col-8 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .delete-image-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        background-color: #FF4136;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 1.5;
+        font-size: 16px;
+        cursor: pointer;
+        display: none;
+        /* Hide the delete button by default */
+    }
+
+    .wrapper:not(:empty) .delete-image-btn {
+        display: block;
+        /* Show the delete button when the .wrapper element is not empty */
+    }
+
+    .status-radio {
+        background: #f7f7f7;
+        border-radius: 5px;
+    }
+
+    .status-radio .form-check-label {
+        padding: 0 20px;
+    }
+
+    .card-body .form-check-label {
+        padding-left: 10px;
+    }
+
+    .val-txt {
+        position: relative;
+        padding: 0;
+    }
+
+    .placeholder-text {
+        position: absolute;
+        left: 40%;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    .text-g {
+        left: 55%;
+    }
+
+    .text-thb {
+        left: 70%;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    .btn-del {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background-color: #f37f7f;
+        padding: 0;
+        padding-bottom: 26px;
+    }
+
+    .add-btn {
+        padding: 0 0.5rem;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="wrapper-items">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="all-item-radio"
+                            value="option1" checked>
+                        <label class="form-check-label" for="all-item-radio">All Item</label>
+                    </div>
+                </div>
+                <div class="col-sm-8"></div>
+            </div>
+            <div class="form-group row align-items-center form-row" id="avalible-row">
+                <div class="col-sm-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="available-radio"
+                            value="option2">
+                        <label class="form-check-label" for="available-radio">Available for</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <select class="form-control" name="select1">
+                        <option value="">Select</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <div class="d-flex flex-nowrap align-items-center">
+                        <button type="button" class="btn btn-del delete-row-btn delete-row"><img
+                                src="https://i.postimg.cc/qBYLX9nC/del-btn.png" width="14px" alt=""></button>
+                        <button type="button" class="btn btn-add add-row"><img
+                                src="https://i.postimg.cc/GtZxLyrj/add-btn.png" width="26px" alt=""></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide delete button if there is only one row
+            if ($('.form-row').length === 1) {
+                $('.delete-row').hide();
+            }
+
+            // Add click event for add button
+            $('.add-row').click(function () {
+                // Remove event listeners from cloned add buttons
+                $('.add-row').off('click');
+
+                // Clone the last row
+                var newRow = $('.form-row').last().clone();
+                // Clear the selected value in the new row
+                newRow.find('select').val('');
+                newRow.find('.form-check').hide();
+                newRow.find('label[for="available-radio"]').hide();
+                // Show the add button on the new last row
+                newRow.insertAfter('.form-row:last-child');
+                $('.add-row').before().hide();
+                $('.add-row').last().show();
+                // Reattach click event listener to add button
+                $('.add-row').click(arguments.callee);
+                // Show delete button if there is more than one row
+                $('.delete-row').show();
+            });
+
+            // Define the deleteRow function
+            function deleteRow() {
+                var $row = $(this).closest('.form-row');
+                // Show form-check on next row if it's the first row that was deleted
+                if ($row.index() === 0) {
+                    $row.next('.form-row').find('.form-check, .form-check-label').show();
+                }
+                // Remove the row
+                $row.remove();
+                $('.form-row').last().find('.add-row').show();
+                // Hide delete button if there is only one row
+                if ($('.form-row').length === 1) {
+                    $('.delete-row').hide();
+                }
+            }
+            // Add click event for delete button to use the deleteRow function
+            $(document).on('click', '.delete-row', deleteRow);
+        });
+
+
+    </script>
+</body>
+
+</html>

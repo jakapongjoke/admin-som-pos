@@ -35,22 +35,24 @@
             <div class="form-group row">
     <label for="name" class="col-sm-3 col-form-label">Name</label>
        <div class="col-sm-9">
-      <input type="text" class="form-control gray_input" id="name" name="master_name" placeholder="Name" required>
+      <input type="text" class="form-control gray_input master_name" id="master_name" name="master_name" placeholder="Name" required>
+      <input type="hidden" class="master_type" id="master_type" name="master_type" value="master_item_collection" >
+
        </div>
      </div>          
         <div class="form-group row">
     <label for="code" class="col-sm-3 col-form-label">Code</label>
        <div class="col-sm-9">
-      <input type="text" class="form-control gray_input" name="master_code" id="code" placeholder="code" required>
+      <input type="text" class="form-control gray_input master_code" name="master_code" id="master_code" placeholder="code" required>
        </div>
-     </div>  
-       
+     </div>            
+ 
 
 
         <div class="form-group row">
     <label for="description" class="col-sm-3 col-form-label">Description</label>
        <div class="col-sm-9">
-      <textarea class="form-control description" id="description" name="desctiption" placeholder="Master Item desctiption"></textarea>
+      <textarea class="form-control description master_description" id="master_description" name="master_description" placeholder="Master Item desctiption"></textarea>
        </div>
      </div>
      

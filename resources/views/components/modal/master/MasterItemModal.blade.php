@@ -36,6 +36,7 @@
     <label for="name" class="col-sm-3 col-form-label">Name</label>
        <div class="col-sm-9">
       <input type="text" class="form-control gray_input master_name" id="master_name" name="master_name" placeholder="Name" required>
+      <input type="hidden" class="master_type" id="master_type" name="master_type" value="master_item" >
        </div>
      </div>          
         <div class="form-group row">

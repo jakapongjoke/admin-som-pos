@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1366, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="page-container">
+        <!-- main left content -->
+        <div id="main">
+            <div class="nav-and-search-wrapper">
+                <!-- nav bar -->
+                <nav class="nav padding-left">
+                    <div class="logo-wrapper">
+                        <img src="img/logo.png" alt="logo" class="logo-img">
+                    </div>
+                    <ul class="nav-list">
+                        <li class="nav-list-item">
+                            <a href="#" class="nav-link active">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </a>
+                            <div class="nav-text">
+                                Sell
+                            </div>
+                        </li>
+                        <li class="nav-list-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-calculator"></i>
+                            </a>
+                            <div class="nav-text">
+                                Estimation
+                            </div>
+                        </li>
+                        <li class="nav-list-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </a>
+                            <div class="nav-text">
+                                Repair
+                            </div>
+                        </li>
+                        <li class="nav-list-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-gears"></i>
+                            </a>
+                            <div class="nav-text">
+                                Custom
+                            </div>
+                        </li>
+                        <li class="nav-list-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                            </a>
+                            <div class="nav-text">
+                                Pending
+                            </div>
+                        </li>
+                        <li class="nav-list-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-warehouse"></i>
+                            </a>
+                            <div class="nav-text">
+                                Inventory
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- search box -->
+                <div class="main__search-section padding-left">
+                    <form action="" style="display: flex;">
+                        <div class="main__search-wrapper">
+                            <img src="img/bar_code_scan.png" alt="barCodeScan" width="30px">
+                            <input type="text" class="main__search-input" placeholder="Barcode / Qr code / Product">
+                            <button class="main__search-btn" type="button">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- products -->
+            <div class="products padding-left">
+                <div class="products-wrapper">
+                    <h3 class="products__title">RING</h3>
+                    <div class="products__filtering">
+                        <select name="" class="select-filtering">
+                            <option value="">STONE</option>
+                            <!-- ..... -->
+                        </select>
+                        <select name="" class="select-filtering">
+                            <option value="">METAL</option>
+                            <!-- ..... -->
+                        </select>
+                        <select name="" class="select-filtering">
+                            <option value="">SIZE</option>
+                            <!-- ..... -->
+                        </select>
+                        <select name="" class="select-filtering">
+                            <option value="">COLLECTION</option>
+                            <!-- ..... -->
+                        </select>
+                    </div>
+                    <div class="products-container">
+                        <div class="single-product-box">
+                            <div class="product product-event">
+                                <div>
+                                    <h5 class="product__caption product__title-event">
+                                        Jeweal Brilliance 1 Carat Ring lorem20
+                                    </h5>
+                                    <div class="product__sku product__sku-event">RHF8934RTJ</div>
+                                    <div class="product__tag product__tag-event">Ring 18KW DIA 14Cts </div>
+                                    <div class="size-and-stock">
+                                        <div class="product__size">
+                                            <div class="product__size-title">
+                                                Size
+                                            </div>
+                                            <select name="" id="" class="product__size-select product__size-event">
+                                                <option value="2.5">2.5</option>
+                                                <option value="5">5</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+                                        <div class="product__stock">
+                                            <div class="product__stock-title">
+                                                Stock
+                                            </div>
+                                            <div class="product__stock-count product__stock-event">
+                                                10
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product__image-wrapper">
+                                        <img src="img/product-dummy-image.png" alt="product"
+                                            class="product__image product__image-event"
+                                            onclick="productImgPopupEvent(event)">
+                                    </div>
+                                </div>
+                                <div class="price-and-add">
+                                    <div class="product__price product__price-event">10000 THB</div>
+                                    <button type="button" class="product__add" onclick="addProductToCart(event)">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-product-box">
+                            <div class="product product-event">
+                                <div>
+                                    <h5 class="product__caption product__title-event">
+                                        Jeweal Brilliance 1 Carat Ring lorem20
+                                    </h5>
+                                    <div class="product__sku product__sku-event">RHF8934RTJ</div>
+                                    <div class="product__tag product__tag-event">Ring 18KW DIA 14Cts </div>
+                                    <div class="size-and-stock">
+                                        <div class="product__size">
+                                            <div class="product__size-title">
+                                                Size
+                                            </div>
+                                            <select name="" id="" class="product__size-select product__size-event">
+                                                <option value="5">5</option>
+                                                <option value="1.5">1.5</option>
+                                                <option value="5.1">5.1</option>
+                                            </select>
+                                        </div>
+                                        <div class="product__stock">
+                                            <div class="product__stock-title">
+                                                Stock
+                                            </div>
+                                            <div class="product__stock-count product__stock-event">
+                                                11
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product__image-wrapper">
+                                        <img src="img/tt.png" alt="product" class="product__image product__image-event"
+                                            onclick="productImgPopupEvent(event)">
+                                    </div>
+                                </div>
+                                <div class="price-and-add">
+                                    <div class="product__price product__price-event">11000 THB</div>
+                                    <button type="button" class="product__add" onclick="addProductToCart(event)">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-product-box">
+                            <div class="product product-event">
+                                <div>
+                                    <h5 class="product__caption product__title-event">
+                                        Jeweal Brilliance 1 Carat Ring lorem20
+                                    </h5>
+                                    <div class="product__sku product__sku-event">RHF8934RTJ</div>
+                                    <div class="product__tag product__tag-event">Ring 18KW DIA 14Cts </div>
+                                    <div class="size-and-stock">
+                                        <div class="product__size">
+                                            <div class="product__size-title">
+                                                Size
+                                            </div>
+                                            <select name="" id="" class="product__size-select product__size-event">
+                                                <option value="1.9">1.9</option>
+                                                <option value="3.5">3.5</option>
+                                                <option value="1.7">1.7</option>
+                                            </select>
+                                        </div>
+                                        <div class="product__stock">
+                                            <div class="product__stock-title">
+                                                Stock
+                                            </div>
+                                            <div class="product__stock-count product__stock-event">
+                                                12
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product__image-wrapper">
+                                        <img src="img/yy.png" alt="product" class="product__image product__image-event"
+                                            onclick="productImgPopupEvent(event)">
+                                    </div>
+                                </div>
+                                <div class="price-and-add">
+                                    <div class="product__price product__price-event">12000 THB</div>
+                                    <button type="button" class="product__add" onclick="addProductToCart(event)">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-product-box">
+                            <div class="product product-event">
+                                <div>
+                                    <h5 class="product__caption product__title-event">
+                                        Jeweal Brilliance 1 Carat Ring lorem20
+                                    </h5>
+                                    <div class="product__sku product__sku-event">RHF8934RTJ</div>
+                                    <div class="product__tag product__tag-event">Ring 18KW DIA 14Cts </div>
+                                    <div class="size-and-stock">
+                                        <div class="product__size">
+                                            <div class="product__size-title">
+                                                Size
+                                            </div>
+                                            <select name="" id="" class="product__size-select product__size-event">
+                                                <option value="2.5">2.5</option>
+                                                <option value="6.5">6.5</option>
+                                                <option value="3.6">3.6</option>
+                                            </select>
+                                        </div>
+                                        <div class="product__stock">
+                                            <div class="product__stock-title">
+                                                Stock
+                                            </div>
+                                            <div class="product__stock-count product__stock-event">
+                                                13
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product__image-wrapper">
+                                        <img src="img/R.png" alt="product" class="product__image product__image-event"
+                                            onclick="productImgPopupEvent(event)">
+                                    </div>
+                                </div>
+                                <div class="price-and-add">
+                                    <div class="product__price product__price-event">13000 THB</div>
+                                    <button type="button" class="product__add" onclick="addProductToCart(event)">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="aside" class="padding-right">
+            <div class="lang-and-logout">
+                <div class="aside__lang">
+                    <!-- this data-lang attribute value will change on button toggle -->
+                    <div class="language-toggle" data-lang="en">
+                        <div class="lang-one">EN</div>
+                        <div class="lang-two">TH</div>
+                        <div class="lang__round-button right"></div>
+                    </div>
+                </div>
+                <div class="aside__logout">
+                    <button type="button" class="logout-btn">Log out</button>
+                </div>
+            </div>
+            <div class="customer-name">Khalid Hasan</div>
+            <div class="job-type">Doctor</div>
+            <div class="date">28 Aug, 2020 08:00 AM</div>
+            <div class="aside__title">Customer</div>
+            <div class="aside__search-and-other">
+                <div class="aside__search">
+                    <form action="">
+                        <div class="aside__search-box">
+                            <input type="text" class="aside__search-input">
+                            <button type="button" class="aside__search-btn">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="aside__add">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="aside__edit">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </div>
+            </div>
+            <form action="confirmation.html" class="aside__form">
+                <div class="input-field">
+                    <div class="input-label">First Name</div>
+                    <input type="text" placeholder="Justin Beiber" class="aside__form-input">
+                </div>
+                <div class="input-field">
+                    <div class="input-label">Address</div>
+                    <input type="text" placeholder="New york, USA" class="aside__form-input">
+                </div>
+                <div class="input-field">
+                    <div class="input-label">Phone</div>
+                    <input type="number" placeholder="01287*****" class="aside__form-input">
+                </div>
+                <div class="status-wrapper">
+                    <!-- add 'complete' class will change the color gray to green -->
+                    <div class="status sell complete">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <div class="status-text">Sell</div>
+                    </div>
+                    <div class="dotted-line"></div>
+                    <div class="status payment complete">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <div class="status-text">Payment</div>
+                    </div>
+                    <div class="dotted-line"></div>
+                    <div class="status done complete">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <div class="status-text">Done</div>
+                    </div>
+                </div>
+                <div class="payment-and-deposit">
+                    <div class="payment-wrapper">
+                        <select name="" id="" class="payment-dropdown">
+                            <option value="payment">Payment</option>
+                            <option value="option-2">option - 2</option>
+                        </select>
+                        <div class="payment-ammount">
+                            0.00THB
+                        </div>
+                    </div>
+                    <div class="deposit-wrapper">
+                        <div class="deposit">
+                            <div class="deposit-label">Deposit</div>
+                            <div class="deposit-ammount">0</div>
+                            <select name="" id="" class="deposit-method">
+                                <option value="percentage">%</option>
+                                <option value="thb">THB</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkout-payment-page">
+                    <div class="checkout__title">
+                        Check out
+                    </div>
+                    <table class="checkout__table">
+                        <tbody>
+                            <tr>
+                                <td class="td-label">Subtotal</td>
+                                <td class="td-value">12455 THB</td>
+                            </tr>
+                            <tr>
+                                <td class="td-label">Discount</td>
+                                <td class="td-value">0.0 THB</td>
+                            </tr>
+                            <tr class="hr">
+                                <td class="td-label" style="padding: 15px 0px;font-size: 16px;">Total Ammount</td>
+                                <td class="td-value" style="padding: 15px 0px;font-size: 16px;">12455 THB</td>
+                            </tr>
+                            <tr>
+                                <td class="td-label">Price before VAT</td>
+                                <td class="td-value">12455 THB</td>
+                            </tr>
+                            <tr>
+                                <td class="td-label">VAT 7%</td>
+                                <td class="td-value">0.0 THB</td>
+                            </tr>
+                            <tr class="hr">
+                                <td class="td-label" style="padding: 15px 0px;font-size: 16px;">Total include VAT</td>
+                                <td class="td-value" style="padding: 15px 0px;font-size: 16px;">12455 THB</td>
+                            </tr>
+                            <tr>
+                                <td class="td-label">Deposit</td>
+                                <td class="td-value">0.0 THB</td>
+                            </tr>
+                            <tr class="hr">
+                                <td class="td-label" style="padding: 15px 0px;font-size: 16px;">Total after deposit</td>
+                                <td class="td-value" style="padding: 15px 0px;font-size: 16px;">12455 THB</td>
+                            </tr>
+                            <tr>
+                                <td class="td-label">Deposit</td>
+                                <td class="td-value">0.0 THB</td>
+                            </tr>
+                            <tr>
+                                <td class="td-label" style="padding: 15px 0px;">Payment</td>
+                                <td class="td-value" style="padding: 15px 0px;">0.0 THB</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <ul class="checkout__list">
+                        <li class="checkout__list-item">
+                            <div>Payment Ammount</div>
+                            <div>0.0 THB</div>
+                        </li>
+                        <li class="checkout__list-item">
+                            <div>Balance</div>
+                            <div>0.0 THB</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="payment-method">
+                    <h4 class="payment-method__title">Payment method</h4>
+                    <div class="slider-container">
+                        <div class="slider">
+                            <div class="slide cash active">
+                                <div class="cash-icon">
+                                    $
+                                </div>
+                            </div>
+                            <div class="slide credit-card">
+                                <div class="card">
+                                    <div style="display: flex;align-items: center;">
+                                        <div class="card__type">
+                                            Credit Cards
+                                        </div>
+                                        <select name="" id="" class="type">
+                                            <option value="type">Type</option>
+                                        </select>
+                                    </div>
+                                    <div class="card__inputField">
+                                        <div class="card__label">
+                                            Card Number
+                                        </div>
+                                        <input type="text" placeholder="xxxxxx01" class="card__input">
+                                    </div>
+                                    <div class="card__inputField">
+                                        <div class="card__label">
+                                            Card Holder Name
+                                        </div>
+                                        <input type="text" placeholder="Justin Beiber" class="card__input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slide bank-transfer">
+                                <div class="card">
+                                    <div style="display: flex;align-items: center;">
+                                        <div class="card__type">
+                                            Bank Transfer
+                                        </div>
+                                        <select name="" id="" class="type">
+                                            <option value="type">Type</option>
+                                        </select>
+                                    </div>
+                                    <div class="card__inputField">
+                                        <div class="card__label">
+                                            Account Number
+                                        </div>
+                                        <input type="text" placeholder="xxxxxx" class="card__input">
+                                    </div>
+                                    <div class="card__inputField">
+                                        <div class="card__label">
+                                            Account Holder Name
+                                        </div>
+                                        <input type="text" placeholder="Justin Beiber" class="card__input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slide custom">
+                                <div class="custom__card-content">
+                                    <div class="custom-card-selectField">
+                                        <select name="" id="" class="custom__card-select">
+                                            <option value="card_type">Card Type</option>
+                                        </select>
+                                    </div>
+                                    <div class="custom-card-selectField">
+                                        <select name="" id="" class="custom__card-select">
+                                            <option value="type">Type</option>
+                                        </select>
+                                    </div>
+                                    <div class="custom__card-inputField">
+                                        <div class="custom__card-input-label">
+                                            Card Number
+                                        </div>
+                                        <input type="text" class="custom__card-input" placeholder="xxxxxxx">
+                                    </div>
+                                    <div class="custom__card-inputField">
+                                        <div class="custom__card-input-label">
+                                            Card Holder Name
+                                        </div>
+                                        <input type="text" class="custom__card-input" placeholder="Justin Beiber">
+                                    </div>
+                                    <div class="expires-and-cvv">
+                                        <div style="padding-right: 10px;">
+                                            <div class="custom__card-input-label">
+                                                Expires End
+                                            </div>
+                                            <input type="text" class="custom__card-input" placeholder="mm/yy">
+                                        </div>
+                                        <div>
+                                            <div class="custom__card-input-label">
+                                                Cvv
+                                            </div>
+                                            <input type="text" class="custom__card-input" placeholder="XXX">
+                                        </div>
+                                    </div>
+                                    <div class="custom__card-add">
+                                        <button type="button" class="custom__card-add-btn">
+                                            <i class="fa-solid fa-circle-plus"></i>
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- delete button -->
+                                <button type="button" class="custom__card-delete-btn">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="prevBtn" onclick="goToPrevSlide()">
+                            <i class="fa-solid fa-caret-left"></i>
+                        </div>
+                        <div class="nextBtn" onclick="goToNextSlide()">
+                            <i class="fa-solid fa-caret-right"></i>
+                        </div>
+                        <!-- pagination -->
+                        <div class="pagination"></div>
+                    </div>
+                    <div class="payment-inputs">
+                        <div class="ammount">
+                            <input type="text" value="20,000.00 THB" class="payment__input">
+                        </div>
+                        <div class="service-fee" style="display: none;">
+                            <div class="service-fee__select">
+                                <select name="" id="" class="payment__select">
+                                    <option value=""> Service fee &nbsp; 3%</option>
+                                </select>
+                            </div>
+                            <div class="service-fee__ammount">
+                                <input type="text" value="600.00 THB" class="payment__input" readonly>
+                            </div>
+                        </div>
+                        <div class="payment event" style="display: none;">
+                            <div class="payment__input-label">Payment</div>
+                            <input type="text" value="20,600 THB" class="payment__input" readonly>
+                        </div>
+                        <div class="file" style="display: none;">
+                            <div class="file-wrapper">
+                                <label for="file" class="payment__file-label">
+                                    <i class="fa-regular fa-images"></i>
+                                    <span>Import</span>
+                                </label>
+                                <input type="file" id="file" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="note">
+                            <div class="payment__input-label">Note</div>
+                            <input type="text" class="payment__input">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="checkout-btn payment-check-out-btn">
+                    CHECK OUT
+                </button>
+            </form>
+            <div class="footer">
+                &copy;Copyright 2020 All Rights Reserved By POS
+            </div>
+        </div>
+    </div>
+
+    <!-- popup -->
+    <!-- product preview popup -->
+    <div class="product-popup" style="display: none;">
+        <div class="product-popup-content-box product-event">
+            <div class="product-popup__close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <button type="button" class="product-popup__add" onclick="addProductToCart(event)">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+            <div style="display: flex;align-items: center;height: 100%;">
+                <div class="product-image-gallery-popup">
+                    <div class="product-popup-view-image-wrapper">
+                        <img src="img/product-dummy-image.png" alt="product" class="product-popup-view-image">
+                    </div>
+                    <div class="product-popup-tab-image">
+                        <!-- set the first image value using javascript -->
+                        <img src="img/product-dummy-image.png" alt="product" class="product__image-event first"
+                            onclick="imageViewProductGallery(event)">
+                        <!-- rest image will be fetched from server -->
+                        <img src="img/product-dummy-image.png" alt="product" onclick="imageViewProductGallery(event)">
+                        <img src="img/product-dummy-image.png" alt="product" onclick="imageViewProductGallery(event)">
+                    </div>
+                </div>
+                <div class="product-details-popup">
+                    <div>
+                        <div class="product-popup__title">
+                        </div>
+                        <div class="product-popup__sku product__sku-event">
+                        </div>
+                        <div class="product-popup__tag product__tag-event">
+                        </div>
+                        <div class="product-popup__info">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et,
+                            voluptate.
+                        </div>
+                        <div class="size-and-stock">
+                            <div class="product__size">
+                                <div class="product__size-title">
+                                    Size
+                                </div>
+                                <select name="" id="" class="product__size-select product__size-event">
+                                </select>
+                            </div>
+                            <div class="product__stock">
+                                <div class="product__stock-title">
+                                    Stock
+                                </div>
+                                <div class="product__stock-count">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__popup-price product__price-event">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- payment successful popup -->
+    <div class="payment-success">
+        <div class=" payment-conf-popup">
+            <div class="payment-conf-title">
+                Payment Successful
+            </div>
+            <div class="question-mark">
+                <img src="img/9165657_tick_check_icon (2).png" alt="" class="payment-popup-img">
+            </div>
+            <div class="vr-no">VR NO. SO-0108</div>
+            <div class="ref-no">Ref No. SO-0104985597498</div>
+            <table style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td class="td-label" style="padding-top: 15px;">Date</td>
+                        <td class="td-value" style="padding-top: 15px;">28/08/2020</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">Name</td>
+                        <td class="td-value">Justin Beiber</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">Customer ID</td>
+                        <td class="td-value">JC489579345349</td>
+                    </tr>
+                    <tr class="hr">
+                        <td class="td-label" style="padding-bottom: 15px;">Phone</td>
+                        <td class="td-value" style="padding-bottom: 15px;">0124*****</td>
+                    </tr>
+                    <tr style="font-weight: 500;">
+                        <td class=" td-label" style="padding-top: 15px;">Payment &nbsp; <span style="color: gray;">Full
+                                Payment</span></td>
+                        <td class="td-value" style="padding-top: 15px;">120,00.00 THB</td>
+                    </tr>
+                    <tr class="hr" style="font-weight: 500;">
+                        <td class="td-label" style="padding-bottom: 15px;">Deposit</td>
+                        <td class="td-value" style="padding-bottom: 15px;">0.0 THB</td>
+                    </tr>
+                    <tr>
+                        <td class="td-heading" style="padding-top: 15px;">Payment Type</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">Cash</td>
+                        <td class="td-value">20,000 THB</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">Credit card</td>
+                        <td class="td-value">103,000 THB</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">Debid card</td>
+                        <td class="td-value">0.0 THB</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">Bank Trasnfer</td>
+                        <td class="td-value">0.0 THB</td>
+                    </tr>
+                    <tr>
+                        <td class="td-label">Other</td>
+                        <td class="td-value">0.0 THB</td>
+                    </tr>
+                    <tr style="font-weight: 500;">
+                        <td class="td-label" style="padding-top: 10px;">Balance</td>
+                        <td class="td-value" style="padding-top: 10px;">0.0 THB</td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <div class="payment-popup-total">
+                Total : 123,000 THB
+            </div>
+            <div class="payment-buttons">
+                <button type="button" class="payment__preview-btn">Preview</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+
+</html>

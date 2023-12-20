@@ -56,6 +56,15 @@ trait MasterCodeTrait{
 
         $master =  $model->where("id",'=',$id);
         $master_code = isset($data['master_code'])?$data['master_code']:NULL;
+
+
+        if(is_null($data['master_available_for'])||isset($data['master_available_for'])===false){
+            $master_available_for = NULL;
+        }else{
+            $master_available_for = json_encode($data['master_available_for'],true);
+            
+        }
+
         if(isset($data['master_image'])){
             $updatedata = $master->update([
             
@@ -64,7 +73,8 @@ trait MasterCodeTrait{
                 "master_image"=>$data['master_image'],
                 "master_code"=> $master_code,
                 "master_description"=>$data['master_description']?$data['master_description']:"",
-                "master_infomation"=>json_encode($data['master_infomation'],true)
+                "master_infomation"=>json_encode($data['master_infomation'],true),
+                "master_available_for"=>$master_available_for,
             
             ]);
         }else{
@@ -74,7 +84,8 @@ trait MasterCodeTrait{
                 "master_status"=>$data['master_status']?$data['master_status']:"active",
                 "master_code"=> $master_code,
                 "master_description"=>$data['master_description']?$data['master_description']:"",
-                "master_infomation"=>json_encode($data['master_infomation'],true)
+                "master_infomation"=>json_encode($data['master_infomation'],true),
+                "master_available_for"=>$master_available_for
             
             ]);
         }
@@ -243,7 +254,7 @@ trait MasterCodeTrait{
         $model = $mastercode->newInstance([], true);
         $tb = $company_name."_master_code";
         $model->setTable($tb);
-      
+ 
         if($model->where("master_type","=",$master_type)->skip($skip)->take($perPage)->get()->count()==0){
             $data = [];
         }else{

@@ -95,10 +95,12 @@ class CompanyMasterCustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->query('id');
+        return $this->MasterCodeService->deleteMasterCode($request->company_name,$id);
     }
+
     public function GetCustomerMaster(Request $request){
         $perpage = $request->query("perPage")?$request->query("perPage"):10;
         $page = $request->query("page")?$request->query("page"):10;
