@@ -535,7 +535,7 @@
 
 
              // Addional For Stone name page modal 
-                if(options.masterType=="stone_name"){
+                if(options.masterType=="master_stone_name"){
                     let stone_group_list = await SendAjaxGet('api/master/master-stone/master-stone-group?page=1&perpage=100');
                     const resp =  stone_group_list.data;
                     stone_group.setData = resp.data;
@@ -817,13 +817,13 @@
 
 
 
-                switch(options.masterType){
-                    case "master_stone_name" :
-                        insertOption("parent_id",data,"Stone Group");
+                // switch(options.masterType){
+                //     case "master_stone_name" :
+                //         insertOption("parent_id",data,"Stone Group");
 
-                    break;
+                //     break;
               
-                }
+                // }
                 // if(options.masterType=="master_stone_name"){
                     
                 //     insertOption("branch_location",data,"Branch location");
@@ -889,6 +889,11 @@
 
                         }
                         
+                    break;
+
+                    case "master_stone_name":
+                   console.log(masterCodeItemData.getParentId)
+                    jQuery("#branch_location").val(master_data.data.parent_id);
                     break;
                   
                 }

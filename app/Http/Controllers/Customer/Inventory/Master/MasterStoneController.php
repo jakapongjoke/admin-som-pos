@@ -38,7 +38,7 @@ class MasterStoneController extends Controller
         $r = $request->segments();
         switch ($r[2]) {
             case "master-stone":
-                return  $this->MasterCodeService->GetMasterCodeByIdJson($request->company_name,$request->query('master_id'),100);
+                return  $this->MasterCodeService->GetMasterCodeByIdJson($request->company_name,$request->query('master_id'),200);
             break;
         }
     }
@@ -49,7 +49,7 @@ class MasterStoneController extends Controller
     public function findByType(Request $request){
         $r = $request->segments();
         $page = $request->query('page')?$request->query('page'):1;
-        $perPage = $request->query('perpage')?$request->query('perpage'):100;
+        $perPage = $request->query('perpage')?$request->query('perpage'):200;
 
         switch ($r[3]) {
             case "master-stone-name":

@@ -58,6 +58,7 @@ trait MasterCodeTrait{
         $master_code = isset($data['master_code'])?$data['master_code']:NULL;
         $master_available_for = isset($data['master_available_for'])?$data['master_available_for']:NULL;
         $master_infomation = isset($data['master_infomation'])?json_encode($data['master_infomation'],true):NULL;
+        $parent_id = isset($data['parent_id'])?$data['parent_id']:0;
 
         
 
@@ -66,6 +67,7 @@ trait MasterCodeTrait{
             
                 "master_name"=>$data['master_name'],
                 "master_status"=>$data['master_status']?$data['master_status']:"active",
+                "parent_id"=>$parent_id,
                 "master_image"=>$data['master_image'],
                 "master_code"=> $master_code,
                 "master_description"=>$data['master_description']?$data['master_description']:"",
@@ -78,7 +80,8 @@ trait MasterCodeTrait{
             
                 "master_name"=>$data['master_name'],
                 "master_status"=>$data['master_status']?$data['master_status']:"active",
-                "master_code"=> $master_code,
+                "parent_id"=>$parent_id,
+                 "master_code"=> $master_code,
                 "master_description"=>$data['master_description']?$data['master_description']:"",
                 "master_infomation"=>$master_infomation,
                 "master_available_for"=>$master_available_for
