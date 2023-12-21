@@ -896,6 +896,50 @@
     
                     })
                 break;
+                case "master_account_vendor":
+                    jQuery('.ship_address_country').val(masterInfo.ship_address_country).change();
+                    jQuery('.tax_address_country').val(masterInfo.tax_address_country).change();
+                    
+                    const vendor_country_state_city_value = [masterInfo.ship_address_country,masterInfo.ship_address_state,masterInfo.ship_address_city]
+
+                    const vendor_country_state_city_elem = [jQuery('.ship_address_country'),jQuery('.ship_address_state'),jQuery('.ship_address_city')]
+
+
+                    const vendor_tax_country_state_city_value = [masterInfo.tax_address_country,masterInfo.tax_address_state,masterInfo.tax_address_city]
+
+                    const vendor_tax_country_state_city_elem = [jQuery('.tax_address_country'),jQuery('.tax_address_state'),jQuery('.tax_address_city')]
+
+
+                    // Run trigger Function from masterCustomer.blade.php
+                    $(".ship_address_country").trigger("country_change",[vendor_country_state_city_elem,vendor_country_state_city_value]);
+                    $(".ship_address_state").trigger("state_change",[vendor_country_state_city_elem[2],vendor_country_state_city_value])
+
+
+                    $(".tax_address_country").trigger("tax_country_change",[vendor_tax_country_state_city_elem,vendor_tax_country_state_city_value]);
+                    $(".tax_address_state").trigger("tax_state_change",[vendor_tax_country_state_city_elem[2],vendor_tax_country_state_city_value]);
+
+                    mapFillInput(jQuery(options.modalId),{
+                        "master_id":master_id,
+                        "company_name":masterInfo.company_name,
+                        "company_registration_number":masterInfo.company_registration_number,
+
+                        "email ":masterInfo.email  ,
+                        "phone_code ":masterInfo.phone_code  ,
+                        "phone_number ":masterInfo.phone_number  ,
+                        "ship_address ":masterInfo.ship_address  ,
+                        // "ship_address_country ":masterInfo.ship_address_country  ,
+                        // "ship_address_state ":masterInfo.ship_address_state  ,
+                        // "ship_address_city ":masterInfo.ship_address_city  ,
+                        "ship_address_poscode ":masterInfo.ship_address_poscode  ,
+                         "tax_address":masterInfo.tax_address  ,
+                        // "tax_address_country":masterInfo.tax_address_country  ,
+                        // "tax_address_state":masterInfo.tax_address_state  ,
+                        // "tax_address_city":masterInfo.tax_address_city  ,
+                        "tax_address_poscode":masterInfo.tax_address_poscode  ,
+
+    
+                    })
+                break;
             }
             
             })
