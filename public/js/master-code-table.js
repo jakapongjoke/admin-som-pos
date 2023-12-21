@@ -535,7 +535,7 @@
 
 
              // Addional For Stone name page modal 
-                if(options.masterType=="master_stone_name"){
+                if(options.masterType=="stone_name"){
                     let stone_group_list = await SendAjaxGet('api/master/master-stone/master-stone-group?page=1&perpage=100');
                     const resp =  stone_group_list.data;
                     stone_group.setData = resp.data;
