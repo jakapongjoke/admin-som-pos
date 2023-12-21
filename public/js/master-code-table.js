@@ -431,7 +431,7 @@
                 
                     
                   });
-                  
+
                 playGenderChecker()
 
 
@@ -502,7 +502,7 @@
 
              // Addional For Stone name page modal 
                 if(options.masterType=="master_stone_name"){
-                    let stone_group_list = await SendAjaxGet('api/master/master-stone/master-stone-group?page=1&perpage=10');
+                    let stone_group_list = await SendAjaxGet('api/master/master-stone/master-stone-group?page=1&perpage=100');
                     const resp =  stone_group_list.data;
                     stone_group.setData = resp.data;
                     // let data = [...resp.data];
@@ -517,7 +517,7 @@
             
                 // List master data
                 let MountedDom = jQuery("#mastertable").html(headerTable(dataField.heading,dataField.options));
-                
+                options.paginate.perPage = 100;
                 const data = await fetchdata(options.listDataRoute+'?master_type='+options.masterType+'&perPage='+options.paginate.perPage+'&page=1');
                 const master_list_resp = await data.data;
 
