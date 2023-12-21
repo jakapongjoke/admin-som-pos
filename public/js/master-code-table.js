@@ -713,7 +713,6 @@
                 "master_name":masterCodeItemData.getMasterName,
                 "master_description":masterCodeItemData.getDescription,
                 "master_status":masterCodeItemData.getStatus,
-                "master_type":masterCodeItemData.getMasterType,
             })
             
             jQuery('.status').each(function(){
@@ -767,7 +766,6 @@
                         "master_name":masterCodeItemData.getMasterName,
                         "master_description":masterCodeItemData.getDescription,
                         "master_status":masterCodeItemData.getStatus,
-                        "master_type":masterCodeItemData.getMasterType,
     
                     });
 
@@ -1002,7 +1000,6 @@
                             "master_name":masterCodeItemData.getMasterName,
                             "master_description":masterCodeItemData.getDescription,
                             "master_status":masterCodeItemData.getStatus,
-                            "master_type":masterCodeItemData.getMasterType,
         
                         });
 
@@ -1042,7 +1039,6 @@
                             "master_name":masterCodeItemData.getMasterName,
                             "master_description":masterCodeItemData.getDescription,
                             "master_status":masterCodeItemData.getStatus,
-                            "master_type":masterCodeItemData.getMasterType,
         
                         })
                     break;
