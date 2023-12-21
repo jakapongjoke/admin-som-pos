@@ -65,8 +65,25 @@ use App\Http\Controllers\Customer\Inventory\Stock\StockController;
 
 // });
 
+
+
 Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(function ($company_name) {
-  
+    Route::get('storage/{filename}', function ($filename)
+    {
+        $path = storage_path('public/' . $filename);
+    
+        if (!File::exists($path)) {
+            abort(404);
+        }
+    
+        $file = File::get($path);
+        $type = File::mimeType($path);
+    
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+    
+        return $response;
+    });
     Route::get('/staff-login', [CompanyUserController::class, 'login'])->name('company-user-login-page');
 
     Route::post('/staff-login', [CompanyUserController::class, 'handleLogin'])->name('company.stafflogin');
