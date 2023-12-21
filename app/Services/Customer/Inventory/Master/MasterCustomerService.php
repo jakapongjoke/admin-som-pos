@@ -8,7 +8,7 @@ class MasterCustomerService {
 use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
 
     public function GetMasterCustomer($company_name,$perpage,$page){
-       return $this->GetMasterCodeByTypeJson($company_name,"master_account_vendor",$perpage,$page);
+       return $this->GetMasterCodeByTypeJson($company_name,"master_account_customer",$perpage,$page);
 
     }
     public function GetCustomerMaster($company_name,$master_id){

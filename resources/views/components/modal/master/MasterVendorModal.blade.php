@@ -11,7 +11,7 @@
       </div>
       <div class="modal-body">
         <form class="modal_form">
-        <input type="hidden" name="master_type" value="master_account_vendor">
+        <input type="hidden" class="master_type" id="master_type" name="master_type"  value="master_account_vendor">
 
 
 
