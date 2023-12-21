@@ -21,6 +21,7 @@
 <div class="col-sm-12">
 <label for="name" class="col-sm-12 col-form-label">Citizen ID</label>
 <input type="text" class="form-control citizen_id" id="citizen_id" name="master_infomation[citizen_id]" placeholder="Citizen ID">
+<input type="hidden" name="master_type" value="master_account_customer">
 </div>
 
 
