@@ -453,14 +453,16 @@
 
                            }
 
+                        }else{
+                            modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,Frmdata,'form',options.message,putMethod,optionsSend)
+                    
                         }
                     }else{
-                        
                         modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,Frmdata,'form',options.message,putMethod,optionsSend)
-                    }
-              
-                   
                     
+                        
+                    }
+                  
                     
                   });
 
