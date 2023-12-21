@@ -369,7 +369,7 @@
                     
                     e.preventDefault();
                     e.stopPropagation();
-                
+                    
                     let putMethod = false;
                     let formMethod = modalConfig.getFormMethod;
                     console.log('formMethod is '+modalConfig.getFormMethod );
@@ -425,12 +425,38 @@
                     }
     
                     
-    
-    
-                    
-    
+                    if(!jQuery('#master_code')===false){
+                        if(jQuery('#master_code').length>0){
+                          jQuery('.alert_in_use').remove();
+
+                           if(masterCodeItemData.getMasterCode!=jQuery('#master_code').val()){
+                                
+                           const master_count =  await checkMasterCodeExist(jQuery('#master_code').val());
+
+                           console.log(master_count,'master_count')
+
+                           if(master_count.data.count<1){
+
+
                     modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,Frmdata,'form',options.message,putMethod,optionsSend)
                 
+                           }else{
+                            jQuery('#master_code').parent('div').append('<div class="alert_in_use">* Master Code Is Already in use</div>')
+
+                           }
+                           }else{
+
+
+                            modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,Frmdata,'form',options.message,putMethod,optionsSend)
+
+
+                           }
+
+                        }
+                    }
+              
+                   
+                    
                     
                   });
 
@@ -1060,7 +1086,7 @@
                 jQuery('.modal-footer button').show();
                 jQuery('.radio_check').prop('disabled',false);
             
-            
+
                     
                     jQuery(options.modalId).modal()
 
@@ -1086,7 +1112,6 @@
             
             }
             });
-
             
             })
             // end edit list
@@ -1174,11 +1199,9 @@ if(typeof checkUsing != "undefined"){
 
 
 
-
         jQuery(options.modalId).modal();
 
             
-  
 
 
             });
@@ -1385,6 +1408,16 @@ function getRoute(formMethod){
                 }
             }
         }
+        async function checkMasterCodeExist(master_code){
+                let master_code_check =  await SendAjaxPost('api/master/checkmastercode',{
+                    master_code:master_code
+                });
+                return master_code_check;
+
+    
+        }
+
+        
 
 
             function availablePlayer(){

@@ -67,6 +67,7 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
 
     Route::post('/master-stone',[MasterStoneController::class,'store']);
 
+    Route::post('/checkmastercode',[MasterCodeController::class,'CountByMasterCode']);
     Route::post('/master-basic-info',[MasterStoneController::class,'store']);
     Route::put('/master-basic-info',[MasterStoneController::class,'update']);
     Route::delete('/master-basic-info',[MasterStoneController::class,'destroy']);

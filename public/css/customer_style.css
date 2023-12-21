@@ -3042,3 +3042,7 @@ div#avalible-row {
 .price_currency{
     display: inline-block;
 }
+
+.alert_in_use {
+    color: red;
+}

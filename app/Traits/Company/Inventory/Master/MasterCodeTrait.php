@@ -161,6 +161,32 @@ trait MasterCodeTrait{
             ], 200);
         }
     }
+
+    public function countMasterByMasterCode(string $company_name , string $master_code){
+        $mastercode = new MasterCode();
+   
+        $model = $mastercode->newInstance([], true);
+        $tb = $company_name."_master_code";
+        $model->setTable($tb);  
+        $result =  $model->where('master_code','LIKE',"%{$master_code}%")->get()->count();
+        if (!$result) {
+            return response()->json([
+                "status" => 200,
+                "count" =>  0,
+            ], 200);
+        } else {
+            return response()->json([
+                "status" => 200,
+                "count" => $result,
+            ], 200);
+        }
+    }
+
+
+
+
+
+
     public function getMasterCodeById(string $company_name , int $master_id,$field_select=""){
         $mastercode = new MasterCode();
     
