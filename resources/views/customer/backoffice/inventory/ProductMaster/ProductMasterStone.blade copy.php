@@ -6,8 +6,8 @@
 
 @section('content')
 
-    @include('components.tables.product_master.ProductMasterStoneTable')
-    @include('components.modal.product_master.ProductMasterStoneModal')
+    @include('components.tables.ProductMaster.ProductMasterStoneTable')
+    @include('components.modal.ProductMaster.ProductMasterStoneModal')
     
 @endsection
 @section('footer_script')

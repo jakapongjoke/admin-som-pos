@@ -129,6 +129,8 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
                 break;
             }
           
+        }else{
+            $master_available_for = NULL ;
         }
 
 

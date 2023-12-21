@@ -114,11 +114,11 @@ function ReloadModal(){
 
 // }
 
-async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,message="",putMethod=false,optionsSend={}){
+async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,message={},putMethod=false,optionsSend={}){
   
         let form  = $(this);
         let dataSend;
-
+console.log(message)
         switch(sendDataType){
           case "object":
             dataSend = {
@@ -139,13 +139,15 @@ async function modalFormSubmit(validateUrl,requestUrl,method,data,sendDataType,m
         if(true){
             $('.modal-content').width(535).height(373).css({margin:"0px auto"});
             $('.modal-content').html('');
+            console.log(putMethod)
             switch(method){
               case "post" :
-                if(putMethod==false){
+                if(putMethod===false){
                 $('.modal-content').html('').html(showModalConfirm(message.create.confirmHeading,message.create.confirmText,message.imageIcon.confirmIcon));
 
                 }else{
-                $('.modal-content').html('').html(showModalConfirm(message.edit.confirmHeading,message.edit.confirmText,message.imageIcon.confirmIcon));
+                $('.modal-content').html('');
+                $('.modal-content').html(showModalConfirm(message.edit.confirmHeading,message.edit.confirmText,message.imageIcon.confirmIcon));
 
                 }
                 break;

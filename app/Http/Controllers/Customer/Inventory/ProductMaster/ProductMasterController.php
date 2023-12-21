@@ -46,7 +46,7 @@ class ProductMasterController extends Controller
             case "product-master-stone":
                 $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_storage');
                 $data = ['masterdata'=>$masterdata];
-                return view('customer.backoffice.inventory.product_master.ProductMasterStone',['data'=>$data]);
+                return view('customer.backoffice.inventory.ProductMaster.ProductMasterStone',['data'=>$data]);
             break;
             case "product-master-customer":
                 $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_customer');
@@ -59,7 +59,7 @@ class ProductMasterController extends Controller
                 $masterdata = $this->MasterCodeService->GetMasterCodeByType($request->company_name,'master_account_vendor');
                 $data = ['masterdata'=>$masterdata];
              
-                return view('customer.backoffice.inventory.product_master.ProductMasterJewelry',['data'=>$data]);
+                return view('customer.backoffice.inventory.ProductMaster.ProductMasterJewelry',['data'=>$data]);
              break;
           
             default:

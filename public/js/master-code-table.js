@@ -373,7 +373,7 @@
                     let putMethod = false;
                     let formMethod = modalConfig.getFormMethod;
                     console.log('formMethod is '+modalConfig.getFormMethod );
-                    console.log(getRoute(modalConfig.getFormMethod ) );
+                    console.log(options.message );
                      
                     let optionsSend = {};
                     // single image upload before send form data
@@ -392,7 +392,8 @@
                     if(formMethod=="put"){
                         Frmdata.append('master_id',jQuery('#master_id').val());
                         Frmdata.append('_method',"PUT");
-    
+                        modalConfig.setFormMethod = "post";
+                        putMethod = true;
                     }
                     Frmdata.append('master_name',jQuery('#master_name').val());
                     Frmdata.append('master_code',jQuery('#master_code').val());
@@ -401,7 +402,8 @@
                     Frmdata.append('master_status',jQuery('#master_status').val());
     
                }else{
-                if(modalConfig.getFormMethod=="put"){
+                if(formMethod=="put"){
+                  
                     $('.modal_form').append('<input type="hidden" name="_method" value="PUT">');
                     modalConfig.setFormMethod = "post";
                     putMethod = true;
@@ -776,6 +778,7 @@
             
                 e.stopPropagation();
                 e.preventDefault();
+                
                 modalConfig.setMessageConfirmHeading = options.message.edit.confirmHeading;
                 modalConfig.setMessageConfirmText = options.message.edit.confirmText;
                 modalConfig.setMessageDoneHeading =  options.message.edit.doneHeading;
