@@ -12,8 +12,8 @@ div#MasterProductModal .modal-content {
 
 @section('content')
 
-    @include('components.tables.ProductMaster.ProductMasterJewelryTable')
-    @include('components.modal.ProductMaster.ProductMasterJewelryModal')
+    @include('components.tables.product_master.ProductMasterJewelryTable')
+    @include('components.modal.product_master.ProductMasterJewelryModal')
     
 @endsection
 @section('footer_script')
