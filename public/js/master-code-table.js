@@ -426,6 +426,7 @@
     
                     
                     if(!jQuery('#master_code')===false){
+                        console.log('ddd')
                         if(jQuery('#master_code').length>0){
                           jQuery('.alert_in_use').remove();
 
@@ -453,6 +454,9 @@
                            }
 
                         }
+                    }else{
+                        
+                        modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,Frmdata,'form',options.message,putMethod,optionsSend)
                     }
               
                    

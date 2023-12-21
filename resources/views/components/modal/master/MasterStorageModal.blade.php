@@ -21,7 +21,7 @@
         <div class="form-group row">
     <label for="code" class="col-sm-3 col-form-label">Code</label>
        <div class="col-sm-9">
-      <input type="text" class="form-control master_code" name="master_code" id="code" placeholder="code" required>
+      <input type="text" class="form-control master_code" name="master_code" id="master_code" placeholder="code" required>
        </div>
      </div>  
           
