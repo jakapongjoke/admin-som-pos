@@ -54,7 +54,7 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
                $pathFile = "storage/customer_images/$company_name/master/master-item/". $fileName;
 
         }
-        $available_check = $data['available_check']?:"";
+        $available_check = isset($data['available_check'])?$data['available_check']:"";
 
         if($available_check!=""){
             switch($available_check){
@@ -71,6 +71,9 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
             }
 
             
+        }else{
+            $master_available_for = NULL;
+
         }
         
 
@@ -111,8 +114,9 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
         $file = isset($data['image_upload'])?$data['image_upload']:"";
         $master_code = isset($data['master_code'])?$data['master_code']:NULL;
         $update_status = false;
+        $available_check = isset($data['available_check'])?$data['available_check']:"";
 
-        if(isset($data['available_check'])){
+        if($available_check!=""){
             switch($data['available_check']){
                 case "all_item" :
                     $master_available_for = NULL;

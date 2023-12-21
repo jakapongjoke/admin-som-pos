@@ -345,10 +345,93 @@
         
             }
             
+            
+               
+        
+  
+  
+  
+  
+
+              
             //   first init
             document.addEventListener('DOMContentLoaded',async function() {
 
-
+                if(options.masterType=="master_account_storage"){
+                    const branch_location_list = await fetchdata("/api/general-infomation/listallbranch");
+                    const branch_location_list_data = await branch_location_list.data;
+                    console.log(branch_location_list)
+                    branch_location_list_data.map((v,k)=>{
+                        jQuery("#branch_location").append("<option value='"+v['id']+"'>"+v['branch_name']+"</option>")
+                    })
+                  }
+                  jQuery('.modal_form').on('submit',async function(e){
+                    
+                    e.preventDefault();
+                    e.stopPropagation();
+                
+                    let putMethod = false;
+                    let formMethod = modalConfig.getFormMethod;
+                    console.log('formMethod is '+modalConfig.getFormMethod );
+                    console.log(getRoute(modalConfig.getFormMethod ) );
+                     
+                    let optionsSend = {};
+                    // single image upload before send form data
+                    let Frmdata;
+                  
+    
+                if(typeof options.singleImage !== "undefined" && options.singleImage===true){
+                    console.log(jQuery('#master_name').val())
+                    Frmdata = new FormData(); 
+                    let files = jQuery("#image-input")[0].files;
+                    Frmdata.append('file',files[0]);
+                    if(typeof files[0] !== 'undefined'){
+                        Frmdata.append('image_upload',files[0]);
+    
+                    }
+                    if(formMethod=="put"){
+                        Frmdata.append('master_id',jQuery('#master_id').val());
+                        Frmdata.append('_method',"PUT");
+    
+                    }
+                    Frmdata.append('master_name',jQuery('#master_name').val());
+                    Frmdata.append('master_code',jQuery('#master_code').val());
+                    Frmdata.append('master_type',jQuery('#master_type').val());
+                    Frmdata.append('master_description',jQuery('#master_description').val());
+                    Frmdata.append('master_status',jQuery('#master_status').val());
+    
+               }else{
+                if(modalConfig.getFormMethod=="put"){
+                    $('.modal_form').append('<input type="hidden" name="_method" value="PUT">');
+                    modalConfig.setFormMethod = "post";
+                    putMethod = true;
+        
+                    }
+                 Frmdata = $('.modal_form').serialize();
+               }
+              
+    
+                    if(options.singleImage===true){
+                        
+                     
+                        
+                        optionsSend =      {
+              
+                            processData: false, // Prevent jQuery from processing the data
+                                contentType: false, // Set the content type to false as FormData will set it correctly
+                          }
+                    }
+    
+                    
+    
+    
+                    
+    
+                    modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,Frmdata,'form',options.message,putMethod,optionsSend)
+                
+                    
+                  });
+                  
                 playGenderChecker()
 
 
@@ -1120,87 +1203,6 @@ function getRoute(formMethod){
     }
 }
 
-              document.addEventListener('DOMContentLoaded',async function() {
-              if(options.masterType=="master_account_storage"){
-                const branch_location_list = await fetchdata("/api/general-infomation/listallbranch");
-                const branch_location_list_data = await branch_location_list.data;
-                branch_location_list_data.map((v,k)=>{
-                    jQuery("#branch_location").append("<option value='"+v['id']+"'>"+v['branch_name']+"</option>")
-                })
-              }
-              jQuery('.modal_form').on('submit',async function(e){
-                
-                e.preventDefault();
-                e.stopPropagation();
-            
-                let putMethod = false;
-                let formMethod = modalConfig.getFormMethod;
-                console.log('formMethod is '+modalConfig.getFormMethod );
-                console.log(getRoute(modalConfig.getFormMethod ) );
-                 
-                let optionsSend = {};
-                // single image upload before send form data
-                let Frmdata;
-              
-
-            if(typeof options.singleImage !== "undefined" && options.singleImage===true){
-                console.log(jQuery('#master_name').val())
-                Frmdata = new FormData(); 
-                let files = jQuery("#image-input")[0].files;
-                Frmdata.append('file',files[0]);
-                if(typeof files[0] !== 'undefined'){
-                    Frmdata.append('image_upload',files[0]);
-
-                }
-                if(formMethod=="put"){
-                    Frmdata.append('master_id',jQuery('#master_id').val());
-                    Frmdata.append('_method',"PUT");
-
-                }
-                Frmdata.append('master_name',jQuery('#master_name').val());
-                Frmdata.append('master_code',jQuery('#master_code').val());
-                Frmdata.append('master_type',jQuery('#master_type').val());
-                Frmdata.append('master_description',jQuery('#master_description').val());
-                Frmdata.append('master_status',jQuery('#master_status').val());
-
-           }else{
-            if(modalConfig.getFormMethod=="put"){
-                $('.modal_form').append('<input type="hidden" name="_method" value="PUT">');
-                modalConfig.setFormMethod = "post";
-                putMethod = true;
-    
-                }
-             Frmdata = $('.modal_form').serialize();
-           }
-          
-
-                if(options.singleImage===true){
-                    
-                 
-                    
-                    optionsSend =      {
-          
-                        processData: false, // Prevent jQuery from processing the data
-                            contentType: false, // Set the content type to false as FormData will set it correctly
-                      }
-                }
-
-                
-
-
-                
-
-                modalFormSubmit(options.validateRoute,getRoute(modalConfig.getFormMethod ),modalConfig.getFormMethod ,Frmdata,'form',options.message,putMethod,optionsSend)
-            
-                
-              });
-            });
-
-
-
-
-
-
 
 
             $(options.modalId).on('shown.bs.modal', function (e) {
@@ -1324,6 +1326,7 @@ function getRoute(formMethod){
         // validate area
 
         // special char validate
+        if(!options.dataField.specialCharFilterField===false){
             if(options.dataField.specialCharFilterField.length>0){
              
                 for(let specialCharFieldKey =0 ; specialCharFieldKey<options.dataField.specialCharFilterField.length;specialCharFieldKey++){
@@ -1340,8 +1343,11 @@ function getRoute(formMethod){
 
                 }
             }
+        }
+            
 
         // number validate
+        if(!options.dataField.numberVailidateField===false){
             if(options.dataField.numberVailidateField.length>0){
                 for(let numberFieldKey =0 ; numberFieldKey<options.dataField.numberVailidateField.length;numberFieldKey++){
                     console.log(options.dataField.numberVailidateField[numberFieldKey])
@@ -1354,11 +1360,12 @@ function getRoute(formMethod){
                 }
             }
 
-
+        }
 
 
 
             // email validate
+            if(!options.dataField.emailValidateField===false){
             if(options.dataField.emailValidateField.length>0){
                 
                 for(let EmailFieldKey =0 ; EmailFieldKey<options.dataField.emailValidateField.length;EmailFieldKey++){
@@ -1374,6 +1381,7 @@ function getRoute(formMethod){
 
                 }
             }
+        }
 
 
             function availablePlayer(){

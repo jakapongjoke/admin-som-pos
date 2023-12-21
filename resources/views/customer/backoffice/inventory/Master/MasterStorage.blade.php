@@ -53,7 +53,7 @@
 <script>
             const checkbox = '<input type="checkbox" class="check_all_list"/>';
     let tableOptions = {
-            masterType:"master_storage",
+            masterType:"master_account_storage",
             masterTypeRouteName:"master-storage",
             modalId:"#MasterStorageModal",
             listDataRoute:"/api/master/master-storage",
