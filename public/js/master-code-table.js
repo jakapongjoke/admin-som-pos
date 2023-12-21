@@ -690,7 +690,7 @@
             
             e.stopPropagation();
             e.preventDefault();
-            let masterAvailableFor = "";
+        
          
    
             
@@ -730,7 +730,7 @@
                 $(this).prop('disabled', true);
             })
             jQuery('.modal-footer button').hide();
-            jQuery('.radio_check').prop('disabled',true);
+            // jQuery('.radio_check').prop('disabled',true);
             
             jQuery(options.modalId).modal()
             
@@ -740,10 +740,65 @@
                 e.preventDefault();
                 return false;
             });
+            $(".radio_check").attr("disabled", "disabled").off('click');
+            let masterInfo = "";
+            let masterAvailableFor = "";
+          
+
+            switch(options.masterType){
+
+                case "master_account_storage":
+                    masterInfo = await JSON.parse(master_data.data.master_infomation);
+                  
+                    jQuery("#branch_location").val(masterInfo.branch_location);
+                break;
+
+                case "master_account_customer":
+                    masterInfo = await JSON.parse(master_data.data.master_infomation);
+                 console.log(master_data.data.master_infomation)
+          
+                 jQuery('.gender_check').each(function(k,v){
+                 
+                    if($(this).val()==masterInfo.gender){
+                        $(this).parent('.radio_check').addClass('checked');
+                    }else{
+                        $(this).parent('.radio_check').removeClass('checked');
+            
+                    }
+                })
+                
+                break;
+
+        
+                case "master_account_vendor":
+                    masterInfo = await JSON.parse(master_data.data.master_infomation);
+            break;
+
+                case "master_item_size":
+                    console.log(master_data.data.master_available_for,'master_data.data.master_available_for')
+                    if(!master_data.data.master_available_for){
+                        masterAvailableFor = "all_item"
+
+                    }else{
+                        masterAvailableFor = await JSON.parse(master_data.data.master_available_for);
+
+
+                    }
+                    
+                break;
+
+                case "master_stone_name":
+               console.log(masterCodeItemData.getParentId)
+                jQuery("#branch_location").val(master_data.data.parent_id);
+                break;
+              
+            }
+
             
             switch(options.masterType){
                 case "master_stone_name":
-                    insertOption("parent_id",stone_group.getData,"Stone Group");
+                    jQuery(options.modalId).find('#parent_id').val(masterCodeItemData.getParentId)
+                    jQuery(options.modalId).find('.status').attr("disabled", true);
 
                 break;
                 case "master_item_size":
@@ -761,15 +816,7 @@
                   
                     
                     console.log(masterAvailableFor)
-                    mapFillInput(jQuery(options.modalId),{
-                        "master_id":master_id,
-                        "parent_id":masterCodeItemData.getParentId,
-                        "master_code":masterCodeItemData.getMasterCode,
-                        "master_name":masterCodeItemData.getMasterName,
-                        "master_description":masterCodeItemData.getDescription,
-                        "master_status":masterCodeItemData.getStatus,
-    
-                    });
+              
 
                     if(masterAvailableFor=="all_item"){
                         jQuery(options.modalId).find('#all-item-radio').prop("checked", true);
@@ -777,7 +824,7 @@
                     }else{
                         
                         jQuery(options.modalId).find('#available-radio').prop("checked", true);
-
+                        jQuery('.select_avaliable_list').remove();
                         masterAvailableFor.map((v,k)=>{
                             // console.log(k);
                             // avaliableSelectList.insertAfter('.select_avaliable_list_block');
@@ -797,6 +844,57 @@
                         jQuery(options.modalId).find('#available-radio').prop("checked", true);
                     })
 
+                break;
+
+                case "master_account_customer":
+                    console.log(masterInfo.ship_address_country)
+                    jQuery('.ship_address_country').val(masterInfo.ship_address_country).change();
+                    jQuery('.tax_address_country').val(masterInfo.tax_address_country).change();
+                    
+                    const country_state_city_value = [masterInfo.ship_address_country,masterInfo.ship_address_state,masterInfo.ship_address_city]
+
+                    const country_state_city_elem = [jQuery('.ship_address_country'),jQuery('.ship_address_state'),jQuery('.ship_address_city')]
+
+
+                    const tax_country_state_city_value = [masterInfo.tax_address_country,masterInfo.tax_address_state,masterInfo.tax_address_city]
+
+                    const tax_country_state_city_elem = [jQuery('.tax_address_country'),jQuery('.tax_address_state'),jQuery('.tax_address_city')]
+
+
+                    // Run trigger Function from masterCustomer.blade.php
+                    $(".ship_address_country").trigger("country_change",[country_state_city_elem,country_state_city_value]);
+                    $(".ship_address_state").trigger("state_change",[country_state_city_elem[2],country_state_city_value])
+
+
+                    $(".tax_address_country").trigger("tax_country_change",[tax_country_state_city_elem,tax_country_state_city_value]);
+                    $(".tax_address_state").trigger("tax_state_change",[tax_country_state_city_elem[2],tax_country_state_city_value]);
+
+                    mapFillInput(jQuery(options.modalId),{
+                        "master_id":master_id,
+                        "citizen_id":masterInfo.citizen_id,
+                        "first_name":masterInfo.first_name,
+                        "middle_name":masterInfo.middle_name,
+                        "last_name":masterInfo.last_name,
+                        "gender":masterInfo.gender,
+                        "birthdate":masterInfo.birthdate ,
+                        "birthmonth":masterInfo.birthmonth ,
+                        "birthyear ":masterInfo.birthyear  ,
+                        "email ":masterInfo.email  ,
+                        "phone_code ":masterInfo.phone_code  ,
+                        "phone_number ":masterInfo.phone_number  ,
+                        "ship_address ":masterInfo.ship_address  ,
+                        // "ship_address_country ":masterInfo.ship_address_country  ,
+                        // "ship_address_state ":masterInfo.ship_address_state  ,
+                        // "ship_address_city ":masterInfo.ship_address_city  ,
+                        "ship_address_poscode ":masterInfo.ship_address_poscode  ,
+                         "tax_address":masterInfo.tax_address  ,
+                        // "tax_address_country":masterInfo.tax_address_country  ,
+                        // "tax_address_state":masterInfo.tax_address_state  ,
+                        // "tax_address_city":masterInfo.tax_address_city  ,
+                        "tax_address_poscode":masterInfo.tax_address_poscode  ,
+
+    
+                    })
                 break;
             }
             
