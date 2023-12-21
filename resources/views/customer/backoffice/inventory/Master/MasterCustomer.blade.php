@@ -34,8 +34,8 @@
             changeStatusUrl:"",
             checkExistUrl:"",
             dataField : {
-                heading:[checkbox,'No.', 'Name', 'Code', 'Description', 'Last Modified Date'],
-                colData:["master_name","master_code","master_description","updated_at"],
+                heading:[checkbox,'No.', 'Name', 'Description', 'Last Modified Date'],
+                colData:["master_name","master_description","updated_at"],
                 numberVailidateField:["citizen_id","phone_number","poscode"],
                 numberCountValidate:[13,10,6],
                 emailValidateField:["email"],

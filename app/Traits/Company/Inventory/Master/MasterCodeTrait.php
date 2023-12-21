@@ -56,14 +56,9 @@ trait MasterCodeTrait{
 
         $master =  $model->where("id",'=',$id);
         $master_code = isset($data['master_code'])?$data['master_code']:NULL;
+        $master_available_for = isset($data['master_available_for'])?$data['master_available_for']:NULL;
 
-
-        if(is_null($data['master_available_for'])||isset($data['master_available_for'])===false){
-            $master_available_for = NULL;
-        }else{
-            $master_available_for = json_encode($data['master_available_for'],true);
-            
-        }
+        
 
         if(isset($data['master_image'])){
             $updatedata = $master->update([
