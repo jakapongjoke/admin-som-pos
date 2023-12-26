@@ -178,6 +178,10 @@
                     return this.masterPrice;
             
                 },
+                set setMasterPrice(data){
+                    return this.masterPrice = data;
+            
+                },
                 get getMasterName(){
                     return this.masterName;
             
@@ -252,6 +256,7 @@
                     this.setStatus = data.master_status
                     this.setMasterType = data.master_type
                     this.setMasterInfo = data.master_infomation
+                    this.setMasterPrice = data.master_price
                 }
 
 
@@ -356,6 +361,7 @@
               
             //   first init
             document.addEventListener('DOMContentLoaded',async function() {
+                price_input_player()
 
                 if(options.masterType=="master_account_storage"){
                     const branch_location_list = await fetchdata("/api/general-infomation/listallbranch");
@@ -706,7 +712,6 @@
             const master_data = master_data_resp.data;
             console.log(master_data.data);
             masterCodeItemData.setData(master_data.data);
-            
             
             mapFillInput(jQuery(options.modalId),{
                 "master_id":master_id,
@@ -1179,6 +1184,23 @@
 
                         availablePlayer()
                     break;
+
+                    case "master_base_metal":
+                    
+                        jQuery('.price_block').find('.span_placeholder').text("");
+                        jQuery('.price_value_display').text(number_as_price(parseFloat(masterCodeItemData.getMasterPrice).toFixed(2)));
+                        
+                        jQuery('.price_value').val(parseFloat(masterCodeItemData.getMasterPrice).toFixed(2));
+                        
+                        mapFillInput(jQuery(options.modalId),{
+                            "master_code":masterCodeItemData.getMasterCode,
+                            "master_id":master_id,
+                            "master_name":masterCodeItemData.getMasterName,
+                            "master_description":masterCodeItemData.getDescription,
+                            "master_status":masterCodeItemData.getStatus,
+        
+                        })
+                    break;
                     
                     default:
                         mapFillInput(jQuery(options.modalId),{
@@ -1350,7 +1372,6 @@ if(typeof checkUsing != "undefined"){
 
         jQuery(options.modalId).modal();
 
-            
 
 
             });
@@ -1524,13 +1545,20 @@ function getRoute(formMethod){
         // number validate
         if(!options.dataField.numberVailidateField===false){
             if(options.dataField.numberVailidateField.length>0){
+
+
                 for(let numberFieldKey =0 ; numberFieldKey<options.dataField.numberVailidateField.length;numberFieldKey++){
+                 
                     console.log(options.dataField.numberVailidateField[numberFieldKey])
 
+
+ jQuery('.'+options.dataField.numberVailidateField[numberFieldKey]).
                     jQuery('.'+options.dataField.numberVailidateField[numberFieldKey]).on('keypress keydown keyup',function(e){
-                        console.log(e)
                         NumberValidate($(this).val(),$(this),options.dataField.numberCountValidate[numberFieldKey]);
                     });
+
+
+
 
                 }
             }
@@ -1565,7 +1593,6 @@ function getRoute(formMethod){
 
     
         }
-
         
 
 

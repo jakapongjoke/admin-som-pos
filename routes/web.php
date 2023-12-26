@@ -13,6 +13,7 @@ use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageControlle
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterCustomerController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterVendorController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
+use App\Http\Controllers\Customer\Inventory\Master\MasterBaseMetalController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
 use App\Http\Controllers\Customer\Inventory\ProductMaster\ProductMasterController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterItemController;
@@ -118,7 +119,7 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->group(functi
 
     Route::get('/master-metal', [MasterStoneController::class, 'index'])->name('master-metal');
 
-    Route::get('/master-base-metal',  [MasterStoneController::class, 'index'])->name('master-base-metal');
+    Route::get('/master-base-metal',  [MasterBaseMetalController::class, 'index'])->name('master-base-metal');
 
 
 

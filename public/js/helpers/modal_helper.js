@@ -82,6 +82,16 @@ function ReloadModal(){
         document.location.reload();
       }, 500);
 }
+function EnableModalButton(modalId){
+  console.log("removeAttr")
+  $('#'+modalId).find('.save').removeAttr('disabled');
+  $('#'+modalId).find('button[type="submit"]').removeAttr('disabled');
+}
+function DisableModalButton(modalId){
+  console.log(modalId)
+  $('#'+modalId).find('.save').prop('disabled',true);
+  $('#'+modalId).find('button[type="submit"]').prop('disabled',true);
+}
 // function modalFormSubmitTrigger(txtConfirm,txtDone,validateUrl,requestUrl){
     
 //   $('.modal_form').on('submit',async function(e){

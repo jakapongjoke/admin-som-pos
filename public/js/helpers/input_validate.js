@@ -1,18 +1,23 @@
 function NumberValidate(value,inputElement="",lengthValidate=0,textMessage="please input only number",lengthMessage="please input  number not more than"){
     const regex = /^[0-9]+$/;
+    if(inputElement!=""){
     if(inputElement.parent('div').find('.input_message_danger').length>0){
         inputElement.parent('div').find('.input_message_danger').remove();
     }
+}
     if(lengthValidate>0){
-        
+      
         if(value.length > lengthValidate){
+    
             inputElement.parent('div').find('.input_message_danger').remove();
             inputElement.val(value.slice(0, -1));
             console.log(  inputElement.val());
             inputElement.parent('div').append("<span class='input_message_danger'>"+lengthMessage+" "+lengthValidate+" characters "+"</span>" );
 
             return false;
+       
         }
+    
      }
 
     if(regex.test(value)==false){
@@ -30,6 +35,47 @@ function NumberValidate(value,inputElement="",lengthValidate=0,textMessage="plea
     }
 
 }
+
+function NumberValidateObj(value,lengthValidate=0,textMessage="please input only number",lengthMessage="please input  number not more than "){
+
+    const regex = /^[0-9,]+$/;
+
+
+
+    if(lengthValidate>0){
+      
+        if(value.length > lengthValidate){
+            return {
+                "result":false,
+                "message":lengthMessage+lengthValidate+" charactors"
+            };
+       
+          
+        }else{
+            return {
+                "result":true,
+            }
+        }
+    
+     }
+
+    if(regex.test(value)===true){
+        return {
+            "result":true,
+       
+        };
+    }else{
+        
+        return {
+            "result":false,
+            "message":textMessage
+        };
+   
+    }
+
+}
+
+
 
 function SpecialCharValidate(value,inputElement="",EventType="",textMessage="Cannot use special char like # =  '' \"\"in this input ",){
     

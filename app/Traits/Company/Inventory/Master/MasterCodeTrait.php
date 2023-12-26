@@ -41,6 +41,32 @@ trait MasterCodeTrait{
      
 
         return $model->create($data);
+
+        
+    }   
+    
+    public function addMasterCodeJson(string $company_name , $data =[]){
+        $mastercode = new MasterCode();
+
+        $model = $mastercode->newInstance([], true);
+        $tb = $company_name."_master_code";
+        $model->setTable($tb);  
+     
+        if ($model->create($data)) {
+            return response()->json([
+                "status" => 200,
+                "message" =>"Created Complete" ,
+            ], 200);
+        } else {
+            return response()->json([
+                "status" => 500,
+                "message" => "Create Query Error",
+            ], 500);
+        
+        }
+      
+
+
     }
 
     public function updateMasterCode(string $company_name , $data =[],$id,$returnType="json"){
@@ -70,6 +96,7 @@ trait MasterCodeTrait{
                 "parent_id"=>$parent_id,
                 "master_image"=>$data['master_image'],
                 "master_code"=> $master_code,
+                "master_price"=>$data['master_price']?$data['master_price']:"",
                 "master_description"=>$data['master_description']?$data['master_description']:"",
                 "master_infomation"=>$master_infomation,
                 "master_available_for"=>$master_available_for,
@@ -81,6 +108,7 @@ trait MasterCodeTrait{
                 "master_name"=>$data['master_name'],
                 "master_status"=>$data['master_status']?$data['master_status']:"active",
                 "parent_id"=>$parent_id,
+                "master_price"=>$data['master_price']?$data['master_price']:"",
                  "master_code"=> $master_code,
                 "master_description"=>$data['master_description']?$data['master_description']:"",
                 "master_infomation"=>$master_infomation,

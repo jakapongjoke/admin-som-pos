@@ -8,6 +8,7 @@ use App\Http\Controllers\Customer\Inventory\Master\MasterCodeController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterAccountController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterStoneController;
 use App\Http\Controllers\Customer\Inventory\Master\MasterItemController;
+use App\Http\Controllers\Customer\Inventory\Master\MasterBaseMetalController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterStorageController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterCustomerController;
 use App\Http\Controllers\Customer\Inventory\Master\CompanyMasterVendorController;
@@ -98,6 +99,14 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::delete('/master-vendor',[CompanyMasterVendorController::class,'destroy']);
     // Route::get('/master-customer-by-id/{master_id}',[CompanyMasterCustomerController::class,'GetCustomerMasterByid']);
     Route::get('/master-vendor/view',[CompanyMasterVendorController::class,'ViewVendorMaster']);
+
+    
+    Route::post('/master-base-metal',[MasterBaseMetalController::class,'store']);
+    Route::put('/master-base-metal',[MasterBaseMetalController::class,'update']);
+    Route::patch('/master-base-metal',[MasterBaseMetalController::class,'update']);
+    Route::get('/master-base-metal',[MasterBaseMetalController::class,'GetBaseMetalMaster']);
+    Route::delete('/master-base-metal',[MasterBaseMetalController::class,'destroy']);
+    Route::get('/master-base-metal/view',[MasterBaseMetalController::class,'ViewBaseMetalMaster']);
 
 
 

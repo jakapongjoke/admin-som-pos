@@ -3036,13 +3036,18 @@ div#avalible-row {
 .price_input{
     width: 100%;
 }
-.price_value{
+.price_value_display{
     display: inline-block;
 }
 .price_currency{
     display: inline-block;
+    color: #8f8c8c;
 }
 
 .alert_in_use {
     color: red;
+}
+
+.span_placeholder {
+    color: #8f8c8c;
 }

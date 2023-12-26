@@ -15,8 +15,9 @@
         <div class="form-group row">
     <label for="name" class="col-sm-3 col-form-label">Name <span style="color:red;">*</span></label>
        <div class="col-sm-9">
-      <input type="text" class="form-control master_name" id="name" name="master_name" placeholder="Name" required>
+      <input type="text" class="form-control master_name" id="master_name" name="master_name" placeholder="Name" required>
 
+      <input type="hidden" class="master_code" id="master_code" name="master_code" >
       <input type="hidden" class="master_type" id="master_type" name="master_type" value="master_base_metal" >
        </div>
      </div>          
@@ -27,20 +28,24 @@
         <div class="form-group row">
     <label for="description" class="col-sm-3 col-form-label">Description</label>
        <div class="col-sm-9">
-      <textarea class="form-control master_description" id="master_description" name="master_description">
-      </textarea>
+      <textarea class="form-control master_description" id="master_description" name="master_description"></textarea>
        </div>
      </div>
 
      <div class="form-group row">
     <label for="master_price" class="col-sm-3 col-form-label">Price <span style="color:red;">*</span></label>
        <div class="col-sm-9">
+        <div class="price_wrapper">
         <div class="price_block">
-          <div class="price_value" contenteditable="true">1000</div>
+          <div class="price_value_display" id="price_value_display" contenteditable="true">
+            <span class="span_placeholder">1,000</span></div>
+          <input class="price_value"  type="hidden" name="master_price" id="price_value">
+          
           <div class="price_currency">THB</div>
 <!--               
             <input type="text" class="form-control price_input master_price" id="name" name="master_price"  required> -->
 
+        </div>
         </div>
 
        </div>
