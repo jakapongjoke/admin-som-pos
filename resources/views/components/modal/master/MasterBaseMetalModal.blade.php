@@ -31,6 +31,7 @@
       <textarea class="form-control master_description" id="master_description" name="master_description"></textarea>
        </div>
      </div>
+     
 
      <div class="form-group row">
     <label for="master_price" class="col-sm-3 col-form-label">Price <span style="color:red;">*</span></label>

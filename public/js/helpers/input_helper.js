@@ -305,7 +305,7 @@ function typingPriceInput(inputElement,e){
         console.log(e)
         if(!e.originalEvent.data===false){
             console.log(cursorPosition,"cursorPosition")
-const updatedContent =  editableDiv.innerHTML.slice(0, cursorPosition-1) + e.originalEvent.data + editableDiv.innerHTML.slice(cursorPosition);
+            const updatedContent =  editableDiv.innerHTML.slice(0, cursorPosition-1) + e.originalEvent.data + editableDiv.innerHTML.slice(cursorPosition);
         editableDiv.innerHTML = updatedContent;
         getCursorPosition(editableDiv)
 
