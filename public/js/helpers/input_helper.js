@@ -181,7 +181,7 @@ function text_to_float(val){
    return val.toString().replace(/[^\d.]/g, '');
 }
 function number_as_price(val){
-    // console.log(val,number_as_price)
+    console.log(val,"number_as_price")
     let display_value ;
     let formattedValue ;
     let parts ;
@@ -213,6 +213,8 @@ function price_input_player(){
   let curent_price_val ;
 let formattedValue ;
 let parts  ;
+let regexText = /[a-zA-Zก-ฮ]/gi;
+const regex = /[`~!@##$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi;
 
     if(price_block.length>0){
 
@@ -222,21 +224,65 @@ let parts  ;
             //console.log(priceValElement.text())
             
             priceValElement.on('click',function(){
-                if(price_block.find('.span_placeholder').length>0){
-                    $(this).text('');
+                if($(this).children('.span_placeholder').length>0){
+                    $(this).empty();
 
                 }
-                let selection = window.getSelection();
-                console.log(selection,'selection')
+              
+                
             });
+
+
+            
              priceValElement.on('input',function(e){
-                typingPriceInput($(this),e)
+                           
+            if (e.keyCode >= 37 && e.keyCode <= 40) {
+                return true;
+              }              
+            if (e.keyCode === 8) {
+                return true;
+              }
+              const r = /,./gi;
+              const curtxt = e.target.outerText.replace(r,'');
+          console.log(curtxt,'curtxt')
+              if(SpecialCharValidateBool(curtxt)===true||regexText.test(curtxt)===true){
+                alert('insert only number ( ex. 10 , 10.00 )')
+            
+                const txt = e.target.outerText.replace(regex,'').replace(regexText,'');
+                console.log(txt)
+                $(this).text(txt);
+
+                return false;
+              }else{
+                  
+                  const validate_price_input = NumberValidateObj(curtxt,10);
+
+                if(validate_price_input.result===false){
+    
+                    $('.text-alert-area').text(validate_price_input.message)
+                    $(this).addClass("focus_error")
+                    // $(this).text(e.target.outerText.substring(0, e.target.outerText.length - 1));
+                    DisableModalButton(priceValElement.parents('.modal').attr('id'))
+                 
+    
+                }else{
+                
+                    $(this).removeClass("focus_error")
+                    EnableModalButton(priceValElement.parents('.modal').attr('id'))
+             
+                   
+                    $('.text-alert-area').text("")
+                    
+    
+                }
+                
+              }
              });
 
              priceValElement.on('focusout',function(e){
-                console.log('focusout')
-                priceValElement.text(number_as_price(priceValElement.text()))
-                currentElement.find('.price_value').val(text_to_float(priceValElement.text()))
+                console.log($(this).text(),'focusout')
+                $(this).text(number_as_price($(this).text()))
+                $(this).parent('.price_block').find('.price_value').val(text_to_float($(this).text()))
 
              });
 
@@ -270,7 +316,7 @@ function typingPriceInput(inputElement,e){
 
     var cursorPosition = getCursorPosition(editableDiv);
 
-    console.log(e)
+    // console.log(e)
     removeMessageInput(inputElement.parents('.price_wrapper'))
 
  
@@ -306,6 +352,7 @@ function typingPriceInput(inputElement,e){
         if(!e.originalEvent.data===false){
             console.log(cursorPosition,"cursorPosition")
             const updatedContent =  editableDiv.innerHTML.slice(0, cursorPosition-1) + e.originalEvent.data + editableDiv.innerHTML.slice(cursorPosition);
+
         editableDiv.innerHTML = updatedContent;
         getCursorPosition(editableDiv)
 
@@ -354,3 +401,14 @@ function moveCursorToEnd(e) {
     input.setSelectionRange(start,end);
 
   }
+
+  function isFloat(str) {
+    const floatRegex = /^[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?$/;
+    return floatRegex.test(str);
+  }
+
+
+
+//   function percentInputPlayer(){
+//      jQuery('.percent_block').
+//      }

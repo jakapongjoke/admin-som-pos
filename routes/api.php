@@ -105,8 +105,24 @@ Route::domain('{company_name}.'.env('DOMAIN_NAME','som-pos.test'))->prefix('mast
     Route::put('/master-base-metal',[MasterBaseMetalController::class,'update']);
     Route::patch('/master-base-metal',[MasterBaseMetalController::class,'update']);
     Route::get('/master-base-metal',[MasterBaseMetalController::class,'GetBaseMetalMaster']);
+
+    
+    Route::get('/master-base-metal/get-price',[MasterBaseMetalController::class,'GetBaseMetalPrice']);
     Route::delete('/master-base-metal',[MasterBaseMetalController::class,'destroy']);
+
+
+
+
     Route::get('/master-base-metal/view',[MasterBaseMetalController::class,'ViewBaseMetalMaster']);
+
+
+    
+    Route::post('/master-metal',[MasterBaseMetalController::class,'store']);
+    Route::put('/master-metal',[MasterBaseMetalController::class,'update']);
+    Route::patch('/master-metal',[MasterBaseMetalController::class,'update']);
+    Route::get('/master-metal',[MasterBaseMetalController::class,'GetBaseMetalMaster']);
+    Route::delete('/master-metal',[MasterBaseMetalController::class,'destroy']);
+    Route::get('/master-metal/view',[MasterBaseMetalController::class,'ViewBaseMetalMaster']);
 
 
 

@@ -12,7 +12,11 @@ use \App\Traits\Company\Inventory\Master\MasterCodeTrait;
        return $this->GetMasterCodeByTypeJson($company_name,$master_type,$perpage,$page);
 
     }
-    public function GetBaseMetalMaster($company_name,$master_id){
+
+    
+    public function getMasterBaseMetalPrice($company_name,$master_id){
+
+    return $this->getMasterCodeById($company_name,$master_id,["master_price"]);
 
     }
 

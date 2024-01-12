@@ -81,6 +81,15 @@ class MasterBaseMetalController extends Controller
 
         return $this->MasterBaseMetalService->GetMasterBaseMetal( $request->company_name,$master_type ,$perpage,$page);
     }
+    public function GetBaseMetalPrice(Request $request){
+    
+        $master_id = $request->query("master_id")?$request->query("master_id"):"";
+
+        if(is_numeric($master_id)){
+                    return $this->MasterBaseMetalService->getMasterBaseMetalPrice( $request->company_name,$master_id);
+
+        }
+    }
 
 
     public function ViewBaseMetalMaster(Request $request){

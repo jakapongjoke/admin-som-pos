@@ -362,15 +362,29 @@
             //   first init
             document.addEventListener('DOMContentLoaded',async function() {
                 price_input_player()
+                switch(options.masterType){
+                    case "master_account_storage":
+                        const branch_location_list = await fetchdata("/api/general-infomation/listallbranch");
+                        const branch_location_list_data = await branch_location_list.data;
+                        console.log(branch_location_list)
+                        branch_location_list_data.map((v,k)=>{
+                            jQuery("#branch_location").append("<option value='"+v['id']+"'>"+v['branch_name']+"</option>")
+                        })
+                    break;
+                    case "master_metal" :
+                        const base_metal_list = await fetchdata("/api/master/master-metal?perPage=500");
+                        const base_metal_list_data = await base_metal_list.data;
+                        
+                        base_metal_list_data.map((v,k)=>{
+                            jQuery("#base_metal").append("<option value='"+v['id']+"'>"+v['master_name']+"</option>")
+                        })
+                        formulaInputPlayer();
+                    break;
+                }
+           
 
-                if(options.masterType=="master_account_storage"){
-                    const branch_location_list = await fetchdata("/api/general-infomation/listallbranch");
-                    const branch_location_list_data = await branch_location_list.data;
-                    console.log(branch_location_list)
-                    branch_location_list_data.map((v,k)=>{
-                        jQuery("#branch_location").append("<option value='"+v['id']+"'>"+v['branch_name']+"</option>")
-                    })
-                  }
+
+
                   jQuery('.modal_form').on('submit',async function(e){
                     
                     e.preventDefault();
@@ -945,6 +959,7 @@
     
                     })
                 break;
+
             }
             
             })
@@ -1345,26 +1360,35 @@ if(typeof checkUsing != "undefined"){
                 mapFillInput(jQuery(options.modalId),options.dataField.inputFillAble)
                 
                 // console.log(modalConfig.getFormMethod)
+        switch(options.masterType){
 
-        if(options.masterType=="master_stone_name"){
-                    
-         if(!stone_group.getData===false){
-                    jQuery('input,select,textarea').each(function(){
-                    $(this).prop('disabled', false);
-                })
-                jQuery('.modal-footer button').show();
-                jQuery('.radio_check').prop('disabled',false);
-            
+            case "master_stone_name" : 
+            if(!stone_group.getData===false){
+                jQuery('input,select,textarea').each(function(){
+                $(this).prop('disabled', false);
+            })
+            jQuery('.modal-footer button').show();
+            jQuery('.radio_check').prop('disabled',false);
+        
+              
+            }
+            break;
                   
-                }
+        case "master_metal":
+            console.log("master_metal")
+                jQuery(".base_metal").on("change",async function(){
+                    let metalPriceData = await SendAjaxGet('/api/master/master-base-metal/get-price?master_id='+$(this).val());
+                    const metalprice = await metalPriceData.data.data.master_price;
+                    $(this).parents('.formula-row').find('.price_value_display').text(metalprice);
+                });
 
-        }else if(options.masterType=="master_base_metal"){
-
-
-        }else if(options.masterType=="master_account_storage"){
-           
-
+        break;
         }
+
+
+
+
+  
         jQuery(options.modalId).addClass('modal_add')
 
 

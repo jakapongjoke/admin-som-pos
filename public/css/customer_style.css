@@ -3000,10 +3000,7 @@ form.modal_form input.focus_error {
 
 /* Formula */
 
-div#formula-row {
-    height: 189px;
-    overflow-y: scroll;
-}
+
 
 .formula_list_block .wrapper {
     width: 346px;
@@ -3165,7 +3162,10 @@ div#formula-row {
 }
 
 
-
+#MasterMetalModal #master_name, #MasterMetalModal #master_code, #MasterMetalModal #master_description {
+    width: 736px;
+    margin-left: -7px;
+}
 .formula_list_block .btn-del {
     width: 26px;
     height: 26px;
@@ -3181,7 +3181,8 @@ div#formula-row {
     border-radius: 50%;
     text-align: center;
     padding-top: 7px;
-    margin-left: 10px;
+    margin-left: 0px;
+    margin-right: 4px;
 }
 .formula_list_block .add-btn {
     padding: 0 0.5rem;
@@ -3267,4 +3268,107 @@ div#avalible-row {
 
 .span_placeholder {
     color: #8f8c8c;
+}
+.percent_block{
+    position: relative;
+}
+.percent_value_display {
+    border: 1px solid #E4E4E4;
+    height: 35px;
+    font-size: 17px;
+    padding: 4px 0px 4px 5px;
+}
+.percent_label {
+    position: absolute;
+    top: 5px;
+    right: 6px;
+    color: #C2C2C2;
+}
+.formula_block {
+    border: 1px solid #E4E4E4;
+    height: 271px;
+}
+
+#formula-row-header {
+    color: #4F6D70;
+    padding: 10px 0px;
+    margin-bottom: 0;
+}
+.formula_list_block.price_formula {
+    float: left;
+    width: 100%;
+}
+.price_formula .price_block {
+    height: 35px;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+.select_fomula select {
+    height: 35px;
+}
+.formula_list_block .delete-row-btn.delete-row {
+    display: none;
+}
+div#formula-summarize {
+    color: #4F6D70;
+    padding: 0 0;
+    margin: 0 0;
+    width: 100%;
+    border-top: solid 1px #E4E4E4;
+    position: absolute;
+    bottom: 0;
+}
+.action_formula {
+    margin-top: 5px;
+}
+.focus_error{
+    border-color:red;
+}
+.text-alert-area {
+    font-size: 17px;
+    color: red;
+}
+
+.wrapper-items.formula_list_item {
+    height: 228px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.price_calculator_block {
+    float: left;
+    width: 100%;
+}
+.master_metal_price_block .radio_div_group {
+    width: 100% !important;
+    margin-bottom: 12px;
+}
+.master_metal_price_block {
+    width: 100%;
+    float: left;
+
+}
+.master_metal_price_block .radio_div_group {
+    width: 100% !important;
+}
+.master_metal_price_block .master_price_block {
+    float: left;
+    width: 200px;
+}
+
+.master_metal_price_block .radio_label {
+    float: left;
+    margin-right: 16px;
+}
+
+.master_metal_price_block .price_block {
+    width: 80%;
+    display: inline-block;
+}
+.refresh-metal-price {
+    display: inline-block;
+    vertical-align: super;
+    cursor: pointer;
+    color: green;
 }

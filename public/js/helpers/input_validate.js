@@ -36,11 +36,70 @@ function NumberValidate(value,inputElement="",lengthValidate=0,textMessage="plea
 
 }
 
-function NumberValidateObj(value,lengthValidate=0,textMessage="please input only number",lengthMessage="please input  number not more than "){
+function checkFloat(){
+    const regex =  /^[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?$/;
+}
 
-    const regex = /^[0-9,]+$/;
+function insertSuperator(numberValue,returnType="float"){
+    return numberValue.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+}
+
+function NumberValidateObj(value,lengthValidate=0,maxvalue=0,textMessage="please input only number",lengthMessage="please input  number not more than "){
+// console.log(value)
+const regex = /[`~!@##$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi;
+   
+    if(lengthValidate>0){
+      
+        if(value.length > lengthValidate){
+            return {
+                "result":false,
+                "message":lengthMessage+lengthValidate+" charactors"
+            };
+       
+          
+        }
+     }
+
+    if(regex.test(value)===true){
+       
+     
+        return {
+            "result":false,
+            "message":textMessage
+        };
+      
+    }
+    if(maxvalue>0){
+        console.log('max')
+
+        if(parseInt(value)>parseInt(maxvalue)){
+            console.log('max citeria')
+            return {
+                "result":false,
+                "message":"value not more than "+maxvalue
+            };
+       
+        }
+    }
+    return {
+        "result":true,
+    };
+
+}
 
 
+function valueValidateObj(value,maxvalue,textMessage="please input only number"){
+    if(value>maxvalue){
+        return {
+            "result":false,
+            "message":textMessage
+        };
+    }else{
+        return true;
+    }
+}
+
+function lengthValidateBool(value){
 
     if(lengthValidate>0){
       
@@ -51,14 +110,17 @@ function NumberValidateObj(value,lengthValidate=0,textMessage="please input only
             };
        
           
-        }else{
-            return {
-                "result":true,
-            }
         }
-    
      }
+}
 
+function SpecialCharValidateBool(value){
+    const regex = /[`~!@##$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi;
+    return regex.test(value);
+}
+
+function SpecialCharValidateObj(value,textMessage="Cannot use special char like # =  '' \"\"in this input "){
+    const regex = /[`~!@##$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi;
     if(regex.test(value)===true){
         return {
             "result":true,
@@ -72,12 +134,9 @@ function NumberValidateObj(value,lengthValidate=0,textMessage="please input only
         };
    
     }
-
 }
 
-
-
-function SpecialCharValidate(value,inputElement="",EventType="",textMessage="Cannot use special char like # =  '' \"\"in this input ",){
+function SpecialCharValidate(value,inputElement="",EventType="",textMessage="Cannot use special char like # =  '' \"\"in this input "){
     
     const regex = /[!$=%^&*()_+{}\[\]\'\":;<>,.?~\\/-]/;
     
