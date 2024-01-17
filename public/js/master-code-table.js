@@ -116,6 +116,70 @@
         
             
         }
+
+        
+
+let formulaList = {
+    item : [],
+    // {
+    //     no:0,
+    //     base_metal:0,
+    //     price:0.00,
+    //     percent:0.00,
+    //   }
+
+    get getItem(){
+        return this.item;
+    },
+    set setItem(arrobj){
+        for(let i=0 ; i<arrobj.length;i++){
+            let arrData = {
+                no:arrobj[i]['key'],
+                base_metal:arrobj[i]['base_metal'],
+                price:arrobj[i]['price'],
+                percent:arrobj[i]['percent'],
+            }
+            this.item.push(arrData);
+        }
+    },
+    set updateItem(obj){
+        for (let i = 0; i < this.item.length; i++) {
+            if (this.item[i].no === obj.itemkey) {
+                this.item[i].base_metal = 10;
+                this.item[i].price = 5.99; 
+                this.item[i].percent = 2.5;  
+            }
+          }
+    },
+    clearListData(){
+        while (this.item.length > 0) {
+            this.item.pop()
+        }
+    },
+    findItem(itemkey){
+        console.log(itemkey)
+        let search = false;
+        for(let i=0 ; i<this.item.length;i++){
+            if(this.item[i].no===itemkey){
+                search = true;
+            }
+        }
+
+        return search;
+       
+    },
+    sumPrice(){
+        let total = 0;
+        for(let i=0 ; i<this.item.length;i++){
+            total += this.item[i].price;
+        }
+        return total;
+    }
+
+    
+  }
+
+
         const checkbox = '<input type="checkbox" class="check_all_list"/>';
 
 
@@ -377,7 +441,11 @@
                         
                         base_metal_list_data.map((v,k)=>{
                             jQuery("#base_metal").append("<option value='"+v['id']+"'>"+v['master_name']+"</option>")
+
                         })
+                        selectBaseMetalPlayer(jQuery("#base_metal"))
+
+
                         formulaInputPlayer();
                     break;
                 }
@@ -1376,12 +1444,10 @@ if(typeof checkUsing != "undefined"){
                   
         case "master_metal":
             console.log("master_metal")
-                jQuery(".base_metal").on("change",async function(){
-                    let metalPriceData = await SendAjaxGet('/api/master/master-base-metal/get-price?master_id='+$(this).val());
-                    const metalprice = await metalPriceData.data.data.master_price;
-                    $(this).parents('.formula-row').find('.price_value_display').text(metalprice);
-                });
-
+       
+                refreshPrice()
+                autoCalcurateMasterMetalPrice(jQuery('.formula-row'))
+                masterFormulaPricePlayer(jQuery('.formula_price_value_display'))
         break;
         }
 
@@ -1618,7 +1684,34 @@ function getRoute(formMethod){
     
         }
         
+function selectBaseMetalPlayer(elem){
+    
+    elem.on("change",async function(){
+        let metalPriceData = await SendAjaxGet('/api/master/master-base-metal/get-price?master_id='+$(this).val());
+        const metalprice = await metalPriceData.data.data.master_price;
+        $(this).parents('.formula-row').find('.formula_price_value_display').text(metalprice);
 
+        if(formulaList.findItem($(this).parents('.formula-row').attr('itemkey'))===true&&formulaList.getItem.length==0){
+            formulaList.setItem = [{
+                no:formulaList.getItem.length+1,
+                base_metal:$(this).val(),
+                price:metalprice,
+                percent:0.00,
+                    }]
+
+            console.log(formulaList.getItem)
+        }else if (formulaList.findItem($(this).parents('.formula-row').attr('itemkey'))===false||formulaList.getItem.length==0) {
+            formulaList.setItem = [{
+                no:0,
+                base_metal:$(this).val(),
+                price:metalprice,
+                percent:0.00,
+                    }]
+
+        }
+
+    });
+}
 
             function availablePlayer(){
                 

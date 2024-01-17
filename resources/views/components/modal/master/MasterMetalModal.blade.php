@@ -53,7 +53,7 @@
             </div>
 
             
-            <div class="form-group row formula-row" id="formula-row">
+            <div class="form-group row formula-row" id="formula-row" itemkey="1">
       
                 <div class="col-sm-4 ">
                     <div class="formula_list_block">
@@ -75,9 +75,9 @@
 
                       <div class="price_wrapper">
         <div class="price_block">
-          <div class="price_value_display" id="price_value_display" contenteditable="true">
+          <div class="formula_price_value_display" id="price_value_display" contenteditable="true">
             <span class="span_placeholder">0</span></div>
-          <input class="price_value"  type="hidden" name="master_formula[][price]" id="price_value">
+          <input class="formula_price_value"  type="hidden" name="master_formula[][price]" id="price_value">
           
           <div class="price_currency">THB /g</div>
         </div>
@@ -165,8 +165,8 @@
               <div class="master_price_block">
               <div class="price_wrapper">
         <div class="price_block">
-          <div class="price_value_display" id="price_value_display" ><span class="span_placeholder">0</span></div>
-          <input class="price_value"  type="hidden" name="master_price_auto" id="price_value">
+          <div class="price_value_display auto_price_value_display" id="price_value_display" ><span class="span_placeholder">0</span></div>
+          <input class="master_price_auto"  type="hidden" name="master_price_auto" id="price_value">
           
           <div class="price_currency">THB /g</div>
         </div>

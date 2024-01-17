@@ -3372,3 +3372,7 @@ div#formula-summarize {
     cursor: pointer;
     color: green;
 }
+
+.formula_price_value_display{
+    display: inline-block;
+}

@@ -1,3 +1,31 @@
+let CurrentDom = {
+  listDom : {},
+  get getListDom(){
+    return this.listDom;
+  },
+  set setListDom(val){
+    this.listDom = val;
+  }
+}
+
+let price = {
+  masterPrice : 0,
+
+  get getMasterPrice(){
+    return this.masterPrice;
+  },
+  set setMasterPrice(val){
+    this.masterPrice =  val;
+  },
+  set sumMasterPrice(arrval){
+    const sum = arrval.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue;
+    }, 0);
+    this.masterPrice =  sum;
+  }
+}
+
+
 function formulaKeyPlayer(elem){
   console.log('formulaKeyPlayer')
   let regexText = /[a-zA-Zก-ฮ]/gi;
@@ -107,7 +135,8 @@ function formulaKeyPlayer(elem){
     $(".percent_value_display").removeClass("focus_error")
     EnableModalButton(elem.parents('.modal').attr('id'))
   }
-
+  
+  price.sumMasterPrice = [jQuery(this).val]
 });
 
 }
@@ -140,7 +169,10 @@ function playDeleteButton(){
         let action_formula =  formula_row.find('.action_formula')
      
         formulaKeyPlayer(jQuery(".formula-row"))
-
+        formula_row.find('.percent_value_display').on('focusout',function(e){
+          console.log('percent_value_display focusout')
+          refreshPrice()
+        })
         formula_row.find('.percent_value_display').on('click',function(e){
           if($(this).parents('.formula-row').find('.base_metal').val()==""){
             alert("please select metal before adjust % of base metal");
@@ -183,7 +215,6 @@ function playDeleteButton(){
             showDeleteButton(jQuery(".formula-row"))
           })
        
-
       
    }
   }
@@ -212,21 +243,137 @@ function playDeleteButton(){
   }
 
 
-function autoCalcurateMasterMetalPrice(){
+function autoCalcurateMasterMetalPrice(row){
   let total = 0;
-  if(jQuery('.formula-row').length>0){
-      jQuery('.formula-row').each(function(){
+  if(row.length>0){
+
+    row.each(function(){
         let v;
           if($(this).find('.percent_value').val()==""){
-
+console.log('ddd')
             v =0;
 
           }else{
-          v = parseFloat($(this).find('.price_value').val())*parseFloat($(this).find('.percent_value').val())/100;
+            console.log($(this).find('.formula_price_value').val())
 
           }
           total += v;
       })
 
   }
+  return total;
+}
+function formula_price(){
+  jQuery('.formula_price_value_display').on('focusout',function(){
+    jQuery(this).parent('.price_block').find('.formula_price_value').val($(this).text().replace(' ',''))
+  });
+}
+
+function refreshPrice(){
+  jQuery('.refresh-metal-price').on('click',function(){
+
+
+   autoCalcurateMasterMetalPrice(CurrentDom.getListDom.find('.formula-row'))
+    // autoCalcurateMasterMetalPrice(jQuery(''))
+
+
+//     if($(this).parents('.master_price_block').find('.span_placeholder').length>0){
+//                   jQuery(this).parents('.master_price_block').find('.span_placeholder').remove();
+//     }
+//     jQuery(this).parents('.auto_price_value_display').text(autoCalcurateMasterMetalPrice());
+//     jQuery(this).parents('.master_price_auto').val(autoCalcurateMasterMetalPrice());
+// console.log(autoCalcurateMasterMetalPrice())
+
+  })
+}
+
+
+function masterFormulaPricePlayer(inputElement){
+
+  let currentElement ;
+  let price_value_data ;
+  let priceValElement ;
+  let curent_price_val ;
+let formattedValue ;
+let parts  ;
+let regexText = /[a-zA-Zก-ฮ]/gi;
+const regex = /[`~!@##$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi;
+
+    if(inputElement.length>0){
+
+             currentElement = $(this)
+             priceValElement = inputElement
+            
+            priceValElement.on('click',function(){
+                if($(this).children('.span_placeholder').length>0){
+                    $(this).empty();
+
+                }
+              
+                
+            });
+
+
+            
+             priceValElement.on('input',function(e){
+                           
+            if (e.keyCode >= 37 && e.keyCode <= 40) {
+                return true;
+              }              
+            if (e.keyCode === 8) {
+                return true;
+              }
+              const r = /,./gi;
+              const curtxt = e.target.outerText.replace(r,'');
+   
+              if(SpecialCharValidateBool(curtxt)===true||regexText.test(curtxt)===true){
+                alert('insert only number ( ex. 10 , 10.00 )')
+            
+                const txt = e.target.outerText.replace(regex,'').replace(regexText,'');
+                console.log(txt)
+                $(this).text(txt);
+
+                return false;
+              }else{
+                  
+                  const validate_price_input = NumberValidateObj(curtxt,10);
+
+                if(validate_price_input.result===false){
+    
+                    $('.text-alert-area').text(validate_price_input.message)
+                    $(this).addClass("focus_error")
+                    // $(this).text(e.target.outerText.substring(0, e.target.outerText.length - 1));
+                    DisableModalButton(priceValElement.parents('.modal').attr('id'))
+                 
+    
+                }else{
+                
+                    $(this).removeClass("focus_error")
+                    EnableModalButton(priceValElement.parents('.modal').attr('id'))
+             
+                   
+                    $('.text-alert-area').text("")
+                    
+    
+                }
+                
+              }
+             });
+             
+             priceValElement.on('focusout',function(e){
+                console.log($(this).text(),'focusout')
+                $(this).text(number_as_price($(this).text()))
+                $(this).parent('.price_block').find('.formula_price_value').val(text_to_float($(this).text()))
+                jQuery('.auto_price_value_display').find('.span_placeholder').remove()
+                jQuery('.auto_price_value_display').text(number_as_price($(this).text()))
+                refreshPrice()
+
+             });
+
+            // $(this).css({position:'relative'});
+
+            // $(this).append("<span class")
+        
+    }
+  
 }
